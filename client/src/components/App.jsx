@@ -21,7 +21,7 @@ import axios from 'axios';
 
   registerNewUser(user) {
     console.log('(Client) Registering New User')
-    axios.post('/auth/user', user)
+    axios.post('/auth/local', user)
       .then((data) => {
         console.log('(Client) Success! Registering New User')
         //Set State here or at registration sucess?
