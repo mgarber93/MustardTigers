@@ -27,7 +27,7 @@ describe('User Schema', function() {
           .catch(function(error) {
             expect(error.message).to.equal('Validation error');
             done();
-          })
+          });
       }).catch(done);
   });
 
