@@ -1,7 +1,8 @@
 import React from 'react'
 import Home from './Home.jsx'
-import Login from './Login.jsx'
-import Register from './Register.jsx'
+import Channel from './channel/Channel.jsx'
+import Login from './auth/Login.jsx'
+import Register from './auth/Register.jsx'
 import { Switch, Route } from 'react-router-dom'
 
 /**
@@ -23,6 +24,10 @@ class Main extends React.Component {
           <Route 
             exact path='/' 
             component={Home} 
+          />
+          <Route 
+            exact path='/channel' 
+            component={Channel} 
           />
           <Route
             path='/login'

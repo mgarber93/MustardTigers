@@ -4,15 +4,15 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import { FieldGroup, FormGroup, ControlLabel, Jumbotron } from 'react-bootstrap';
 
 /**
- * Class representing the React Register Component.
- * @extends Register
+ * Class representing the React Channel Component.
+ * @extends Channel
  */
  
-class Channel extends React.Component {
+class ChannelList extends React.Component {
   constructor(props) {
     super(props)
     this.state({
-      message: '';
+      message: '',
     })
   }
 
@@ -27,17 +27,18 @@ class Channel extends React.Component {
   }
 
   render () {
+
+    var messages = this.props.messages.map((message, i) => { 
+      return <ChannelListEntry message={message} key={i} />
+    });
+
     return (
       <div className="container">
         <Jumbotron>
-          <FormGroup>
-            <ControlLabel>New Message:</ControlLabel>
-              <FormControl id='message:' type='text' onChange={this.onChange.bind(this)} placeholder='Username' />
-            <Button onClick={this.onSubmit.bind(this)} type='submit'>Submit</Button>
-          </FormGroup>
+          {messages}
         </Jumbotron>
       </div>
     )
   }
 }
-export default Channel;
+export default ChannelList;
