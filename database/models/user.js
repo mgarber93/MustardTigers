@@ -1,3 +1,7 @@
+/**
+ * @todo Switch from sha256 to bcrypt
+ */
+
 const crypto = require('crypto');
 const {Sequelize, db} = require('../connection');
 
@@ -30,7 +34,22 @@ const UserModel = db.define('users', {
   }
 });
 
-UserModel.validate = function({username, password}) {
+UserModel.sync();
+
+var User = {model: UserModel};
+
+User.create = function({username, password}) {
+  return UserModel.find({where: {username}})
+    .then(function(user) {
+      if (user) {
+        throw new Error('User already exists');
+      }
+
+      return UserModel.create({username, password});
+    });
+};
+
+User.validate = function({username, password}) {
   return UserModel.findOne({where: {username}})
     .then(function(user) {
       if (user) {
@@ -41,6 +60,4 @@ UserModel.validate = function({username, password}) {
     });
 };
 
-UserModel.sync();
-
-module.exports = UserModel;
+module.exports = User;

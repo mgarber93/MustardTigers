@@ -1,11 +1,11 @@
-const {User} = require('../database');
+const {User} = require('../database/');
 const {expect} = require('chai');
 
 var user = {username: 'fred_zirdung', password: 'fred_zirdung'};
 
 describe('User Schema', function() {
   beforeEach(function(done) {
-    User.truncate()
+    User.model.truncate()
       .then(done);
   });
 
@@ -25,7 +25,7 @@ describe('User Schema', function() {
       .then(function(newUser) {
         User.create(user)
           .catch(function(error) {
-            expect(error.message).to.equal('Validation error');
+            expect(error.message).to.equal('User already exists');
             done();
           });
       }).catch(done);
