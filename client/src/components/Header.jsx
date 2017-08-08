@@ -18,17 +18,20 @@ class Header extends React.Component {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Our Shitty Steam Community App</Link>
+            <Link to="/">Mustard Tiger Clan Builder</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
+            <LinkContainer to='/channel'>
+              <NavItem>Channel</NavItem>
+            </LinkContainer>
             <LinkContainer to='/login'>
               <NavItem>Login</NavItem>
             </LinkContainer>
-            <LinkContainer to='/signup'>
-              <NavItem>Signup</NavItem>
+            <LinkContainer to='/register'>
+              <NavItem>Register</NavItem>
             </LinkContainer>
           </Nav>
         </Navbar.Collapse>

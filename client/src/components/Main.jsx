@@ -1,6 +1,7 @@
 import React from 'react'
 import Home from './Home.jsx'
 import Login from './Login.jsx'
+import Register from './Register.jsx'
 import { Switch, Route } from 'react-router-dom'
 
 /**
@@ -25,7 +26,11 @@ class Main extends React.Component {
           />
           <Route
             path='/login'
-            render={(props) => <Login {...props} registerNewUser={this.props.registerNewUser}/>}
+            render={(props) => <Login {...props} loginUser={this.props.loginUser}/>}
+          />
+          <Route
+            path='/register'
+            render={(props) => <Register {...props} registerNewUser={this.props.registerNewUser}/>}
           />
         </Switch>
       </main>

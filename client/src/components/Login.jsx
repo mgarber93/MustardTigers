@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Glyphicon } from 'react-bootstrap';
+import { Button, Glyphicon, Jumbotron } from 'react-bootstrap';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import { FieldGroup, FormGroup, ControlLabel } from 'react-bootstrap';
 
@@ -26,21 +26,23 @@ class Login extends React.Component {
     })
   }
 
-  submitLogin () {
+  onSubmit () {
     this.props.registerNewUser(this.state.user);
     this.setState({isLoggedIn: true});
   }
 
   render () {
-
-    //TODO: Refactor the Form to a new Component
     return (
-      <FormGroup>
-        <ControlLabel>Login</ControlLabel>
-          <FormControl id='username' type='text' onChange={this.onChange.bind(this)} placeholder='Username' />
-          <FormControl id='password' type='password' onChange={this.onChange.bind(this)} placeholder='Password' />
-        <Button onClick={this.submitLogin.bind(this)} type='submit'>Submit</Button>
-      </FormGroup>
+      <div className="container">
+        <Jumbotron>
+          <FormGroup>
+            <ControlLabel>Login</ControlLabel>
+              <FormControl id='username' type='text' onChange={this.onChange.bind(this)} placeholder='Username' />
+              <FormControl id='password' type='password' onChange={this.onChange.bind(this)} placeholder='Password' />
+            <Button onClick={this.onSubmit.bind(this)} type='submit'>Submit</Button>
+          </FormGroup>
+        </Jumbotron>
+      </div>
     )
   }
 }

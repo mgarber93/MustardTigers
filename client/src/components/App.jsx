@@ -32,13 +32,29 @@ import { Route, Redirect } from 'react-router'
       });
   }
 
-  render () {
+  loginUser(user) {
+    console.log('(Client) Logging in User')
+    axios.post('/auth/local', user)
+      .then((data) => {
+        console.log('(Client) Logging in User')
+        //Set State here or at registration sucess?
+      })
+      .catch((err) => {
+        console.log('(Client) Success! Logging in User')
+      });
+  }
 
+  render () {
     return (
-      <Header />
-      <Main
-        registerNewUser={this.registerNewUser.bind(this)}
-      />
+      <div>
+        <Header />
+        <Main
+          registerNewUser={this.registerNewUser.bind(this)}
+          loginUser={this.loginUser.bind(this)}
+        />
+      </div>
     )
   }
  }
+
+ export default App;

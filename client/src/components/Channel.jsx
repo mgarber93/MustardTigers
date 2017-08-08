@@ -8,27 +8,22 @@ import { FieldGroup, FormGroup, ControlLabel, Jumbotron } from 'react-bootstrap'
  * @extends Register
  */
  
-class Register extends React.Component {
+class Channel extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      user:{
-        username: '',
-        password: '',
-      },
-      isLoggedIn: false
-    }
+    this.state({
+      message: '';
+    })
   }
 
   onChange(e) {
     this.setState({
-      user: Object.assign(this.state.user, {[e.target.id]: e.target.value})
+      message: e.target.value
     })
   }
 
   onSubmit () {
-    this.props.registerNewUser(this.state.user);
-    this.setState({isLoggedIn: true});
+    this.props.addNewChannelMessage(this.state.user);
   }
 
   render () {
@@ -36,9 +31,8 @@ class Register extends React.Component {
       <div className="container">
         <Jumbotron>
           <FormGroup>
-            <ControlLabel>Register</ControlLabel>
-              <FormControl id='username' type='text' onChange={this.onChange.bind(this)} placeholder='Username' />
-              <FormControl id='password' type='password' onChange={this.onChange.bind(this)} placeholder='Password' />
+            <ControlLabel>New Message:</ControlLabel>
+              <FormControl id='message:' type='text' onChange={this.onChange.bind(this)} placeholder='Username' />
             <Button onClick={this.onSubmit.bind(this)} type='submit'>Submit</Button>
           </FormGroup>
         </Jumbotron>
@@ -46,4 +40,4 @@ class Register extends React.Component {
     )
   }
 }
-export default Register;
+export default Channel;
