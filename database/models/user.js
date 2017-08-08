@@ -30,6 +30,17 @@ const UserModel = db.define('users', {
   }
 });
 
+UserModel.validate = function({username, password}) {
+  return UserModel.findOne({where: {username}})
+    .then(function(user) {
+      if (user) {
+        return user.password === hashData(password, user.salt);
+      } else {
+        return false;
+      }
+    });
+};
+
 UserModel.sync();
 
 module.exports = UserModel;
