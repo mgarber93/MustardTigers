@@ -17,7 +17,7 @@
 Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/reactorcore/<NAME_OF_REPO>.git
+git remote add upstream https://github.com/MustardTigers/MustardTigers.git
 ```
 
 ### Cut a namespaced feature branch from master
@@ -122,7 +122,7 @@ Thanks for contributing!
 1. Uphold the current code standard:
     - Keep your code [DRY][].
     - Apply the [boy scout rule][].
-    - Follow [STYLE-GUIDE.md](_STYLE-GUIDE.md)
+    - Follow [STYLE-GUIDE.md](STYLE-GUIDE.md)
 1. Run the [tests][] before submitting a pull request.
 1. Tests are very, very important. Submit tests if your pull request contains
    new, testable behavior.
