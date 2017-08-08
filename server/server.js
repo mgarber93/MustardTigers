@@ -80,7 +80,7 @@ app.route('/users/:user')
       .error(error => {
         res.status(500);
         res.end(error.message || 'Internal error');
-      })
+      });
   })
   .post((req, res, next) => {
     User.update({id: req.body.id}, {
@@ -98,7 +98,7 @@ app.route('/users/:user')
       .error(error => {
         res.status(500);
         res.end(error.message || 'Internal error');
-      })
+      });
   })
   .delete((req, res, next) => {
     User.delete({id: req.params.user})
@@ -113,7 +113,7 @@ app.route('/users/:user')
       .error(error => {
         res.status(500);
         res.end(error.message || 'Internal error');
-      })
+      });
   });
 
 

@@ -10,7 +10,7 @@ app.listen(port, function() {
   console.log(`Listening on ${port}`);
 });
 
-xdescribe('', function(){
+xdescribe('', function() {
   var db;
   var server;
 
@@ -53,12 +53,12 @@ xdescribe('', function(){
     // });
     done();
     // afterEach(function() { server.close(); });
-  })
+  });
 
-  describe('Express Middleware', function(){
+  describe('Express Middleware', function() {
 
     it('should have index.html', function(done) {
-        request.get('/')
+      request.get('/')
         .expect(200, done);
     });
 
