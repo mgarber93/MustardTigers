@@ -1,7 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const { User } = require('../database/index');
+const bodyParser = require('body-parser'); 
+const cookieParser = require('cookie-parser'); 
+const User = process.env.DATABASE_URL;
 
 const app = express();
 
@@ -18,9 +18,9 @@ app.use(express.static(__dirname + '/../client/build'));
 
 
 /**
- * Get to users endpoint returns all users as an array of json objects.
- * Post to users creates a new user and returns the new user's id as the 
- * id property of the reponse.
+ * A get request to the users endpoint returns all users as an array of json
+ * objects. A post to users creates a new user and returns the new user's id as 
+ * the id property of the reponse.
  * 
  * @param  {function} (req, res, next) - Request handler 
  */
@@ -39,7 +39,7 @@ app.route('/users')
       .error(error => {
         res.status(500);
         res.end(error.message || 'Internal error');
-      })
+      });
   })
   .post((req, res, next) => {
     User.create({id: req.body.id})
@@ -54,7 +54,7 @@ app.route('/users')
       .error(error => {
         res.status(500);
         res.end(error.message || 'Internal error');
-      })
+      });
   });
 
 
