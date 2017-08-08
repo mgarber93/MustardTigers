@@ -7,7 +7,7 @@
 - Brett Kirk
 - Ian Mobley
 - Matt Garber
-- Talis Lazdin
+- Talis Lazdins
 
 ## Table of Contents
 
