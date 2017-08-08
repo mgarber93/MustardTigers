@@ -1,4 +1,4 @@
-const {User} = require('../database');
+const User = require('../database').User;
 const expect = require('chai').expect;
 
 describe('User schema', function() {
