@@ -1,5 +1,5 @@
-const User = require('../database').User;
-const expect = require('chai').expect;
+const {User} = require('../database');
+const {expect} = require('chai');
 
 describe('User schema', function() {
   beforeEach(function(done) {
