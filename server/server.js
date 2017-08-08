@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser'); 
 const cookieParser = require('cookie-parser'); 
-const User = process.env.DATABASE_URL;
+const User = require('../database/models/user');
 
 const app = express();
 
