@@ -1,26 +1,29 @@
 {
   "name": "MustardTigers",
   "version": "1.0.0",
-  "description": "",
+  "description": "A social networking site focused on gamers",
   "main": "index.js",
   "directories": {
     "lib": "lib",
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha ./tests"
+    "test": "mocha ./tests",
+    "build": "webpack",
+    "start": "nodemon ./server/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iMobs/MustardTigers.git"
+    "url": "git+https://github.com/MustardTigers/MustardTigers"
   },
   "keywords": [],
-  "author": "",
+  "author": "Matt Garber",
+  "contributors": "Ian Mobley",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iMobs/MustardTigers/issues"
+    "url": "https://github.com/MustardTigers/MustardTigers/issues"
   },
-  "homepage": "https://github.com/iMobs/MustardTigers#readme",
+  "homepage": "https://github.com/MustardTigers/MustardTigers",
   "dependencies": {
     "chai": "^4.1.1",
     "express": "^4.15.4",
@@ -28,6 +31,12 @@
     "mysql2": "^1.4.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "sequelize": "^4.4.2"
+    "sequelize": "^4.4.2",
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
