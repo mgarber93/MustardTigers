@@ -1,6 +1,6 @@
 /**
  * @todo Switch from sha256 to bcrypt
- * @todo User permissions on update/ delete. New Methods?
+ * @todo User permissions on update and delete. 
  */
 
 const crypto = require('crypto');
