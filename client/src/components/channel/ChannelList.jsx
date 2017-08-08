@@ -11,19 +11,6 @@ import { FieldGroup, FormGroup, ControlLabel, Jumbotron } from 'react-bootstrap'
 class ChannelList extends React.Component {
   constructor(props) {
     super(props)
-    this.state({
-      message: '',
-    })
-  }
-
-  onChange(e) {
-    this.setState({
-      message: e.target.value
-    })
-  }
-
-  onSubmit () {
-    this.props.addNewChannelMessage(this.state.user);
   }
 
   render () {

@@ -29,14 +29,8 @@ class Main extends React.Component {
             exact path='/channel' 
             component={Channel} 
           />
-          <Route
-            path='/login'
-            render={(props) => <Login {...props} loginUser={this.props.loginUser}/>}
-          />
-          <Route
-            path='/register'
-            render={(props) => <Register {...props} registerNewUser={this.props.registerNewUser}/>}
-          />
+          <Route component={Login}/>
+          <Route component={Register} />
         </Switch>
       </main>
       </div>
