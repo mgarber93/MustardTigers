@@ -47,7 +47,7 @@ app.route('/users')
     User.findAll() 
       .then(doc => {
         res.status(200);
-        res.json({results: Array.isArray(doc) ? doc : [doc]});
+        res.json({results: doc});
         res.end();
       })
       .catch(except => {
@@ -93,7 +93,7 @@ app.route('/users/:user')
     User.read({id: req.params.user}) 
       .then(doc => {
         res.status(200);
-        res.json({results: Array.isArray(doc) ? doc : [doc]});
+        res.json({results: doc});
         res.end();
       })
       .catch(except => {
