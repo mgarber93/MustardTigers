@@ -1,13 +1,14 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router'
-import Header from './Header.jsx';
-import Main from './Main.jsx';
 import axios from 'axios';
+import Main from './Main.jsx';
+import Header from './Header.jsx';
+import { Route, Redirect } from 'react-router'
 
 /**
- * Class representing a dot.
+ * Class representing the App.
  * @extends App
  */
+ 
  class App extends React.Component {
 
   constructor(props) {

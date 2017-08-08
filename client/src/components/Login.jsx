@@ -1,7 +1,13 @@
 import React from 'react'
-import { Button, Glyphicon, FieldGroup, FormGroup, ControlLabel } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import { FieldGroup, FormGroup, ControlLabel } from 'react-bootstrap';
 
+/**
+ * Class representing the React Login Component.
+ * @extends Login
+ */
+ 
 class Login extends React.Component {
   constructor(props) {
     super(props)
