@@ -1,21 +1,39 @@
 const express = require('express');
 const bodyParser = require('body-parser'); 
-const cookieParser = require('cookie-parser'); 
 const User = require('../database/models/user');
-
+const session = require('express-session');
+const Store = require('connect-session-sequelize')(session.Store);
+const {db} = require('../database/connection');
 const app = express();
 
-app.use(cookieParser());
+/**
+ * Create the mySql store; passing in the database connection
+ */
+const store = new Store({
+  db: db
+});
+
+store.sync();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+/**
+ * Creates a new session
+ */
+app.use(session({
+  name: 'MustardTigers',
+  secret: '5 dollar gold club special',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true },
+  store: store
+}));
 
 /**
  * Static routes
  */
 app.use(express.static(__dirname + '/../client/build'));
-
 
 /**
  * A get request to the users endpoint returns all users as an array of json
@@ -47,6 +65,7 @@ app.route('/users')
       password: req.body.password
     })
       .then(doc => {
+        req.session.userId = doc.id;
         res.status(200);
         res.json({id: doc.id});
         res.end();
