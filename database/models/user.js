@@ -1,5 +1,6 @@
 /**
  * @todo Switch from sha256 to bcrypt
+ * @todo User permissions on update/ delete. New Methods?
  */
 
 const crypto = require('crypto');
@@ -59,5 +60,21 @@ User.validate = function({username, password}) {
       }
     });
 };
+
+User.findAll = function() {
+  return UserModel.findAll();
+}
+
+User.read = function(query) {
+  return UserModel.find({where: query});
+}
+
+User.update = function(query, values) {
+  return UserModel.update({values: values}, {where: query});
+}
+
+User.delete = function(query) {
+  return UserModel.destroy({where: query});
+}
 
 module.exports = User;

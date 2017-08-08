@@ -71,7 +71,7 @@ app.route('/users')
  */
 app.route('/users/:user')
   .get((req, res, next) => {
-    User.find({id: req.params.user}) 
+    User.read({id: req.params.user}) 
       .then(doc => {
         res.status(200);
         res.json({results: Array.isArray(doc) ? doc : [doc]});
@@ -87,7 +87,7 @@ app.route('/users/:user')
       });
   })
   .post((req, res, next) => {
-    User.update({id: req.body.id}, {
+    User.update({id: req.params.id}, {
       username: req.body.username,
       password: req.body.password,
     })
