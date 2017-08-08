@@ -59,7 +59,6 @@ typings/
 
 # VS Code
 .vscode/
-<<<<<<< HEAD
 
 package-lock.json
 .DS_Store
