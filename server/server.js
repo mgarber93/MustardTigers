@@ -1,5 +1,4 @@
 const express = require('express');
-const cookieParser = require('cookie-parser'); 
 const bodyParser = require('body-parser'); 
 const User = require('../database/models/user');
 const session = require('express-session');
@@ -19,7 +18,6 @@ store.sync();
 
 const usersRouter = require('./users');
 
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
