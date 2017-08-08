@@ -20,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/iMobs/MustardTigers/issues"
   },
-  "homepage": "https://github.com/iMobs/MustardTigers#readme"
+  "homepage": "https://github.com/iMobs/MustardTigers#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "mysql2": "^1.4.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "sequelize": "^4.4.2"
+  }
 }
