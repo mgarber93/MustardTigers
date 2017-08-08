@@ -42,10 +42,14 @@ app.route('/users')
       });
   })
   .post((req, res, next) => {
-    User.create({id: req.body.id})
+    User.create({
+      username: req.body.username, 
+      password: req.body.password
+    })
       .then(doc => {
         res.status(200);
-        res.end({id: doc.id});
+        res.json({id: doc.id});
+        res.end();
       })
       .catch(except => {
         res.status(400);
@@ -89,7 +93,8 @@ app.route('/users/:user')
     })
       .then(doc => {
         res.status(200);
-        res.end({id: doc.id});
+        res.json({id: doc.id});
+        res.end();
       })
       .catch(except => {
         res.status(except.status || 400);
@@ -104,7 +109,8 @@ app.route('/users/:user')
     User.delete({id: req.params.user})
       .then(doc => {
         res.status(200);
-        res.end({id: req.params.user});
+        res.json({id: req.params.user});
+        res.end();
       })
       .catch(except => {
         res.status(except.status || 400);
