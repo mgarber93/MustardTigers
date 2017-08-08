@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/iMobs/MustardTigers#readme",
   "dependencies": {
+    "chai": "^4.1.1",
     "express": "^4.15.4",
+    "mocha": "^3.5.0",
     "mysql2": "^1.4.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
