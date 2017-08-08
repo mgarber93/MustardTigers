@@ -1,8 +1,15 @@
 language: node_js
 
+services:
+  - mysql
+
 cache:
   directories:
     - "node_modules"
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+
 
 script:
   - "npm test"
