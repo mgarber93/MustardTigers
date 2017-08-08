@@ -38,7 +38,7 @@ app.use(session({
 /**
  * Static routes
  */
-app.use(express.static(__dirname + '/../client/build'));
+app.use(express.static(__dirname + '/../client/dist'));
 
 app.use('/users', usersRouter);
 
