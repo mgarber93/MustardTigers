@@ -27,6 +27,7 @@
     "body-parser": "^1.17.2",
     "chai": "^4.1.1",
     "cookie-parser": "^1.4.3",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
     "express": "^4.15.4",
     "mocha": "^3.5.0",
     "mysql2": "^1.4.0",
