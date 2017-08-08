@@ -30,8 +30,6 @@ const UserModel = db.define('users', {
   }
 });
 
-UserModel.beforeCreate
-
 UserModel.sync();
 
 module.exports = UserModel;
