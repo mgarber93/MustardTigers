@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Jumbotron } from 'react-bootstrap';
-import LoginForm from './LoginForm.jsx'
+import LoginForm from './LoginForm.jsx';
 
 /**
  * Class representing the React Login Component.
@@ -9,7 +9,7 @@ import LoginForm from './LoginForm.jsx'
  
 class Login extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render () {
@@ -19,7 +19,7 @@ class Login extends React.Component {
           <LoginForm />
         </Jumbotron>
       </div>
-    )
+    );
   }
 }
 export default Login;

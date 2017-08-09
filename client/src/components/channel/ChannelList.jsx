@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Button, Glyphicon } from 'react-bootstrap';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import { FieldGroup, FormGroup, ControlLabel, Jumbotron } from 'react-bootstrap';
@@ -10,13 +10,13 @@ import { FieldGroup, FormGroup, ControlLabel, Jumbotron } from 'react-bootstrap'
  
 class ChannelList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render () {
 
     var messages = this.props.messages.map((message, i) => { 
-      return <ChannelListEntry message={message} key={i} />
+      return <ChannelListEntry message={message} key={i} />;
     });
 
     return (
@@ -25,7 +25,7 @@ class ChannelList extends React.Component {
           {messages}
         </Jumbotron>
       </div>
-    )
+    );
   }
 }
 export default ChannelList;

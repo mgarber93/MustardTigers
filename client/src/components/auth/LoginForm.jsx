@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { Button, Glyphicon, Jumbotron } from 'react-bootstrap';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import { FieldGroup, FormGroup, ControlLabel } from 'react-bootstrap';
-import TextFieldGroup from '../common/TextFieldGroup.jsx'
+import TextFieldGroup from '../common/TextFieldGroup.jsx';
 /**
  * Class representing the React Login Component.
  * @extends Login
@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
 
         <div className="form-group"><button className="btn btn-primary btn-lg" disabled={isLoading}>Login</button></div>
       </form>
-    )
+    );
   }
 }
 export default LoginForm;

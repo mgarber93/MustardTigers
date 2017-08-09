@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Navbar, Nav, NavItem, Glyphicon} from 'react-bootstrap';
 
@@ -36,7 +36,7 @@ class Header extends React.Component {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-    ) 
+    );
   }
 }
 
