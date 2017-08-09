@@ -4,6 +4,9 @@
     "postdeploy": "webpack -p"
   },
   "env": {
+    "CLEARDB_DATABASE_URL": {
+      "required": true
+    },
     "DATABASE_URL": {
       "required": true
     },
