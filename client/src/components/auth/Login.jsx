@@ -9,14 +9,22 @@ import LoginForm from './LoginForm.jsx'
  
 class Login extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.userLogin.bind(this);
+    this.state = {
+      controlLabel: 'Login'
+    }
+  }
+
+  userLogin () {
+    console.log('Login Sucess')
   }
 
   render () {
     return (
       <div className="container">
         <Jumbotron>
-          <LoginForm />
+          <LoginForm action={this.userLogin} controlLabel={this.state.controlLabel}/>
         </Jumbotron>
       </div>
     )

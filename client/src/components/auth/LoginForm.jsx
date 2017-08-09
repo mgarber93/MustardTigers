@@ -1,8 +1,7 @@
-import React from 'react'
-import { Button, Glyphicon, Jumbotron } from 'react-bootstrap';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import { FieldGroup, FormGroup, ControlLabel } from 'react-bootstrap';
-import TextFieldGroup from '../common/TextFieldGroup.jsx'
+import React from 'react';
+import {Link} from 'react-router-dom';
+import { Grid, Row, Col } from 'react-bootstrap';
+import { Button, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
 /**
  * Class representing the React Login Component.
  * @extends Login
@@ -11,47 +10,32 @@ import TextFieldGroup from '../common/TextFieldGroup.jsx'
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.state = {
+      username: '',
+      password: ''
+    };
   }
 
-
-  onSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
-    
-    if(this.isValid()) {
-
-    }
+    this.props.action(this.state);
   }
 
-  onChange(e) {
-    this.setState({[e.target.value]: e.target.value});
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value});
   }
 
   render () {
-    const { errors, identifier, password, isLoading } = this.state;
     return (
-      <form onSubmit={this.onSubmit}>
-        <h1>Login</h1>
-        <TextFieldGroup
-          field="identifier"
-          label="Username / Email"
-          value={identifier}
-          error={errors.identifier}
-          onChange={this.onChange}
-        />
-
-        <TextFieldGroup
-          field="password"
-          label="Password"
-          value={password}
-          error={errors.password}
-          onChange={this.onChange}
-          type="password"
-        />
-
-        <div className="form-group"><button className="btn btn-primary btn-lg" disabled={isLoading}>Login</button></div>
-      </form>
+      <Grid>
+        <Row>
+        Username 
+        <input name="username" placeholder="Bubbles" onChange={this.handleChange.bind(this)}/>
+        Password:
+        <input name="password" type="password" placeholder="" onChange={this.handleChange.bind(this)}/>
+        <button onClick={this.handleSubmit.bind(this)}>Submit</button>
+        </Row>
+      </Grid>
     )
   }
 }
