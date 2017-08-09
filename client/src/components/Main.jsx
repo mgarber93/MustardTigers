@@ -26,10 +26,6 @@ class Main extends React.Component {
             component={Home} 
           />
           <Route 
-            exact path='/channel' 
-            component={Channel} 
-          />
-          <Route 
           path='/login' 
           component={Login}/>
           <Route 
