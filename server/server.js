@@ -40,6 +40,8 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.use('/users', usersRouter);
 
-
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
+});
 
 module.exports.app = app;
