@@ -1,4 +1,3 @@
-const User = require('./user');
 const {Sequelize, db} = require('../connection');
 
 const ClanModel = db.define('clan', {
@@ -9,26 +8,28 @@ const ClanModel = db.define('clan', {
   },
 });
 
-ClanModel.belongsTo(User.model, {foreignKey: 'admin', constraints: false});
+ClanModel.belongsTo(User.model);
 
 ClanModel.sync();
 
 var Clan = {model: ClanModel};
 
-Clan.create = function({username, password}) {
-  return ClanModel.find({where: {username}})
+Clan.findAll = function() {
+  return ClanModel.findAll();
+};
+
+/**
+ * Clan crud methods.
+ */
+Clan.create = function({name, userId}) {
+  return ClanModel.find({where: {name}})
     .then(function(clan) {
       if (clan) {
         throw new Error('Clan already exists');
       }
 
-      // @todo
-      return ClanModel.create({username, password});
+      return ClanModel.create({name, userId});
     });
-};
-
-Clan.findAll = function() {
-  return ClanModel.findAll();
 };
 
 Clan.read = function(query) {

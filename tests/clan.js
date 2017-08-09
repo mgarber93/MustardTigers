@@ -2,7 +2,7 @@ const {Clan} = require('../database');
 const {expect} = require('chai');
 const {Sequelize, db} = require('../database/connection');
 
-var user = {name: 'test_clan_please_ignore'};
+var clan = {name: 'test_clan_please_ignore', userId: 0};
 
 describe('Clan Schema', function() {
   beforeEach(function(done) {
@@ -24,12 +24,11 @@ describe('Clan Schema', function() {
   });
 
   it('inserts new users', function(done) {
-    Clan.model.create(user)
+    Clan.model.create(clan)
       .then(function(newUser) {
-        expect(newUser.username).to.exist;
-        expect(newUser.salt).to.exist;
-        expect(newUser.password).to.not.equal(user.password);
-
+        expect(newUser).to.exist;
+        expect(newUser.name).to.equal(clan.name);
+        expect(newUser.userId).to.equal(clan.userId);
         done();
       }).catch(done);
   });
