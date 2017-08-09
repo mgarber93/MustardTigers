@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Jumbotron } from 'react-bootstrap';
-import LoginForm from './LoginForm.jsx'
+import LoginForm from './LoginForm.jsx';
 
 /**
  * Class representing the React Login Component.
@@ -13,7 +13,7 @@ class Login extends React.Component {
     this.userLogin.bind(this);
     this.state = {
       controlLabel: 'Login'
-    }
+    };
   }
 
   userLogin () {
@@ -27,7 +27,7 @@ class Login extends React.Component {
           <LoginForm action={this.userLogin} controlLabel={this.state.controlLabel}/>
         </Jumbotron>
       </div>
-    )
+    );
   }
 }
 export default Login;
