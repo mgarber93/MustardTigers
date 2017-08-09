@@ -12,9 +12,8 @@ db.clearDb = () => {
     const options = { raw: true, transaction: t };
     return Promise.resolve(db)
       .then(function() {
-        return db.query('delete from users', null, options);
-      })
-      .then(function() {
+        db.query('delete from users', null, options);
+        db.query('delete from forums', null, options);
         return db.query('delete from clans', null, options);
       });
   });
