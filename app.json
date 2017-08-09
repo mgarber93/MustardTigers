@@ -4,10 +4,10 @@
     "postdeploy": "webpack -p"
   },
   "env": {
-    "CLEARDB_DATABASE_URL": {
+    "DATABASE_URL": {
       "required": true
     },
-    "DATABASE_URL": {
+    "NPM_CONFIG_PRODUCTION": {
       "required": true
     }
   },
