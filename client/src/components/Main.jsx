@@ -29,8 +29,12 @@ class Main extends React.Component {
             exact path='/channel' 
             component={Channel} 
           />
-          <Route component={Login}/>
-          <Route component={Register} />
+          <Route 
+          path='/login' 
+          component={Login}/>
+          <Route 
+          path='/register' 
+          component={Register} />
         </Switch>
       </main>
       </div>
