@@ -21,26 +21,6 @@ describe('', function() {
   // var server;
   // const tablenames = ['users'];
 
-  /**
-   * When we query the database use this function to reset it back to a known
-   * state before each test.
-   * 
-   * @param  {object}   connection - Connection object 
-   * @param  {array}    tablenames - Tables to clear 
-   * @param  {function} done       - Callback function
-   */
-  var clearDB = function(connection, tablenames, done) {
-    var count = 0;
-    tablenames.forEach(function(tablename) {
-      connection.query('DROP TABLE IF EXISTS ' + tablename, function() {
-        count++;
-        if (count === tablenames.length) {
-          return schema(db).then(done);
-        }
-      });
-    });
-  };
-
   beforeEach(function(done) {
     // clearDB(db, tablenames, function() {
     //   done();

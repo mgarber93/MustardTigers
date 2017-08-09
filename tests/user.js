@@ -1,12 +1,27 @@
-const {User} = require('../database');
+const {User, Clan} = require('../database');
 const {expect} = require('chai');
+const {Sequelize, db} = require('../database/connection');
 
 var user = {username: 'fred_zirdung', password: 'fred_zirdung'};
 
 describe('User Schema', function() {
   beforeEach(function(done) {
-    User.model.truncate()
-      .then(done);
+    db.transaction((t) => {
+      var options = { raw: true, transaction: t };
+      return Promise.resolve(db)
+        .then(function() {
+          return db.query('delete from users', null, options);
+        })
+        .then(function() {
+          return db.query('delete from clans', null, options);
+        });
+    })
+      .then(() => { done(); })
+      .catch(err => {
+        console.error(err);
+        done();
+        // console.log('');
+      });
   });
 
   it('inserts new users', function(done) {

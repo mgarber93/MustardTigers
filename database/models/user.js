@@ -12,7 +12,7 @@ const hashData = function(data, salt = '') {
   return shasum.digest('hex');
 };
 
-const UserModel = db.define('users', {
+const UserModel = db.define('user', {
   username: {
     type: Sequelize.STRING(40),
     allowNull: false,
