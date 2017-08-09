@@ -1,7 +1,8 @@
-const {Clan} = require('../database');
+const {Clan, User} = require('../database');
 const {expect} = require('chai');
 const {Sequelize, db} = require('../database/connection');
 
+var user = {username: 'fred_zirdung', password: 'fred_zirdung'};
 var clan = {name: 'test_clan_please_ignore', userId: 0};
 
 describe('Clan Schema', function() {
@@ -15,13 +16,17 @@ describe('Clan Schema', function() {
   });
 
   it('inserts new users', function(done) {
-    Clan.model.create(clan)
-      .then(function(newUser) {
-        expect(newUser).to.exist;
-        expect(newUser.name).to.equal(clan.name);
-        expect(newUser.userId).to.equal(clan.userId);
-        done();
-      }).catch(done);
+    User.create(user)
+      .then(newUser => {
+        clan.userId = newUser.userId;
+        Clan.model.create(clan)
+          .then(function(newClan) {
+            expect(newClan).to.exist;
+            expect(newClan.name).to.equal(clan.name);
+            expect(newClan.userId).to.equal(clan.userId);
+            done();
+          }).catch(done);
+      });
   });
 
 });

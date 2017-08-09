@@ -9,7 +9,7 @@ const ClanModel = db.define('clan', {
   },
 });
 
-ClanModel.belongsTo(User.model);
+ClanModel.belongsTo(User.model, {constraints: false});
 
 ClanModel.sync();
 
