@@ -33,7 +33,7 @@ class LoginForm extends React.Component {
           <input name="username" placeholder="Bubbles" onChange={this.handleChange.bind(this)}/>
         Password:
           <input name="password" type="password" placeholder="" onChange={this.handleChange.bind(this)}/>
-          <button onClick={this.handleSubmit.bind(this)}>Submit</button>
+          <button onClick={this.handleSubmit.bind(this)}>{this.props.controlLabel}</button>
         </Row>
       </Grid>
     );

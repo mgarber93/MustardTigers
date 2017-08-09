@@ -10,7 +10,6 @@ import LoginForm from './LoginForm.jsx';
 class Register extends React.Component {
   constructor(props) {
     super(props);
-    this.userRegister.bind(this);
     this.state = {
       controlLabel: 'Register'
     }
@@ -24,7 +23,7 @@ class Register extends React.Component {
     return (
       <div className="container">
         <Jumbotron>
-          <LoginForm action={this.userRegister} controlLabel={this.state.controlLabel}/>
+          <LoginForm action={this.userRegister.bind(this)} controlLabel={this.state.controlLabel}/>
         </Jumbotron>
       </div>
     );
