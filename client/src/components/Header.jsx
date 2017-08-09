@@ -24,6 +24,9 @@ class Header extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
+            <LinkContainer to='/clan'>
+              <NavItem>Clan</NavItem>
+            </LinkContainer>
             <LinkContainer to='/login'>
               <NavItem>Login</NavItem>
             </LinkContainer>

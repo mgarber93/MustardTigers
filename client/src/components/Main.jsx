@@ -26,11 +26,14 @@ class Main extends React.Component {
             component={Home} 
           />
           <Route 
-          path='/login' 
-          component={Login}/>
+            path='/login' 
+            component={Login}/>
           <Route 
-          path='/register' 
+            path='/register' 
           component={Register} />
+          <Route 
+            path='/clan' 
+            component={Clan} />
         </Switch>
       </main>
       </div>
