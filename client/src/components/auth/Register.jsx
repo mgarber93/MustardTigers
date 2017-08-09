@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Jumbotron } from 'react-bootstrap';
-import LoginForm from './LoginForm.jsx'
+import LoginForm from './LoginForm.jsx';
 
 /**
  * Class representing the React Login Component.
@@ -10,13 +10,14 @@ import LoginForm from './LoginForm.jsx'
 class Register extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       controlLabel: 'Register'
-    }
+    };
   }
 
-  userRegister () {
-    console.log('Register Sucess')
+  userRegister (user) {
+    console.log('Register Sucess', user);
   }
 
   render () {
@@ -26,7 +27,7 @@ class Register extends React.Component {
           <LoginForm action={this.userRegister.bind(this)} controlLabel={this.state.controlLabel}/>
         </Jumbotron>
       </div>
-    )
+    );
   }
 }
 export default Register;
