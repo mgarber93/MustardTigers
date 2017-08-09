@@ -5,7 +5,7 @@ const session = require('express-session');
 const Store = require('connect-session-sequelize')(session.Store);
 const { db } = require('../database/connection');
 const app = express();
-
+const path = require('path');
 /**
  * Create the mySql store; passing in the database connection
  */
