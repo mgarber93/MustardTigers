@@ -7,7 +7,18 @@ const db = new Sequelize(database, {
   force: true
 });
 
-
+db.clearDb = () => {
+  return db.transaction((t) => {
+    const options = { raw: true, transaction: t };
+    return Promise.resolve(db)
+      .then(function() {
+        return db.query('delete from users', null, options);
+      })
+      .then(function() {
+        return db.query('delete from clans', null, options);
+      });
+  });
+};
 
 module.exports = {
   Sequelize,

@@ -6,16 +6,7 @@ var clan = {name: 'test_clan_please_ignore', userId: 0};
 
 describe('Clan Schema', function() {
   beforeEach(function(done) {
-    db.transaction((t) => {
-      const options = { raw: true, transaction: t };
-      return Promise.resolve(db)
-        .then(function() {
-          return db.query('delete from users', null, options);
-        })
-        .then(function() {
-          return db.query('delete from clans', null, options);
-        });
-    })
+    db.clearDb()
       .then(() => { done(); })
       .catch(err => {
         console.error(err);

@@ -6,16 +6,7 @@ var user = {username: 'fred_zirdung', password: 'fred_zirdung'};
 
 describe('User Schema', function() {
   beforeEach(function(done) {
-    db.transaction((t) => {
-      const options = { raw: true, transaction: t };
-      return Promise.resolve(db)
-        .then(function() {
-          return db.query('delete from users', null, options);
-        })
-        .then(function() {
-          return db.query('delete from clans', null, options);
-        });
-    })
+    db.clearDb()
       .then(() => { done(); })
       .catch(err => {
         console.error(err);

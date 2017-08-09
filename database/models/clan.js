@@ -1,3 +1,4 @@
+const User = require('./user');
 const {Sequelize, db} = require('../connection');
 
 const ClanModel = db.define('clan', {
@@ -28,6 +29,7 @@ Clan.create = function({name, userId}) {
         throw new Error('Clan already exists');
       }
 
+      // @todo
       return ClanModel.create({name, userId});
     });
 };
