@@ -11,18 +11,17 @@ import TextFieldGroup from '../common/TextFieldGroup.jsx'
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      identifier: '',
-      password: '',
-      errors: {},
-      isLoading: false
-    };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
+
   onSubmit(e) {
     e.preventDefault();
+    
+    if(this.isValid()) {
+
+    }
   }
 
   onChange(e) {
