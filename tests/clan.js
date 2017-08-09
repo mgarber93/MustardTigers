@@ -1,10 +1,10 @@
-const {User} = require('../database');
+const {Clan} = require('../database');
 const {expect} = require('chai');
 const {Sequelize, db} = require('../database/connection');
 
-var user = {username: 'fred_zirdung', password: 'fred_zirdung'};
+var user = {name: 'test_clan_please_ignore'};
 
-describe('User Schema', function() {
+describe('Clan Schema', function() {
   beforeEach(function(done) {
     db.transaction((t) => {
       const options = { raw: true, transaction: t };
@@ -24,7 +24,7 @@ describe('User Schema', function() {
   });
 
   it('inserts new users', function(done) {
-    User.create(user)
+    Clan.model.create(user)
       .then(function(newUser) {
         expect(newUser.username).to.exist;
         expect(newUser.salt).to.exist;
@@ -34,26 +34,4 @@ describe('User Schema', function() {
       }).catch(done);
   });
 
-  it('does not allow duplicate users', function(done) {
-    User.create(user)
-      .then(function(newUser) {
-        User.create(user)
-          .catch(function(error) {
-            expect(error.message).to.equal('User already exists');
-            done();
-          });
-      }).catch(done);
-  });
-
-  it ('validates existing users', function(done) {
-    User.create(user)
-      .then(function() {
-        return User.validate(user);
-      })
-      .then(function(valid) {
-        expect(valid).to.be.true;
-        done();
-      })
-      .catch(done);
-  });
 });
