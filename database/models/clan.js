@@ -28,13 +28,11 @@ Clan.create = function({name, userId}) {
       if (clan) {
         throw new Error('Clan already exists');
       }
-
-      // @todo
       return ClanModel.create({name, userId});
     });
 };
 
-Clan.read = function(query) {
+Clan.read = Clan.find = function(query) {
   return ClanModel.find({where: query});
 };
 
