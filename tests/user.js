@@ -36,8 +36,8 @@ describe('User Schema', function() {
       .then(function() {
         return User.validate(user);
       })
-      .then(function(valid) {
-        expect(valid).to.be.true;
+      .then(function(user) {
+        expect(user).to.exist;
         done();
       })
       .catch(done);

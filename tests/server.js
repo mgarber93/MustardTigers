@@ -71,7 +71,7 @@ describe('', function() {
       request.post('/users')
         .send({username: 'foo', password: 'bar'})
         .set('Content-Type', 'application/json')
-        .expect(/[0-9]/, done);
+        .expect('"foo"', done);
     });
 
     it('should delete a new user with delete to /users ', function(done) {
