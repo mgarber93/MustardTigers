@@ -13,8 +13,18 @@ class ForumEntry extends React.Component {
 
   render() {
 
+    //I don't know how to get two fields side by side in bootstrap, ask talis tomorrow
+
     return (
-      <div className='wrapper'>
+      <div className='post'>
+        <well>
+          <div>{this.props.post.upvotes}&#9651;</div><br />
+          <div>{this.props.post.downvotes}&#9661;</div><br />
+        </well>
+        <well>
+          <h3>{this.props.post.title}</h3>
+          <span>{this.props.post.body}</span>
+        </well>
       </div>
     )
   }

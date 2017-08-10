@@ -13,8 +13,30 @@ class About extends React.Component {
 
   render() {
 
+
+    var games = this.props.clan.games.map((game, i) => {
+      <Media>
+        <Media.Left align="top">
+          <img width={64} height={64} src="GAMEIMAGELINKHERE" />
+        </Media.Left>
+        <Media.Body>
+          <Media.Heading>
+            <div>{game.title}</div>
+          </Media.Heading>
+        </Media.Body>
+      </Media>
+    });
+
     return (
-      <div className='wrapper'>
+      <div className='about'> 
+        <jumbotron>
+          <h3>{this.props.clan.description.head}</h3>
+          <div>{this.props.clan.description.body}</div>
+        </jumbotron>
+        <jumbotron>
+          <h3>Games:</h3>
+          {games}
+        </jumbotron>
       </div>
     )
   }

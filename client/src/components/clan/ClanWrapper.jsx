@@ -33,6 +33,10 @@ class Clan extends React.Component {
               </Media.Heading>
             </Media.Body>
           </Media>
+<<<<<<< HEAD
+=======
+          
+>>>>>>> Started formating clan files
           <Switch>
             <Route 
               exact path='/clan/:number/forum' 

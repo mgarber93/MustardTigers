@@ -14,8 +14,13 @@ class Forum extends React.Component {
 
   render() {
 
+    var posts = this.props.posts.map((post, i) => {
+      return <ForumEntry post={post} key={i} />
+    });
+
     return (
-      <div className='wrapper'>
+      <div className='posts'>
+        {posts}
       </div>
     )
   }
