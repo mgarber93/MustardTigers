@@ -1,5 +1,4 @@
 import React from 'react';
-import MemberEntry from './MemberEntry.jsx';
 import { Switch, Route } from 'react-router-dom';
 
 /**
