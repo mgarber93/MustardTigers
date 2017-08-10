@@ -6,6 +6,7 @@ const Store = require('connect-session-sequelize')(session.Store);
 const { db } = require('../database/connection');
 const app = express();
 const path = require('path');
+
 /**
  * Create the mySql store; passing in the database connection
  */
@@ -15,10 +16,7 @@ const store = new Store({
 
 store.sync();
 
-
-const usersRouter = require('./users');
-
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 /**
@@ -27,9 +25,8 @@ app.use(bodyParser.json());
 app.use(session({
   name: 'MustardTigers',
   secret: '5 dollar gold club special',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
-  cookie: { secure: true },
   store: store
 }));
 
@@ -38,7 +35,8 @@ app.use(session({
  */
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.use('/users', usersRouter);
+app.use('/users', require('./users'));
+app.use('/auth', require('./auth'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));

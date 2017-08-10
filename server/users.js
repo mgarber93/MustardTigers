@@ -32,10 +32,10 @@ router.route('/')
       username: req.body.username, 
       password: req.body.password
     })
-      .then(doc => {
-        res.status(200);
-        res.json({id: doc.id});
-        res.end();
+      .then(user => {
+        req.session.userId = user.id;
+
+        res.json(user.username);
       })
       .catch(except => {
         res.status(400);
