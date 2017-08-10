@@ -19,20 +19,6 @@ class EventEntry extends React.Component {
 
     return (
       <div className='wrapper'>
-      <main>
-        <Switch>
-          <Route 
-            exact path='/' 
-            component={Home} 
-          />
-          <Route 
-            exact path='/channel' 
-            component={Channel} 
-          />
-          <Route component={Login}/>
-          <Route component={Register} />
-        </Switch>
-      </main>
       </div>
     )
   }

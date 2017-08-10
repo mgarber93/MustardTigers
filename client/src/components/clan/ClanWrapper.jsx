@@ -33,7 +33,6 @@ class Clan extends React.Component {
               </Media.Heading>
             </Media.Body>
           </Media>
-          
           <Switch>
             <Route 
               exact path='/clan/:number/forum' 
