@@ -59,4 +59,31 @@ describe('Clans API Endpoint', function() {
       })
       .catch(done);
   });
+
+  it('should retrieve existing clans with a query', function(done) {
+    request.post('/clans')
+      .send(testClan)
+      .expect(201)
+      .then(res => {
+        newClan = res.body;
+
+        return request.get('/clans')
+          .query({name: testClan.name})
+          .expect(res => {
+            expect(res.body.results.length).to.equal(1);
+            expect(res.body.results[0].id).to.equal(newClan.id);
+            expect(res.body.results[0].name).to.equal(newClan.name);
+          })
+          .expect(200);
+      })
+      .then(() => {
+        request.get('/clans')
+          .query({name: 'barbara streisand'})
+          .expect(res => {
+            expect(res.body.results.length).to.equal(0);
+          })
+          .expect(200, done);
+      })
+      .catch(done);
+  });
 });
