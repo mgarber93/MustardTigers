@@ -36,6 +36,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use('/api', express.Router()
   .use('/users', require('./users'))
   .use('/auth', require('./auth'))
+  .use('/clans', require('./clans'))
 );
 
 app.get('*', (req, res) => {
