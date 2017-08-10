@@ -40,6 +40,10 @@ router.route('/')
       .catch(except => {
         res.status(400);
         res.end(except.message || 'Unable to create user!');
+      })
+      .error(error => {
+        res.status(500);
+        res.end(error.message || 'Internal error');
       });
   });
 
