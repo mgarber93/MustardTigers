@@ -2,11 +2,11 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 /**
- * Class representing the React EventEntry Container Component.
- * @extends EventEntry
+ * Class representing the React MemberEntry Container Component.
+ * @extends MemberEntry
  */
 
-class EventEntry extends React.Component {
+class MemberEntry extends React.Component {
   constructor (props) {
     super(props);
   }
@@ -20,4 +20,4 @@ class EventEntry extends React.Component {
   }
 }
 
-export default EventEntry
+export default MemberEntry
