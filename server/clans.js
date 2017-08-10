@@ -4,7 +4,7 @@ const {Clan} = require('../database');
 router.get('/', (req, res) => {
   return Clan.findAll(req.query)
     .then(clans => {
-      res.json(clans);
+      res.json({results: clans});
     })
     .catch(err => {
       res.status(500).send(err.message);
