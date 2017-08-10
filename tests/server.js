@@ -38,7 +38,7 @@ describe('', function() {
           request.get(`/users/${newUser.id}`)
             .expect(200)
             .expect('Content-Type', /json/, done);
-        })
+        });
     });
 
     it('should create a new user with post to /users ', function(done) {

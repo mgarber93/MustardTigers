@@ -95,7 +95,7 @@ User.update = function(query, values) {
 
 User.delete = function(query) {
   return UserModel.destroy({where: query})
-    .then(doc => Promise.resolve(doc.map(User._sanitize)));
+    .then(doc => Promise.resolve(User._sanitize(doc)));
 };
 
 module.exports = User;
