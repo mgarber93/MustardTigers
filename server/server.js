@@ -25,9 +25,8 @@ app.use(bodyParser.json());
 app.use(session({
   name: 'MustardTigers',
   secret: '5 dollar gold club special',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
-  cookie: { secure: true },
   store: store
 }));
 
