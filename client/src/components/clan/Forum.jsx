@@ -1,6 +1,6 @@
-import React from 'react'
-import ForumEntry from './ForumEntry.jsx'
-import { Switch, Route } from 'react-router-dom'
+import React from 'react';
+import ForumEntry from './ForumEntry.jsx';
+import { Switch, Route } from 'react-router-dom';
 
 /**
  * Class representing the React Forum Container Component.
@@ -26,4 +26,4 @@ class Forum extends React.Component {
   }
 }
 
-export default Forum
+export default Forum;

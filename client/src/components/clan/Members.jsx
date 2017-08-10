@@ -1,6 +1,6 @@
-import React from 'react'
-import MemberEntry from './MemberEntry.jsx'
-import { Switch, Route } from 'react-router-dom'
+import React from 'react';
+import MemberEntry from './MemberEntry.jsx';
+import { Switch, Route } from 'react-router-dom';
 
 /**
  * Class representing the React MemberEntry Container Component.
@@ -26,4 +26,4 @@ class MemberEntry extends React.Component {
   }
 }
 
-export default MemberEntry
+export default MemberEntry;

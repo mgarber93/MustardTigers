@@ -1,5 +1,5 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 /**
  * Class representing the React About Container Component.
@@ -42,4 +42,4 @@ class About extends React.Component {
   }
 }
 
-export default About
+export default About;

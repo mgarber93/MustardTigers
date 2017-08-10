@@ -1,5 +1,5 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 /**
  * Class representing the React ForumEntry Container Component.
@@ -30,4 +30,4 @@ class ForumEntry extends React.Component {
   }
 }
 
-export default ForumEntry
+export default ForumEntry;

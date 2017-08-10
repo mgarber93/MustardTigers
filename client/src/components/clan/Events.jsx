@@ -1,5 +1,5 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 /**
  * Class representing the React Events Container Component.
@@ -20,4 +20,4 @@ class Events extends React.Component {
   }
 }
 
-export default Events
+export default Events;
