@@ -19,22 +19,23 @@ class Main extends React.Component {
 
     return (
       <div className='wrapper'>
-        <main>
-          <Switch>
-            <Route 
-              exact path='/' 
-              component={Home} 
-            />
-            <Route 
-              exact path='/login' 
-              component={Login} 
-            />
-            <Route 
-              exact path='/register' 
-              component={Register} 
-            />
-          </Switch>
-        </main>
+      <main>
+        <Switch>
+          <Route 
+            exact path='/' 
+            component={Home} 
+          />
+          <Route 
+            path='/login' 
+            component={Login}/>
+          <Route 
+            path='/register' 
+          component={Register} />
+          <Route 
+            path='/clan' 
+            component={Clan} />
+        </Switch>
+      </main>
       </div>
     );
   }
