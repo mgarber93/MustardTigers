@@ -22,6 +22,13 @@ router.post('/', (req, res) => {
 });
 
 router.get('/:clan', (req, res) => {
+  return Clan.read({id: req.params.clan})
+    .then(clan => {
+      res.json({results: clan});
+    })
+    .catch(err => {
+      res.status(500).send(err.message);
+    });
 });
 
 router.post('/:clan', (req, res) => {
