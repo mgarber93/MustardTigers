@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Main from './Main.jsx';
+import MainRouter from './MainRouter.jsx';
 import Header from './Header.jsx';
 import { Route, Redirect } from 'react-router';
 
@@ -48,7 +48,7 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        <Main
+        <MainRouter
           registerNewUser={this.registerNewUser.bind(this)}
           loginUser={this.loginUser.bind(this)}
         />
