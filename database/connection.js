@@ -14,6 +14,7 @@ db.clearDb = () => {
       .then(function() {
         db.query('delete from users', null, options);
         db.query('delete from forums', null, options);
+        db.query('delete from posts', null, options);
         return db.query('delete from clans', null, options);
       });
   });

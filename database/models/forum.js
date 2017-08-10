@@ -9,7 +9,7 @@ const ForumModel = db.define('forum', {
   },
 });
 
-clan.model.hasMany(ForumModel, {constraints: false});
+clan.model.hasOne(ForumModel, {constraints: false});
 
 ForumModel.sync();
 
