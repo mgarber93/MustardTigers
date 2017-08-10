@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {Jumbotron, Button, Image} from 'react-bootstrap';
 
 class Home extends React.Component {
@@ -17,8 +17,8 @@ class Home extends React.Component {
           Matt Garber - Brett Kirk - Talis Lazdins - Ian Mobley
         </Jumbotron>
       </div>
-    )
+    );
   }
 }
 
-export default Home
+export default Home;

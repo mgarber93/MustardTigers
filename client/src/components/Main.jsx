@@ -37,8 +37,8 @@ class Main extends React.Component {
         </Switch>
       </main>
       </div>
-    )
+    );
   }
 }
 
-export default Main
+export default Main;
