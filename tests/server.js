@@ -52,7 +52,7 @@ describe('', function() {
       User.create(user)
         .then(newUser => {
           request.delete(`/users/${newUser.id}`)
-            .expect(200);
+            .expect(200, done);
         });
     });
 
