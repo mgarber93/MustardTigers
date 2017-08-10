@@ -3,11 +3,11 @@ import MemberEntry from './MemberEntry.jsx';
 import { Switch, Route } from 'react-router-dom';
 
 /**
- * Class representing the React MemberEntry Container Component.
- * @extends MemberEntry
+ * Class representing the React Members Container Component.
+ * @extends Members
  */
 
-class MemberEntry extends React.Component {
+class Members extends React.Component {
   constructor (props) {
     super(props);
   }
@@ -26,4 +26,4 @@ class MemberEntry extends React.Component {
   }
 }
 
-export default MemberEntry;
+export default Members;
