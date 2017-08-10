@@ -9,6 +9,11 @@ import LoginForm from './LoginForm.jsx';
  */
  
 class Register extends React.Component {
+  /**
+   * Receive and post a new user object to the server
+   * @param {Object} user Has a `username` and `password` property
+   * @todo Redirect on success or inform user on failure
+   */
   userRegister (user) {
     axios.post('/users', user)
       .then(function(result) {
