@@ -12,10 +12,13 @@ db.clearDb = () => {
     const options = { raw: true, transaction: t };
     return Promise.resolve(db)
       .then(function() {
-        db.query('delete from users', null, options);
-        db.query('delete from forums', null, options);
-        db.query('delete from posts', null, options);
-        return db.query('delete from clans', null, options);
+        return Promise.all([
+          db.query('delete from users', null, options),
+          db.query('delete from forums', null, options),
+          db.query('delete from posts', null, options),
+          db.query('delete from members', null, options),
+          db.query('delete from clans', null, options),
+        ]);
       });
   });
 };
