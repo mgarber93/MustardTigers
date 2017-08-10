@@ -1,33 +1,11 @@
 const supertest = require('supertest');
-const bodyParser = require('body-parser');
-const Sequelize = require('sequelize');
-
 const { app } = require('../server/server');
 const request = supertest.agent(app);
-
-app.listen(process.env.port || 8080, function() {
-  console.log(`Listening on ${process.env.port || 8080}`);
-});
-
-
 
 /**
  * @todo Double check with the database that changes went through.
  */
 describe('', function() {
-  var newUser;
-  // Save for later
-  // const db = new Sequelize(process.env.DATABASE_URL, { logging: false });
-  // var server;
-  // const tablenames = ['users'];
-
-  beforeEach(function(done) {
-    // clearDB(db, tablenames, function() {
-    //   done();
-    // });
-    done();
-  });
-
   describe('Express Middleware', function() {
 
     it('should have index.html', function(done) {
@@ -51,12 +29,12 @@ describe('', function() {
       request.post('/users')
         .send({username: 'foo', password: 'bar'})
         .set('Content-Type', 'application/json')
-        .expect(/[0-9]/, done);
+        .expect(200, done);
     });
 
     it('should delete a new user with delete to /users ', function(done) {
       request.delete('/users/0')
-        .expect(/[0-9]/, done);
+        .expect(200, done);
     });
 
   });

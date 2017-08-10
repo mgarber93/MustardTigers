@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { Jumbotron } from 'react-bootstrap';
 import LoginForm from './LoginForm.jsx';
@@ -8,22 +9,27 @@ import LoginForm from './LoginForm.jsx';
  */
  
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      controlLabel: 'Login'
-    };
-  }
-
-  userLogin () {
-    console.log('Login Sucess')
+  /**
+   * Receive and post a user object to the server
+   * @param {Object} user Has a `username` and `password` property
+   * @todo Redirect on success or inform user on failure
+   */
+  userLogin (user) {
+    axios.post('/auth/local', user)
+      .then(function(result) {
+        console.log(result);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   render () {
     return (
       <div className="container">
         <Jumbotron>
-          <LoginForm action={this.userLogin.bind(this)} controlLabel={this.state.controlLabel}/>
+          <LoginForm action={this.userLogin.bind(this)} controlLabel="Login">
+          </LoginForm>
         </Jumbotron>
       </div>
     );

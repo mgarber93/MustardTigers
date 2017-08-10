@@ -53,10 +53,10 @@ User.create = function({username, password}) {
 User.validate = function({username, password}) {
   return UserModel.findOne({where: {username}})
     .then(function(user) {
-      if (user) {
-        return user.password === hashData(password, user.salt);
+      if (user && user.password === hashData(password, user.salt)) {
+        return user;
       } else {
-        return false;
+        return null;
       }
     });
 };
