@@ -73,7 +73,7 @@ User.findAll = function() {
   return UserModel.findAll().map(sanitize);
 };
 
-User.read = function({id, username}) {
+User.read = User.find = function({id, username}) {
   return UserModel.find({where: {id}})
     .then(sanitize);
 };
