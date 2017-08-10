@@ -1,53 +1,11 @@
 const supertest = require('supertest');
-const bodyParser = require('body-parser');
-const Sequelize = require('sequelize');
-
 const { app } = require('../server/server');
 const request = supertest.agent(app);
-
-app.listen(process.env.port || 8080, function() {
-  console.log(`Listening on ${process.env.port || 8080}`);
-});
-
-
 
 /**
  * @todo Double check with the database that changes went through.
  */
 describe('', function() {
-  var newUser;
-  // Save for later
-  // const db = new Sequelize(process.env.DATABASE_URL, { logging: false });
-  // var server;
-  // const tablenames = ['users'];
-
-  /**
-   * When we query the database use this function to reset it back to a known
-   * state before each test.
-   * 
-   * @param  {object}   connection - Connection object 
-   * @param  {array}    tablenames - Tables to clear 
-   * @param  {function} done       - Callback function
-   */
-  var clearDB = function(connection, tablenames, done) {
-    var count = 0;
-    tablenames.forEach(function(tablename) {
-      connection.query('DROP TABLE IF EXISTS ' + tablename, function() {
-        count++;
-        if (count === tablenames.length) {
-          return schema(db).then(done);
-        }
-      });
-    });
-  };
-
-  beforeEach(function(done) {
-    // clearDB(db, tablenames, function() {
-    //   done();
-    // });
-    done();
-  });
-
   describe('Express Middleware', function() {
 
     it('should have index.html', function(done) {
