@@ -71,12 +71,12 @@ describe('', function() {
       request.post('/users')
         .send({username: 'foo', password: 'bar'})
         .set('Content-Type', 'application/json')
-        .expect('"foo"', done);
+        .expect(200, done);
     });
 
     it('should delete a new user with delete to /users ', function(done) {
       request.delete('/users/0')
-        .expect(/[0-9]/, done);
+        .expect(200, done);
     });
 
   });
