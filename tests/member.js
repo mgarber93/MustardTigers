@@ -35,4 +35,24 @@ describe('Member Schema', function() {
         done();
       });
   });
+
+  xit('reads members', function(done) {
+    User.create(user)
+      .then(newUser => {
+        user = newUser;
+        clan.userId = newUser.id;
+        return Clan.create(clan);
+      })
+      .then(newClan => {
+        return Member.create(user.id, newClan.id);
+      })
+      .then(newMember => {
+        return Member.read()
+        done();
+      })
+      .catch(err => {
+        console.error(err);
+        done();
+      });
+  });
 });

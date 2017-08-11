@@ -4,15 +4,9 @@ const {Sequelize, db} = require('../connection');
 
 /**
  * Set up join table,
- * For now let default role be rank 1000, lower ranks take priority.
+ * @todo roles
  */
-const MemberModel = db.define('member', {
-  // role: {
-  //   type: Sequelize.ENUM,
-  //   values: ['admin', 'moderator', 'member'],
-  //   defaultValue: 'member' 
-  // }
-});
+const MemberModel = db.define('member');
 
 
 Clan.model.belongsToMany(User.model, {constraints: false, through: MemberModel});
@@ -25,15 +19,11 @@ var Member = {model: MemberModel};
 Member.create = Member.joinUserToClan = function(userId, clanId) {
   return User.find({id: userId})
     .then(user => {
-      if (!user) {
-        throw new Error('No such user! ' + userId);
-      }
+      if (!user) { throw new Error('No such user! ' + userId); }
       return Clan.find({id: clanId});
     })
     .then(clan => {
-      if (!clan) {
-        throw new Error('No such clan! ' + clanId);
-      }
+      if (!clan) { throw new Error('No such clan! ' + clanId); }
       return MemberModel.create({userId, clanId});
     });
 };
