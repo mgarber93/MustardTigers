@@ -47,7 +47,7 @@ describe('Member Schema', function() {
         return Member.create(user.id, newClan.id);
       })
       .then(newMember => {
-        return Member.read()
+        return Member.read();
         done();
       })
       .catch(err => {
