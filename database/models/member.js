@@ -48,4 +48,8 @@ Member.read = function({id}) {
   return Member.model.find({id});
 };
 
+Member.readAll = function() {
+  return Member.model.findAll();
+};
+
 module.exports = Member;
