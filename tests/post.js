@@ -44,7 +44,10 @@ describe('Post Schema', function() {
         expect(newPost.userId).to.equal(post.userId);
         expect(newPost.forumId).to.equal(post.forumId);
         done();
-      }).catch(done);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   });
 
 });

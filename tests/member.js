@@ -19,7 +19,7 @@ describe('Member Schema', function() {
   it('inserts new members', function(done) {
     User.create(user)
       .then(newUser => {
-        user = newUser;
+        user.id = newUser.id;
         clan.userId = newUser.id;
         return Clan.create(clan);
       })
@@ -36,22 +36,59 @@ describe('Member Schema', function() {
       });
   });
 
-  xit('reads members', function(done) {
+  it('reads a member', function(done) {
     User.create(user)
       .then(newUser => {
-        user = newUser;
+        user.id = newUser.id;
         clan.userId = newUser.id;
         return Clan.create(clan);
       })
       .then(newClan => {
+        clan.id = newClan.id;
         return Member.create(user.id, newClan.id);
       })
       .then(newMember => {
-        return Member.read();
+        return Member.read({id: newMember.id});
+      })
+      .then(readMember => {
+        expect(readMember).to.exist;
+        expect(readMember.userId).to.equal(user.id);
+        expect(readMember.clanId).to.equal(clan.id);
         done();
       })
       .catch(err => {
         console.error(err);
+        done();
+      });
+  });
+  it('reads members', function(done) {
+    User.create(user)
+      .then(newUser => {
+        user.id = newUser.id;
+        return User.create(user2);
+      })
+      .then(newUser => {
+        user2 = newUser;
+        clan.userId = newUser.id;
+        return Clan.create(clan);
+      })
+      .then(newClan => {
+        clan.id = newClan.id;
+        return Member.create(user.id, newClan.id);
+      })
+      .then(() => {
+        return Member.create(user2.id, clan.id);
+      })
+      .then(newMember => {
+        return Member.readAll();
+      })
+      .then(readMember => {
+        expect(readMember).to.exist;
+        expect(Array.isArray(readMember)).to.equal(true);
+        expect(readMember[0].userId).to.equal(user.id);
+        expect(readMember[1].userId).to.equal(user2.id);
+        expect(readMember[0].clanId).to.equal(clan.id);
+        expect(readMember[1].clanId).to.equal(clan.id);
         done();
       });
   });
