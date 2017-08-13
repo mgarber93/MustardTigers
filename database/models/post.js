@@ -25,8 +25,8 @@ const PostModel = db.define('post', {
   }
 });
 
-Forum.model.hasOne(PostModel, {constraints: false});
-User.model.hasOne(PostModel, {constraints: false });
+Forum.model.hasOne(PostModel, {constraints: true});
+User.model.hasOne(PostModel, {constraints: true});
 
 PostModel.sync();
 
