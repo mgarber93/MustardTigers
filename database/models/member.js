@@ -6,7 +6,13 @@ const {Sequelize, db} = require('../connection');
  * Set up join table,
  * @todo roles
  */
-const MemberModel = db.define('member');
+const MemberModel = db.define('member', {
+  confirmed: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  }
+});
 
 
 Clan.model.belongsToMany(User.model, {constraints: false, through: MemberModel});
@@ -16,7 +22,7 @@ MemberModel.sync();
 
 var Member = {model: MemberModel};
 
-Member.create = Member.joinUserToClan = function(userId, clanId) {
+Member.create = Member.joinUserToClan = function(userId, clanId, confirmed = false) {
   return User.find({id: userId})
     .then(user => {
       if (!user) { throw new Error('No such user! ' + userId); }
@@ -24,23 +30,7 @@ Member.create = Member.joinUserToClan = function(userId, clanId) {
     })
     .then(clan => {
       if (!clan) { throw new Error('No such clan! ' + clanId); }
-      return MemberModel.create({userId, clanId});
-    });
-};
-
-Member.create = Member.joinUserToClan = function(userId, clanId) {
-  return User.find({id: userId})
-    .then(user => {
-      if (!user) {
-        throw new Error('No such user! ' + userId);
-      }
-      return Clan.find({id: clanId});
-    })
-    .then(clan => {
-      if (!clan) {
-        throw new Error('No such clan! ' + clanId);
-      }
-      return MemberModel.create({userId, clanId});
+      return MemberModel.create({userId, clanId, confirmed});
     });
 };
 
