@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../database/models/user');
+const Member = require('../database/models/member');
   
 
 /**
@@ -40,6 +41,119 @@ router.route('/')
       .catch(except => {
         res.status(400);
         res.end(except.message || 'Unable to create user!');
+      })
+      .error(error => {
+        res.status(500);
+        res.end(error.message || 'Internal error');
+      });
+  });
+
+
+/**
+ * A get request to the users /members endpoint returns all the user's memberships
+ * as an array of json objects. A post with the clanId to the users /members endpoint
+ * creates a new membership and returns the new member id as the id property of the 
+ * reponse.
+ * 
+ * @param  {function} (req, res, next) - Request handler 
+ */
+router.route('/:user/members')
+  .get((req, res, next) => {
+    Member.findAll({userId: req.params.user})
+      .then(doc => {
+        res.status(200);
+        res.json({results: doc});
+        res.end();
+      })
+      .catch(except => {
+        res.status(400);
+        res.end(except.message || 'Unable to fetch user\'s memberships!');
+      })
+      .error(error => {
+        res.status(500);
+        res.end(error.message || 'Internal error');
+      });
+  })
+  .post((req, res, next) => {
+    Member.create({
+      userId: req.params.user,
+      clanId: req.body.clanId
+    })
+      .then(({id}) => {
+        res.status(200);
+        res.json({id});
+        res.end();
+      })
+      .catch(except => {
+        res.status(400);
+        res.end(except.message || 'Unable to create membership!');
+      })
+      .error(error => {
+        res.status(500);
+        res.end(error.message || 'Internal error');
+      });
+  });
+
+/**
+ * Read, update, or delete a specific users memberships by sending a get, 
+ * post, or delete verb to the user's /members endpoint. On success, post 
+ * and delete will return the changed members's id.
+ * 
+ * @param  {function} (req, res, next) - Request handler 
+ */
+router.route('/:user/members/:member')
+  .get((req, res, next) => {
+    Member.read({
+      id: req.params.member, 
+      userId: req.params.user,
+    }) 
+      .then(doc => {
+        res.status(200);
+        res.json({results: doc});
+        res.end();
+      })
+      .catch(except => {
+        res.status(400);
+        res.end(except.message || 'Unable to fetch users!');
+      })
+      .error(error => {
+        res.status(500);
+        res.end(error.message || 'Internal error');
+      });
+  })
+  .post((req, res, next) => {
+    Member.update({
+      id: req.params.member,
+      userId: req.params.user,
+    }, {
+    })
+      .then(doc => {
+        res.status(200);
+        res.json({id: doc.id});
+        res.end();
+      })
+      .catch(except => {
+        res.status(except.status || 400);
+        res.end(except.message || 'Unable to update user!');
+      })
+      .error(error => {
+        res.status(500);
+        res.end(error.message || 'Internal error');
+      });
+  })
+  .delete((req, res, next) => {
+    Member.delete({
+      id: req.params.member,
+      userId: req.params.user,
+    })
+      .then(doc => {
+        res.status(200);
+        res.json({id: req.params.id});
+        res.end();
+      })
+      .catch(except => {
+        res.status(except.status || 400);
+        res.end(except.message || 'Unable to delete users!');
       })
       .error(error => {
         res.status(500);
