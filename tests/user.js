@@ -23,7 +23,11 @@ describe('User Schema', function() {
         expect(newUser.salt).to.exist;
         expect(newUser.password).to.not.equal(user.password);
         done();
-      }).catch(done);
+      })
+      .catch(err => {
+        console.error(err);
+        done();
+      });
   });
 
   it('does not allow duplicate users', function(done) {
@@ -34,7 +38,11 @@ describe('User Schema', function() {
             expect(error.message).to.equal('User already exists');
             done();
           });
-      }).catch(done);
+      })
+      .catch( err => {
+        console.error(err);
+        done();
+      });
   });
 
   it ('validates existing users', function(done) {
@@ -46,7 +54,10 @@ describe('User Schema', function() {
         expect(user).to.exist;
         done();
       })
-      .catch(done);
+      .catch(err => {
+        console.error(err);
+        done();
+      });
   });
 
 
@@ -58,7 +69,11 @@ describe('User Schema', function() {
         expect(newUser.salt).to.not.exist;
         expect(newUser.password).to.not.exist;
         done();
-      }).catch(done);
+      })
+      .catch(err => {
+        console.error(err);
+        done();
+      });
   });
 
   it ('sanitizes user data on read', function(done) {
@@ -72,7 +87,11 @@ describe('User Schema', function() {
         expect(newUser.salt).to.not.exist;
         expect(newUser.password).to.not.exist;
         done();
-      }).catch(done);
+      })
+      .catch(err => {
+        console.error(err); 
+        done();
+      });
   });
 
   it ('sanitizes user data on findAll', function(done) {
@@ -91,6 +110,10 @@ describe('User Schema', function() {
           expect(user.password).to.not.exist;
         });
         done();
-      }).catch(done);
+      })
+      .catch(err => {
+        console.error(err);
+        done();
+      });
   });
 });

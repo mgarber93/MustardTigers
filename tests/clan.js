@@ -26,7 +26,11 @@ describe('Clan Schema', function() {
         expect(newClan.name).to.equal(clan.name);
         expect(newClan.userId).to.equal(clan.userId);
         done();
-      }).catch(done);
+      })
+      .catch(err=> {
+        console.error(err);
+        done();
+      });
   });
 
   it('does not allow duplicate clans', function(done) {
@@ -58,7 +62,10 @@ describe('Clan Schema', function() {
         expect(newClan.name).to.exist;
         done();
       })
-      .catch(done);
+      .catch(err => {
+        console.error(err);
+        done();
+      });
   });
 
 });

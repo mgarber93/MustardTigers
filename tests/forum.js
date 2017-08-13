@@ -24,14 +24,17 @@ describe('Forum Schema', function() {
       })
       .then(newClan => {
         forum.userId = newClan.userId;
-        Forum.create(forum)
-          .then(function(newForum) {
-            expect(newForum).to.exist;
-            expect(newForum.name).to.equal(forum.name);
-            expect(newForum.clanId).to.equal(forum.userId);
-            done();
-          }).catch(done);
+        return Forum.create(forum);
+      })
+      .then(function(newForum) {
+        expect(newForum).to.exist;
+        expect(newForum.name).to.equal(forum.name);
+        expect(newForum.clanId).to.equal(forum.userId);
+        done();
+      })
+      .catch(err => {
+        console.error(err);
+        done();
       });
   });
-
 });
