@@ -61,6 +61,7 @@ describe('Member Schema', function() {
         done();
       });
   });
+
   it('reads members', function(done) {
     User.create(user)
       .then(newUser => {
@@ -92,4 +93,5 @@ describe('Member Schema', function() {
         done();
       });
   });
+
 });
