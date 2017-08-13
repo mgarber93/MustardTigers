@@ -15,8 +15,8 @@ ClanModel.sync();
 
 var Clan = {model: ClanModel};
 
-Clan.findAll = function() {
-  return ClanModel.findAll();
+Clan.findAll = function(query = {}) {
+  return ClanModel.findAll({where: query});
 };
 
 /**
@@ -33,11 +33,11 @@ Clan.create = function({name, userId}) {
 };
 
 Clan.read = Clan.find = function(query) {
-  return ClanModel.find({where: query});
+  return ClanModel.findOne({where: query});
 };
 
 Clan.update = function(query, values) {
-  return ClanModel.update({values: values}, {where: query});
+  return ClanModel.update({values}, {where: query});
 };
 
 Clan.delete = function(query) {

@@ -44,12 +44,12 @@ Member.create = Member.joinUserToClan = function(userId, clanId) {
     });
 };
 
-Member.read = function({id}) {
-  return Member.model.find({id});
+Member.read = Member.find = function({id}) {
+  return Member.model.findOne({id});
 };
 
-Member.readAll = function() {
-  return Member.model.findAll();
+Member.findAll = Member.readAll = function(query = {}) {
+  return Member.model.findAll({where: query});
 };
 
 module.exports = Member;

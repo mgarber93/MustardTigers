@@ -15,8 +15,8 @@ ForumModel.sync();
 
 const Forum = {model: ForumModel};
 
-Forum.findAll = function() {
-  return ForumModel.findAll();
+Forum.findAll = function(query = {}) {
+  return ForumModel.findAll({where: query});
 };
 
 /**
@@ -34,8 +34,8 @@ Forum.create = function({name}) {
     });
 };
 
-Forum.read = function(query) {
-  return ForumModel.find({where: query});
+Forum.read = Forum.find = function(query) {
+  return ForumModel.findOne({where: query});
 };
 
 Forum.update = function(query, values) {
