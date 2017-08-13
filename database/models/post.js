@@ -32,8 +32,8 @@ PostModel.sync();
 
 const Post = {model: PostModel};
 
-Post.findAll = function() {
-  return PostModel.findAll();
+Post.findAll = function(query = {}) {
+  return PostModel.findAll({where: {}});
 };
 
 /**
@@ -49,12 +49,12 @@ Post.create = ({title, body, upvotes, downvotes, pinned, userId, forumId}) => {
   return PostModel.create({title, body, upvotes, downvotes, pinned, userId, forumId});
 };
 
-Post.read = function(query) {
-  return PostModel.find({where: query});
+Post.read = Post.find = function(query) {
+  return PostModel.findOne({where: query});
 };
 
 Post.update = function(query, values) {
-  return PostModel.update({values: values}, {where: query});
+  return PostModel.update({values}, {where: query});
 };
 
 Post.delete = function(query) {

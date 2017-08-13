@@ -69,12 +69,12 @@ User.validate = function({username, password}) {
     });
 };
 
-User.findAll = function() {
-  return UserModel.findAll().map(sanitize);
+User.findAll = function(query = {}) {
+  return UserModel.findAll({where: query}).map(sanitize);
 };
 
 User.read = User.find = function({id, username}) {
-  return UserModel.find({where: {id}})
+  return UserModel.findOne({where: {id}})
     .then(sanitize);
 };
 
