@@ -91,6 +91,9 @@ describe('Member Schema', function() {
         expect(readMember[0].clanId).to.equal(clan.id);
         expect(readMember[1].clanId).to.equal(clan.id);
         done();
+      })
+      .catch(err => {
+        console.error(err);
       });
   });
 
