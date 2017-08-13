@@ -15,8 +15,8 @@ const MemberModel = db.define('member', {
 });
 
 
-Clan.model.belongsToMany(User.model, {constraints: false, through: MemberModel});
-User.model.belongsToMany(Clan.model, {constraints: false, through: MemberModel});
+Clan.model.belongsToMany(User.model, {constraints: true, through: MemberModel});
+User.model.belongsToMany(Clan.model, {constraints: true, through: MemberModel});
 
 MemberModel.sync();
 
@@ -40,6 +40,10 @@ Member.read = Member.find = function({id}) {
 
 Member.findAll = Member.readAll = function(query = {}) {
   return Member.model.findAll({where: query});
+};
+
+Member.confirm = function({id, userId}) {
+  return Member.model.update({confirmed: true}, {id, userId});
 };
 
 module.exports = Member;
