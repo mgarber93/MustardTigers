@@ -77,7 +77,8 @@ router.route('/:user/members')
   .post((req, res, next) => {
     Member.create(
       req.params.user,
-      req.body.clanId
+      req.body.clanId,
+      false
     )
       .then(({clanId}) => {
         res.status(200);
@@ -99,7 +100,10 @@ router.route('/:user/members')
  * Read, update, or delete a specific users memberships by sending a get, 
  * post, or delete verb to the user's /members endpoint. On success, post 
  * and delete will return the changed members's id. Users should not be 
- * able to confirm their own membership.
+ * able to confirm their own membership. 
+ * 
+ * @todo Posts to the /users/:user/members/:clanId should be authenticated
+ *  as a clan admin/mod.
  * 
  * @param  {function} (req, res, next) - Request handler 
  */
@@ -128,6 +132,7 @@ router.route('/:user/members/:clanId')
       userId: req.params.user,
       clanId: req.params.clanId, 
     }, {
+      confirmed: req.body.confirmed
     })
       .then(doc => {
         res.status(200);
