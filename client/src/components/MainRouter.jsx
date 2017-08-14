@@ -4,6 +4,7 @@ import ClanRouter from './clan/ClanRouter.jsx';
 import Login from './auth/Login.jsx';
 import Register from './auth/Register.jsx';
 import { Switch, Route } from 'react-router-dom';
+import User from './User.jsx';
 
 /**
  * Class representing the React Main Container Component.
@@ -22,30 +23,36 @@ class MainRouter extends React.Component {
         description: 'This is the best clan in all the world',
         foundedDate: 'July 2017'
       }
-    }
+    };
   }
 
+  /**
+   * Use /users/:username as a valid endpoint since userId's are used to retrieve
+   * JSON data.
+   */
   render() {
-
     return (
       <div className='wrapper'>
-      <main>
-        <Switch>
-          <Route 
-            exact path='/' 
-            component={Home} 
-          />
-          <Route 
-            path='/login' 
-            component={Login}/>
-          <Route 
-            path='/register' 
-          component={Register} />
-          <Route
-            path='/clan' 
-            render={(props) => <ClanRouter {...props} clan={this.state.clan}/>}/>
-        </Switch>
-      </main>
+        <main>
+          <Switch>
+            <Route 
+              exact path='/' 
+              component={Home} 
+            />
+            <Route 
+              path='/login' 
+              component={props => <Login {...props} loginUser={this.props.loginUser}/>}/>
+            <Route 
+              path='/register' 
+              component={Register} />
+            <Route
+              path='/clan' 
+              render={(props) => <ClanRouter {...props} clan={this.state.clan}/>}/>
+            <Route
+              path='/users/*' 
+              render={(props) => <User user={this.props.user} addNewClan={this.props.addNewClan}/>}/>
+          </Switch>
+        </main>
       </div>
     );
   }

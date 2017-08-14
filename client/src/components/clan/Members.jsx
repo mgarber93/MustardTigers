@@ -15,14 +15,14 @@ class Members extends React.Component {
   render() {
 
     var members = this.props.members.map((member, i) => {
-      return <MemberEntry member={member} key={i} />
+      return <MemberEntry member={member} key={i} />;
     });
 
     return (
       <div className='members'>
         {members}
       </div>
-    )
+    );
   }
 }
 

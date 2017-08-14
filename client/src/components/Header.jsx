@@ -4,40 +4,50 @@ import {LinkContainer} from 'react-router-bootstrap';
 import {Navbar, Nav, NavItem, Glyphicon} from 'react-bootstrap';
 
 /**
- * Class representing the React Header Component.
+ * Component representing the React Header Component.
  * @extends Header
  */
  
-class Header extends React.Component {
-  constructor (props) {
-    super(props);
-  }
-  
-  render() {
-    return (
-      <Navbar collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/">Mustard Tiger Clan Builder</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            <LinkContainer to='/clan'>
-              <NavItem>Clan</NavItem>
+const Header = ({username}) => (
+  <Navbar collapseOnSelect>
+    <Navbar.Header>
+      <Navbar.Brand>
+        <Link to="/">Mustard Tiger Clan Builder</Link>
+      </Navbar.Brand>
+      <Navbar.Toggle />
+    </Navbar.Header>
+    <Navbar.Collapse>
+      <Nav pullRight>
+        <LinkContainer to='/clan'>
+          <NavItem>Clan</NavItem>
+        </LinkContainer> 
+        {username ? 
+          (
+            <LinkContainer to={`/users/${username}`}>
+              <NavItem>{username}</NavItem>
             </LinkContainer>
+          ) : 
+          (
             <LinkContainer to='/login'>
               <NavItem>Login</NavItem>
             </LinkContainer>
+          )
+        }
+        {username ? 
+          (
+            <LinkContainer to='/signout'>
+              <NavItem>Signout</NavItem>
+            </LinkContainer>
+          ) : 
+          (
             <LinkContainer to='/register'>
               <NavItem>Register</NavItem>
             </LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    );
-  }
-}
+          )
+        }
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
+);
 
 export default Header;
