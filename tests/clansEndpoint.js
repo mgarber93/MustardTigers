@@ -78,7 +78,7 @@ describe('Clans API Endpoint', function() {
       })
       .then(() => {
         request.get('/clans')
-          .query({name: 'barbara streisand'})
+          .query({name: 'Barbara Streisand'})
           .expect(res => {
             expect(res.body.results.length).to.equal(0);
           })
