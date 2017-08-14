@@ -34,16 +34,20 @@ Member.create = Member.joinUserToClan = function(userId, clanId, confirmed = fal
     });
 };
 
-Member.read = Member.find = function({id}) {
-  return Member.model.findOne({id});
+Member.read = Member.find = function(query) {
+  return Member.model.findOne(query);
 };
 
-Member.findAll = Member.readAll = function(query = {}) {
+Member.readAll = Member.findAll = function(query = {}) {
   return Member.model.findAll({where: query});
 };
 
-Member.confirm = function({id, userId}) {
-  return Member.model.update({confirmed: true}, {id, userId});
+Member.confirm = function({userId, clanId}) {
+  return Member.model.update({confirmed: true}, {userId, clanId});
+};
+
+Member.delete = function({userId, clanId}) {
+  return Member.model.destroy({where: {userId, clanId}});
 };
 
 module.exports = Member;
