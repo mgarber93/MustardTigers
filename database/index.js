@@ -3,5 +3,6 @@ module.exports = {
   Clan: require('./models/clan'),
   Forum: require('./models/forum'),
   Post: require('./models/post'),
-  Member: require('./models/member')
+  Member: require('./models/member'),
+  PostVote: require('./models/postVote')
 };

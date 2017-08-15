@@ -11,14 +11,6 @@ const PostModel = db.define('post', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  upvotes: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-  },
-  downvotes: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-  },
   pinned: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
