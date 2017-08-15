@@ -18,6 +18,7 @@ db.clearDb = () => {
           db.query('delete from posts', null, options),
           db.query('delete from members', null, options),
           db.query('delete from clans', null, options),
+          db.query('delete from postVotes', null, options),
         ]);
       });
   });
