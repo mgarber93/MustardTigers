@@ -9,10 +9,10 @@
   },
   "scripts": {
     "test": "mocha ./tests",
-    "build": "webpack",
+    "build": "webpack -p",
     "start": "nodemon ./server/index.js",
     "lint": "eslint .",
-    "react-dev": "webpack -d --watch",
+    "react-dev": "webpack -dw",
     "server-dev": "nodemon server/index.js",
     "heroku-postbuild": "webpack -p"
   },
