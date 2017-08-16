@@ -35,8 +35,10 @@ app.use(session({
  */
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.use('/users', require('./users'));
-app.use('/auth', require('./auth'));
+app.use('/api', express.Router()
+  .use('/users', require('./users'))
+  .use('/auth', require('./auth'))
+);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
