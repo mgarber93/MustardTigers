@@ -8,30 +8,12 @@ import LoginForm from './LoginForm.jsx';
  * @extends Login
  */
  
-class Register extends React.Component {
-  /**
-   * Receive and post a new user object to the server
-   * @param {Object} user Has a `username` and `password` property
-   * @todo Redirect on success or inform user on failure
-   */
-  userRegister (user) {
-    axios.post('/users', user)
-      .then(function(result) {
-        console.log(result);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  }
+const Register = ({registerUser}) => (
+  <div className="container">
+    <Jumbotron>
+      <LoginForm action={registerUser} controlLabel="Register" />
+    </Jumbotron>
+  </div>
+);
 
-  render () {
-    return (
-      <div className="container">
-        <Jumbotron>
-          <LoginForm action={this.userRegister.bind(this)} controlLabel="Register" />
-        </Jumbotron>
-      </div>
-    );
-  }
-}
 export default Register;

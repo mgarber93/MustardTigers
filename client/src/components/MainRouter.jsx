@@ -44,7 +44,7 @@ class MainRouter extends React.Component {
               component={props => <Login {...props} loginUser={this.props.loginUser}/>}/>
             <Route 
               path='/register' 
-              component={Register} />
+              component={props => <Register {...props} registerUser={this.props.registerUser}/>} />
             <Route
               path='/clan' 
               render={(props) => <ClanRouter {...props} clan={this.state.clan}/>}/>

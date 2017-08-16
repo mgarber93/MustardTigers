@@ -24,7 +24,7 @@ class App extends React.Component {
     };
 
     this.fetchUsersMemberships = this.fetchUsersMemberships.bind(this);
-    this.registerNewUser = this.registerNewUser.bind(this);
+    this.registerUser = this.registerUser.bind(this);
     this.registerNewClan = this.registerNewClan.bind(this);
     this.fetchUsers = this.fetchUsers.bind(this);
     this.loginUser = this.loginUser.bind(this);
@@ -55,7 +55,7 @@ class App extends React.Component {
   }
 
   fetchUsers() {
-    axios.get('/users/')
+    axios.get('/api/users/')
       .then(data => {
         this.setState({users: data});
       })
@@ -65,7 +65,7 @@ class App extends React.Component {
   }
 
   fetchUsersMemberships(userId) {
-    axios.get(`/users/${userId}/members/`)
+    axios.get(`/api/users/${userId}/members/`)
       .then(data => {
         this.setState(
           {
@@ -86,15 +86,25 @@ class App extends React.Component {
       });
   }
 
-  registerNewUser(user) {
+  registerUser(user) {
     console.log('(Client) Registering New User');
-    axios.post('/auth/local', user)
-      .then(data => {
-        console.log('(Client) Success! Registering New User');
-        //Set State here or at registration success?
+    axios.post('/api/users', user)
+      .then(result => {
+        this.setState(
+          {
+            user: {
+              userId: result.data.id,
+              username: user.username,
+            }
+          },
+          () => {
+            console.log('You are logged in!', this.state.user.username, this.state.user.userId);
+            this.fetchUsersMemberships(this.state.user.userId);
+          }
+        );
       })
       .catch(err => {
-        console.log('(Client) Success! Registering New User');
+        console.log(err);
       });
   }
 
@@ -104,7 +114,7 @@ class App extends React.Component {
       throw new Error('You must be signed in to create a clan!');
     }
     clan.userId = this.state.user.userId;
-    axios.post('/clans/', clan)
+    axios.post('/api/clans/', clan)
       .then(data => {
         console.log('(Client) Success! Registered New clan');
       })
@@ -119,7 +129,7 @@ class App extends React.Component {
    * @todo Redirect on success or inform user on failure
    */
   loginUser(user) {
-    axios.post('/auth/local', user)
+    axios.post('/api/auth/local', user)
       .then(result => {
         this.setState(
           {
@@ -145,7 +155,7 @@ class App extends React.Component {
         <Header username={this.state.user.username}/>
         <MainRouter
           user={this.state.user}
-          registerNewUser={this.registerNewUser}
+          registerUser={this.registerUser}
           loginUser={this.loginUser}
           logOut={this.logOut}
           addNewClan={this.registerNewClan}
