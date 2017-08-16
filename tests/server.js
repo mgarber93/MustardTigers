@@ -33,21 +33,21 @@ describe('', function() {
     });
 
     it('should have users', function(done) {
-      request.get('/users')
+      request.get('/api/users')
         .expect(200, done);
     });
 
     it('should return users from get to /users/:user', function(done) {
       User.create(user)
         .then(newUser => {
-          request.get(`/users/${newUser.id}`)
+          request.get(`/api/users/${newUser.id}`)
             .expect(200)
             .expect('Content-Type', /json/, done);
         });
     });
 
     it('should create a new user with post to /users ', function(done) {
-      request.post('/users')
+      request.post('/api/users')
         .send({username: 'foo', password: 'bar'})
         .set('Content-Type', 'application/json')
         .expect(200, done);
@@ -56,7 +56,7 @@ describe('', function() {
     it('should delete a new user with delete to /users ', function(done) {
       User.create(user)
         .then(newUser => {
-          request.delete(`/users/${newUser.id}`)
+          request.delete(`/api/users/${newUser.id}`)
             .expect(200, done);
         });
     });
@@ -68,7 +68,7 @@ describe('', function() {
           return Clan.create(clan);
         })
         .then(newClan => {
-          request.post(`/users/${clan.userId}/members`)
+          request.post(`/api/users/${clan.userId}/members`)
             .send({clanId: newClan.id})
             .set('Content-Type', 'application/json')
             .expect(200, done);
@@ -87,13 +87,13 @@ describe('', function() {
         })
         .then(newClan => {
           clan.id = newClan.id;
-          return request.post(`/users/${clan.userId}/members`)
+          return request.post(`/api/users/${clan.userId}/members`)
             .send({clanId: newClan.id})
             .set('Content-Type', 'application/json')
             .expect(200);
         })
         .then(response => {
-          return request.delete(`/users/${clan.userId}/members/${clan.id}`);
+          return request.delete(`/api/users/${clan.userId}/members/${clan.id}`);
         })
         .then(response => {
           expect(response.body.clanId).to.equal(String(clan.id));
