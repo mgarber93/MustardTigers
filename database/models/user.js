@@ -34,33 +34,38 @@ const UserModel = db.define('user', {
   }
 });
 
-var User = {model: UserModel};
+UserModel.prototype.toJSON = function() {
+  var values = this.dataValues;
 
-/**
- * Sanitize is a private helper function that sanitizes the output
- * of the model's CRUD functions. For user's table a whitelist strategy is
- * used to filter out password<hash> and salt<hash> data.
- * 
- * @param <object> - A rowData object
- */
-const sanitize = function({id, username, createdAt, updatedAt}) {
-  return {id, username, createdAt, updatedAt};
+  delete values.password;
+  delete values.salt;
+
+  return values;
 };
 
+var User = {model: UserModel};
+
+const privateData = ['password', 'salt'];
+
 User.create = function({username, password}) {
-  return UserModel.find({where: {username}})
-    .then(function(user) {
-      if (user) { throw new Error('User already exists'); }
-      return UserModel.create({username, password});
-    })
-    .then(sanitize);
+  return UserModel.findOrCreate({
+    where: {username},
+    defaults: {password}
+  })
+    .spread(function(user, created) {
+      if (!created) {
+        throw new Error('User already exists');
+      }
+
+      return user.toJSON();
+    });
 };
 
 User.validate = function({username, password}) {
   return UserModel.findOne({where: {username}})
     .then(function(user) {
       if (user && user.password === hashData(password, user.salt)) {
-        return sanitize(user);
+        return user.toJSON();
       } else {
         return null;
       }
@@ -68,25 +73,30 @@ User.validate = function({username, password}) {
 };
 
 User.findAll = function(query = {}) {
-  return UserModel.findAll({where: query}).map(sanitize);
+  return UserModel.findAll({where: query})
+    .map(user => user.toJSON());
 };
 
 User.read = User.find = function({id, username}) {
   return UserModel.findOne({where: {id}})
-    .then(sanitize);
+    .then(user => user.toJSON());
 };
 
 /**
  * @todo test coverage for update!
+ * @todo generate new password hash?
+ * Model.update returns an array with the affected row count and the rows affected.
+ * It should be decided how that is returned later.
  */
 User.update = function(query, values) {
-  return UserModel.update({values: values}, {where: query})
-    .then(doc.map(sanitize));
+  return UserModel.update({values: values}, {where: query});
 };
 
+/**
+ * Model.destroy returns the rows affected and does not need to be sanitized.
+ */
 User.delete = function(query) {
-  return UserModel.destroy({where: query})
-    .then(sanitize);
+  return UserModel.destroy({where: query});
 };
 
 module.exports = User;
