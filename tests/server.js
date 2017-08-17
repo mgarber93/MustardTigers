@@ -20,61 +20,58 @@ describe('Express Middleware', function() {
     return db.sync({force: true});
   });
 
-  it('should have index.html', function(done) {
-    request.get('/')
+  it('should have index.html', function() {
+    return request.get('/')
       .expect(200)
-      .expect('Content-Type', /html/, done);
+      .expect('Content-Type', /html/);
   });
 
-  it('should have users', function(done) {
-    request.get('/api/users')
-      .expect(200, done);
+  it('should have users', function() {
+    return request.get('/api/users')
+      .expect(200);
   });
 
-  it('should return users from get to /users/:user', function(done) {
-    User.create(user)
+  it('should return users from get to /users/:user', function() {
+    return User.create(user)
       .then(newUser => {
-        request.get(`/api/users/${newUser.id}`)
+        return request.get(`/api/users/${newUser.id}`)
           .expect(200)
-          .expect('Content-Type', /json/, done);
+          .expect('Content-Type', /json/);
       });
   });
 
-  it('should create a new user with post to /users ', function(done) {
-    request.post('/api/users')
+  it('should create a new user with post to /users ', function() {
+    return request.post('/api/users')
       .send({username: 'foo', password: 'bar'})
       .set('Content-Type', 'application/json')
-      .expect(200, done);
+      .expect(200);
   });
 
-  it('should delete a new user with delete to /users ', function(done) {
-    User.create(user)
+  it('should delete a new user with delete to /users ', function() {
+    return User.create(user)
       .then(newUser => {
-        request.delete(`/api/users/${newUser.id}`)
-          .expect(200, done);
+        return request.delete(`/api/users/${newUser.id}`)
+          .expect(200);
       });
   });
 
-  it('should create a new member with post to /users/:user/members/ ', function(done) {
-    User.create(user)
+  it('should create a new member with post to /users/:user/members/ ', function() {
+    return User.create(user)
       .then(newUser => {
         clan.userId = newUser.id;
         return Clan.create(clan);
       })
       .then(newClan => {
-        request.post(`/api/users/${clan.userId}/members`)
+        return request.post(`/api/users/${clan.userId}/members`)
           .send({clanId: newClan.id})
           .set('Content-Type', 'application/json')
-          .expect(200, done);
-      })
-      .catch(except => {
-        console.error(except);
+          .expect(200);
       });
   });
 
-  it('should remove membership with delete to /users/:user/members/:member', function(done) {
+  it('should remove membership with delete to /users/:user/members/:member', function() {
     var userId;
-    User.create(user)
+    return User.create(user)
       .then(newUser => {
         clan.userId = newUser.id;
         return Clan.create(clan);
@@ -92,11 +89,6 @@ describe('Express Middleware', function() {
       .then(response => {
         expect(response.body.clanId).to.equal(String(clan.id));
         expect(response.body.userId).to.equal(String(clan.userId));
-        done();
-      })
-      .catch(except => {
-        console.error(except);
       });
   });
-
 });
