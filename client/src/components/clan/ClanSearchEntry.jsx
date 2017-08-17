@@ -18,7 +18,7 @@ class ClanSearchEntry extends React.Component {
 
   render() {
     //TODO: Need to show Add friend when not looking own profile
-    return(
+    return (
       <Media>
         <Media.Left align="top">
           <Image width={64} height={64} src={this.props.clan.clanAvatar} alt={this.props.clan.clanName}/>

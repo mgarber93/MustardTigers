@@ -39,8 +39,9 @@ class LoginForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    let username = this.state.username;
     this.props.action(this.state);
-    this.props.history.push('/');
+    this.props.history.push(`/users/${username}`);
   }
 
   render () {

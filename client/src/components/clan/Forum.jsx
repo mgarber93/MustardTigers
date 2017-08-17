@@ -15,14 +15,14 @@ class Forum extends React.Component {
   render() {
 
     var posts = this.props.posts.map((post, i) => {
-      return <ForumEntry post={post} key={i} />
+      return <ForumEntry post={post} key={i} />;
     });
 
     return (
-      <div className='posts'>
+      <div>
         {posts}
       </div>
-    )
+    );
   }
 }
 
