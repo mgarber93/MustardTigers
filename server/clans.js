@@ -58,7 +58,7 @@ router.post('/', (req, res) => {
 
 router.post('/:clan', (req, res) => {
   Clan.update({id: req.params.clan}, req.body)
-    .then(affected => {
+    .spread(affected => {
       if (affected) {
         res.sendStatus(202);
       } else {

@@ -45,7 +45,7 @@ Clan.read = Clan.find = function(query) {
 };
 
 Clan.update = function(query, values) {
-  return ClanModel.update({values}, {where: query});
+  return ClanModel.update(values, {where: query});
 };
 
 Clan.delete = function(query) {

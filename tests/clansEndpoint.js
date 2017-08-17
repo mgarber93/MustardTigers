@@ -79,4 +79,47 @@ describe('Clans API Endpoint', function() {
         expect(res.body.results.length).to.equal(0);
       });
   });
+  
+  it('should update existing clans', function() {
+    var row;
+
+    return request.post('/api/clans/1')
+      .send({name: 'Fred\'s Club'})
+      .expect(400)
+      .then(() => {
+        return request.post('/api/clans')
+          .send(testClan)
+          .expect(201);
+      })
+      .then(res => {
+        row = res.body.id;
+
+        return request.post(`/api/clans/${row}`)
+          .send({name: 'Fred\'s Club'})
+          .expect(202);
+      })
+      .then(() => {
+        return request.get(`/api/clans/${row}`)
+          .expect(200);
+      })
+      .then(res => {
+        expect(res.body.results.name).to.equal('Fred\'s Club');
+      });
+  });
+
+  it('should delete existing clans', function() {
+    var row;
+
+    return request.delete('/api/clans/1')
+      .expect(400)
+      .then(() => {
+        return request.post('/api/clans')
+          .send(testClan)
+          .expect(201);
+      })
+      .then(() => {
+        return request.delete('/api/clans/1')
+          .expect(202);
+      });
+  });
 });
