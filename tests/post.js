@@ -29,7 +29,7 @@ describe('Post Schema', function() {
         return Forum.create(forum);
       })
       .then(newForum => {
-        post.forumId = newForum.forumId;
+        post.forumId = newForum.id;
         return Post.create(post);
       })
       .then(function(newPost) {
@@ -38,6 +38,91 @@ describe('Post Schema', function() {
         expect(newPost.body).to.equal(post.body);
         expect(newPost.userId).to.equal(post.userId);
         expect(newPost.forumId).to.equal(post.forumId);
+      });
+  });
+
+  it('reads existing Posts', function() {
+    return User.create(user)
+      .then(newUser => {
+        clan.userId = newUser.id;
+        post.userId = newUser.id;
+        return Clan.model.create(clan);
+      })
+      .then(newClan => {
+        forum.clanId = newClan.id;
+        return Forum.create(forum);
+      })
+      .then(newForum => {
+        post.forumId = newForum.id;
+        return Post.create(post);
+      })
+      .then(newPost => {
+        return Post.read({id: newPost.id});
+      })
+      .then(function(newPost) {
+        expect(newPost).to.exist;
+        expect(newPost.title).to.equal(post.title);
+        expect(newPost.body).to.equal(post.body);
+        expect(newPost.userId).to.equal(post.userId);
+        expect(newPost.forumId).to.equal(post.forumId);
+      });
+  });
+
+  it('updates existing Posts', function() {
+    return User.create(user)
+      .then(newUser => {
+        clan.userId = newUser.id;
+        post.userId = newUser.id;
+        return Clan.model.create(clan);
+      })
+      .then(newClan => {
+        forum.clanId = newClan.id;
+        return Forum.create(forum);
+      })
+      .then(newForum => {
+        post.forumId = newForum.id;
+        return Post.create(post);
+      })
+      .then(newPost => {
+        post.id = newPost.id;
+        return Post.update({id: newPost.id}, {title: 'TEST'} );
+      })
+      .then(newPost => {
+        return Post.read({id: post.id});
+      })
+      .then(function(newPost) {
+        expect(newPost).to.exist;
+        expect(newPost.title).to.equal('TEST');
+        expect(newPost.body).to.equal(post.body);
+        expect(newPost.userId).to.equal(post.userId);
+        expect(newPost.forumId).to.equal(post.forumId);
+      });
+  });
+
+  it('deletes existing Posts', function() {
+    return User.create(user)
+      .then(newUser => {
+        clan.userId = newUser.id;
+        post.userId = newUser.id;
+        return Clan.model.create(clan);
+      })
+      .then(newClan => {
+        forum.clanId = newClan.id;
+        return Forum.create(forum);
+      })
+      .then(newForum => {
+        post.forumId = newForum.id;
+        return Post.create(post);
+      })
+      .then(newPost => {
+        post.id = newPost.id;
+        return Post.delete({id: newPost.id});
+      })
+      .then(newPost => {
+        return Post.read({id: post.id});
+      })
+      .then(function(newPost) {
+        expect(newPost).to.equal(null);
       });
   });
 });

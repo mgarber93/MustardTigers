@@ -41,10 +41,10 @@ Post.read = Post.find = function(query) {
 };
 
 Post.update = function(query, values) {
-  return PostModel.update({values}, {where: query});
+  return PostModel.update(values, {where: query});
 };
 
-Post.delete = function(query) {
+Post.delete = Post.destroy = function(query) {
   return PostModel.destroy({where: query});
 };
 
