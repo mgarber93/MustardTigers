@@ -28,7 +28,6 @@ const UserModel = db.define('user', {
   hooks: {
     beforeCreate: function(user) {
       user.salt = crypto.randomBytes(32).toString('hex');
-
       user.password = hashData(user.password, user.salt);
     }
   }
@@ -38,15 +37,20 @@ UserModel.sync();
 
 var User = {model: UserModel};
 
+const UNSANITARY_DATA = ['password', 'salt'];
 /**
  * Sanitize is a private helper function that sanitizes the output
- * of the model's CRUD functions. For user's table a whitelist strategy is
+ * of the model's CRUD functions. For user's table a blacklist strategy is
  * used to filter out password<hash> and salt<hash> data.
  * 
  * @param <object> - A rowData object
  */
-const sanitize = function({id, username, createdAt, updatedAt}) {
-  return {id, username, createdAt, updatedAt};
+const sanitize = function(obj) {
+  for (const unsanitary of UNSANITARY_DATA) {
+    obj[unsanitary] = undefined;
+    delete obj[unsanitary];
+  }
+  return obj;
 };
 
 User.create = function({username, password}) {
@@ -69,14 +73,18 @@ User.validate = function({username, password}) {
     });
 };
 
-User.findAll = function(query = {}) {
-  return UserModel.findAll({where: query}).map(sanitize);
+User.read = User.find = function(query) {
+  return UserModel.findOne(
+    {attributes: {exclude: UNSANITARY_DATA}, where: query}
+  );
 };
 
-User.read = User.find = function({id, username}) {
-  return UserModel.findOne({where: {id}})
-    .then(sanitize);
+User.findAll = function(query = {}) {
+  return UserModel.findAll(
+    {attributes: {exclude: UNSANITARY_DATA}, where: query}
+  );
 };
+
 
 /**
  * @todo test coverage for update!
