@@ -14,7 +14,7 @@ describe('Clans API Endpoint', function() {
   beforeEach(clearDb);
 
   it('should retrieve an array', function(done) {
-    request.get('/clans')
+    request.get('/api/clans')
       .expect(res => {
         expect(res.body.results).to.exist;
         expect(res.body.results).to.be.an('array');
@@ -23,7 +23,7 @@ describe('Clans API Endpoint', function() {
   });
 
   it('should insert new clans', function(done) {
-    request.post('/clans')
+    request.post('/api/clans')
       .send(testClan)
       .expect(res => {
         expect(res.body.name).to.equal(testClan.name);
@@ -34,13 +34,13 @@ describe('Clans API Endpoint', function() {
   it('should retrieve existing clans', function(done) {
     var newClan;
 
-    request.post('/clans')
+    request.post('/api/clans')
       .send(testClan)
       .expect(201)
       .then(res => {
         newClan = res.body;
 
-        return request.get('/clans')
+        return request.get('/api/clans')
           .expect(res => {
             expect(res.body.results.length).to.equal(1);
             expect(res.body.results[0].id).to.equal(newClan.id);
@@ -49,7 +49,7 @@ describe('Clans API Endpoint', function() {
           .expect(200);
       })
       .then(() => {
-        request.get(`/clans/${newClan.id}`)
+        request.get(`/api/clans/${newClan.id}`)
           .expect(res => {
             expect(res.body.results).to.exist;
             expect(res.body.results.id).to.equal(newClan.id);
@@ -61,13 +61,13 @@ describe('Clans API Endpoint', function() {
   });
 
   it('should retrieve existing clans with a query', function(done) {
-    request.post('/clans')
+    request.post('/api/clans')
       .send(testClan)
       .expect(201)
       .then(res => {
         newClan = res.body;
 
-        return request.get('/clans')
+        return request.get('/api/clans')
           .query({name: testClan.name})
           .expect(res => {
             expect(res.body.results.length).to.equal(1);
@@ -77,7 +77,7 @@ describe('Clans API Endpoint', function() {
           .expect(200);
       })
       .then(() => {
-        request.get('/clans')
+        request.get('/api/clans')
           .query({name: 'Barbara Streisand'})
           .expect(res => {
             expect(res.body.results.length).to.equal(0);
