@@ -11,8 +11,6 @@ const ForumModel = db.define('forum', {
 
 clan.model.hasOne(ForumModel, {constraints: true});
 
-ForumModel.sync();
-
 const Forum = {model: ForumModel};
 
 Forum.findAll = function(query = {}) {

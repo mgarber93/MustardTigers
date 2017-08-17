@@ -1,22 +1,17 @@
 const {Clan, User} = require('../database');
 const {expect} = require('chai');
-const {Sequelize, db} = require('../database/connection');
+const {db} = require('../database/connection');
 
 var user = {username: 'fred_zirdung', password: 'fred_zirdung'};
 var clan = {name: 'test_clan_please_ignore', userId: 0};
 
 describe('Clan Schema', function() {
-  beforeEach(function(done) {
-    db.clearDb()
-      .then(() => { done(); })
-      .catch(err => {
-        console.error(err);
-        done(err);
-      });
+  beforeEach(function() {
+    return db.sync({force: true});
   });
 
-  it('inserts new clans', function(done) {
-    User.create(user)
+  it('inserts new clans', function() {
+    return User.create(user)
       .then(newUser => {
         clan.userId = newUser.userId;
         return Clan.create(clan);
@@ -25,16 +20,11 @@ describe('Clan Schema', function() {
         expect(newClan).to.exist;
         expect(newClan.name).to.equal(clan.name);
         expect(newClan.userId).to.equal(clan.userId);
-        done();
-      })
-      .catch(err=> {
-        console.error(err);
-        done();
       });
   });
 
-  it('does not allow duplicate clans', function(done) {
-    User.create(user)
+  it('does not allow duplicate clans', function() {
+    return User.create(user)
       .then(function(newUser) {
         clan.userId = newUser.id;
         return Clan.create(clan);
@@ -44,12 +34,11 @@ describe('Clan Schema', function() {
       })
       .catch(function(error) {
         expect(error.message).to.equal('Clan already exists');
-        done();
       });
   });
 
-  it ('returns clan data on read', function(done) {
-    User.create(user)
+  it ('returns clan data on read', function() {
+    return User.create(user)
       .then(function(newUser) {
         clan.userId = newUser.id;
         return Clan.create(clan);
@@ -60,12 +49,6 @@ describe('Clan Schema', function() {
       .then(function(newClan) {
         expect(newClan.id).to.exist;
         expect(newClan.name).to.exist;
-        done();
-      })
-      .catch(err => {
-        console.error(err);
-        done();
       });
   });
-
 });

@@ -18,8 +18,6 @@ const MemberModel = db.define('member', {
 Clan.model.belongsToMany(User.model, {constraints: true, through: MemberModel});
 User.model.belongsToMany(Clan.model, {constraints: true, through: MemberModel});
 
-MemberModel.sync();
-
 var Member = {model: MemberModel};
 
 Member.create = Member.joinUserToClan = function(userId, clanId, confirmed = false) {

@@ -1,7 +1,6 @@
 const { app } = require('./server');
+const { db } = require('../database/connection');
 
-const port = process.env.PORT || 8080;
-
-app.listen(port, function() {
-  console.log(`Listening on ${port}`);
+db.sync().then(() => {
+  app.listen(process.env.PORT || 8080);
 });

@@ -34,8 +34,6 @@ const UserModel = db.define('user', {
   }
 });
 
-UserModel.sync();
-
 var User = {model: UserModel};
 
 /**

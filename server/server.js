@@ -14,8 +14,6 @@ const store = new Store({
   db: db
 });
 
-store.sync();
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

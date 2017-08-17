@@ -1,23 +1,18 @@
 const {User, Clan, Member} = require('../database');
 const {expect} = require('chai');
-const {Sequelize, db} = require('../database/connection');
+const {db} = require('../database/connection');
 
 var user = {username: 'fred_zirdung', password: 'fred_zirdung'};
 var user2 = {username: 'test_user_please_ignore', password: 'test_user_please_ignore'};
 var clan = {name: 'test_clan_please_ignore', userId: 0};
 
 describe('Member Schema', function() {
-  beforeEach(function(done) {
-    db.clearDb()
-      .then(() => { done(); })
-      .catch(err => {
-        console.error(err);
-        done(err);
-      });
+  beforeEach(function() {
+    return db.sync({force: true});
   });
   
-  it('inserts new members', function(done) {
-    User.create(user)
+  it('inserts new members', function() {
+    return User.create(user)
       .then(newUser => {
         user.id = newUser.id;
         clan.userId = newUser.id;
@@ -28,16 +23,11 @@ describe('Member Schema', function() {
       })
       .then(newMember => {
         expect(newMember).to.exist;
-        done();
-      })
-      .catch(err => {
-        console.error(err);
-        done();
       });
   });
 
-  it('reads a member', function(done) {
-    User.create(user)
+  it('reads a member', function() {
+    return User.create(user)
       .then(newUser => {
         user.id = newUser.id;
         clan.userId = newUser.id;
@@ -54,16 +44,11 @@ describe('Member Schema', function() {
         expect(readMember).to.exist;
         expect(readMember.userId).to.equal(user.id);
         expect(readMember.clanId).to.equal(clan.id);
-        done();
-      })
-      .catch(err => {
-        console.error(err);
-        done();
       });
   });
 
-  it('reads members', function(done) {
-    User.create(user)
+  it('reads members', function() {
+    return User.create(user)
       .then(newUser => {
         user.id = newUser.id;
         return User.create(user2);
@@ -90,11 +75,6 @@ describe('Member Schema', function() {
         expect(readMember[1].userId).to.equal(user2.id);
         expect(readMember[0].clanId).to.equal(clan.id);
         expect(readMember[1].clanId).to.equal(clan.id);
-        done();
-      })
-      .catch(err => {
-        console.error(err);
       });
   });
-
 });

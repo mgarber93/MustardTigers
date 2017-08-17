@@ -1,6 +1,6 @@
 const {Clan, Forum, Post, User} = require('../database');
 const {expect} = require('chai');
-const {Sequelize, db} = require('../database/connection');
+const {db} = require('../database/connection');
 
 var user = {username: 'fred_zirdung', password: 'fred_zirdung'};
 var clan = {name: 'test_clan_please_ignore', userId: 0};
@@ -13,17 +13,12 @@ var post = {
 };
 
 describe('Post Schema', function() {
-  beforeEach(function(done) {
-    db.clearDb()
-      .then(() => { done(); })
-      .catch(err => {
-        console.error(err);
-        done(err);
-      });
+  beforeEach(function() {
+    return db.sync({force: true});
   });
 
-  it('inserts new Posts', function(done) {
-    User.create(user)
+  it('inserts new Posts', function() {
+    return User.create(user)
       .then(newUser => {
         clan.userId = newUser.id;
         post.userId = newUser.id;
@@ -43,11 +38,6 @@ describe('Post Schema', function() {
         expect(newPost.body).to.equal(post.body);
         expect(newPost.userId).to.equal(post.userId);
         expect(newPost.forumId).to.equal(post.forumId);
-        done();
-      })
-      .catch(err => {
-        console.error(err);
       });
   });
-
 });

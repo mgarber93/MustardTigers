@@ -23,8 +23,6 @@ const ClanModel = db.define('clan', {
 
 ClanModel.belongsTo(User.model, {constraints: true});
 
-ClanModel.sync();
-
 var Clan = {model: ClanModel};
 
 Clan.findAll = function(query = {}) {
