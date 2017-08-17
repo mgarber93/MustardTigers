@@ -8,10 +8,10 @@ import LoginForm from './LoginForm.jsx';
  * @extends Login
  */
  
-const Register = ({registerUser}) => (
+const Register = ({registerUser, history}) => (
   <div className="container">
     <Jumbotron>
-      <LoginForm action={registerUser} controlLabel="Register" />
+      <LoginForm action={registerUser} history={history} controlLabel="Register" />
     </Jumbotron>
   </div>
 );
