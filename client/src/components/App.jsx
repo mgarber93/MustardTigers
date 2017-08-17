@@ -28,18 +28,16 @@ class App extends React.Component {
     this.registerNewClan = this.registerNewClan.bind(this);
     this.fetchUsers = this.fetchUsers.bind(this);
     this.loginUser = this.loginUser.bind(this);
-    this.logout = this.logout.bind(this);
+    this.logoutUser = this.logoutUser.bind(this);
+    this.setDefaultState = this.setDefaultState.bind(this);
   }
 
   componentDidMount() {
     this.fetchUsers();
     // TODO: Get all Messages
   }
-
-  /**
-   * Logout by clearing all state back to default conditions.
-   */
-  logout() {
+  
+  setDefaultState() {
     this.setState(
       {
         user: {
@@ -149,6 +147,21 @@ class App extends React.Component {
       });
   }
 
+  /**
+   * Logout by clearing all state back to default conditions.
+   */
+  logoutUser(user) {
+    console.log('Logging out...');
+    axios.post('/api/auth/logout')
+      .then((user) => {
+        this.setDefaultState();
+        console.log('Goodbye, ' + this.state.user.userId + ' has been logged out.');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
       <div>
@@ -157,7 +170,7 @@ class App extends React.Component {
           user={this.state.user}
           registerUser={this.registerUser}
           loginUser={this.loginUser}
-          logOut={this.logOut}
+          logoutUser={this.logoutUser}
           addNewClan={this.registerNewClan}
         />
       </div>

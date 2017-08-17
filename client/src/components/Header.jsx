@@ -35,8 +35,8 @@ const Header = ({username}) => (
         }
         {username ? 
           (
-            <LinkContainer to='/signout'>
-              <NavItem>Signout</NavItem>
+            <LinkContainer to='/logout'>
+              <NavItem>logout</NavItem>
             </LinkContainer>
           ) : 
           (

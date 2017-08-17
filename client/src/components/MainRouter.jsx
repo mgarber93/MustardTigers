@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './Home.jsx';
 import ClanRouter from './clan/ClanRouter.jsx';
 import Login from './auth/Login.jsx';
+import Logout from './auth/Logout.jsx';
 import Register from './auth/Register.jsx';
 import { Switch, Route } from 'react-router-dom';
 import User from './User.jsx';
@@ -42,6 +43,9 @@ class MainRouter extends React.Component {
             <Route 
               path='/login' 
               component={props => <Login {...props} loginUser={this.props.loginUser}/>}/>
+            <Route 
+              path='/logout' 
+              component={props => <Logout {...props} logoutUser={this.props.logoutUser}/>}/>
             <Route 
               path='/register' 
               component={props => <Register {...props} registerUser={this.props.registerUser}/>} />
