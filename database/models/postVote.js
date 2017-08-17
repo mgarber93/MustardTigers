@@ -11,8 +11,6 @@ const PostVoteModel = db.define('postVote', {
   }
 });
 
-Post.model.belongsToMany(User.model, {constraints: false, through: PostVoteModel});
-User.model.belongsToMany(Post.model, {constraints: false, through: PostVoteModel});
 
 PostVoteModel.sync();
 

@@ -15,8 +15,6 @@ const MemberModel = db.define('member', {
 });
 
 
-Clan.model.belongsToMany(User.model, {constraints: true, through: MemberModel});
-User.model.belongsToMany(Clan.model, {constraints: true, through: MemberModel});
 
 MemberModel.sync();
 

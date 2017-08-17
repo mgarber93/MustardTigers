@@ -21,7 +21,6 @@ const ClanModel = db.define('clan', {
   },
 });
 
-ClanModel.belongsTo(User.model, {constraints: true});
 
 ClanModel.sync();
 
