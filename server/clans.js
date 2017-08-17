@@ -14,7 +14,11 @@ router.get('/', (req, res) => {
 router.get('/:clan', (req, res) => {
   return Clan.read({id: req.params.clan})
     .then(clan => {
-      res.json({results: clan.toJSON()});
+      if (clan) {
+        res.json({results: clan.toJSON()});
+      } else {
+        res.status(400).send('Clan doesn\'t exist');
+      }
     })
     .catch(err => {
       res.status(500).send(err.message);
@@ -24,12 +28,16 @@ router.get('/:clan', (req, res) => {
 router.get('/:clan/members', (req, res) => {
   Clan.model.findOne({
     include: [{
-      model: User.model
+      model: User.model,
     }],
     where: {id: req.params.clan}
   })
-    .then(({users}) => {
-      res.json({results: users.map(member => member.toJSON())});
+    .then((clan) => {
+      if (clan) {
+        res.json({results: clan.users.map(user => user.toJSON())});
+      } else {
+        throw new Error('Clan does not exist');
+      }
     })
     .catch(err => {
       res.status(500).send(err.message);
@@ -41,7 +49,7 @@ router.get('/:clan/members', (req, res) => {
 router.post('/', (req, res) => {
   return Clan.create(req.body)
     .then(newClan => {
-      res.status(201).json(newClan);
+      res.status(201).json(newClan.toJSON());
     })
     .catch(err => {
       res.status(500).send(err.message);
@@ -49,9 +57,31 @@ router.post('/', (req, res) => {
 });
 
 router.post('/:clan', (req, res) => {
+  Clan.update({id: req.params.clan}, req.body)
+    .then(affected => {
+      if (affected) {
+        res.sendStatus(202);
+      } else {
+        res.status(400).send('Clan doesn\'t exist');
+      }
+    })
+    .catch(err => {
+      res.status(500).send(err.message);
+    });
 });
 
 router.delete('/:clan', (req, res) => {
+  Clan.delete({id: req.params.clan})
+    .then(affected => {
+      if (affected) {
+        res.sendStatus(202);
+      } else {
+        res.status(400).send('Clan doesn\'t exist');
+      }
+    })
+    .catch(err => {
+      res.status(500).send(err.message);
+    });
 });
 
 module.exports = router;
