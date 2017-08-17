@@ -37,7 +37,7 @@ class App extends React.Component {
     // TODO: Get all Messages
   }
   
-  setDefaultState() {
+  setDefaultState(message) {
     this.setState(
       {
         user: {
@@ -47,7 +47,7 @@ class App extends React.Component {
           posts: [],
         }
       }, () => {
-        console.log('You are logged out!');
+        console.log(message);
       }
     );
   }
@@ -154,8 +154,8 @@ class App extends React.Component {
     console.log('Logging out...');
     axios.post('/api/auth/logout')
       .then((user) => {
-        this.setDefaultState();
-        console.log('Goodbye, ' + this.state.user.userId + ' has been logged out.');
+        let message = 'Goodbye, ' + this.state.user.userId + ' has been logged out.';
+        this.setDefaultState(message);
       })
       .catch((err) => {
         console.log(err);
