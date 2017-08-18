@@ -18,15 +18,15 @@ Forum.findAll = function(query = {}) {
 /**
  * Forum crud methods.
  */
-Forum.create = function({name}) {
-  return Forum.model.find({where: {name}})
+Forum.create = function(obj) {
+  return Forum.model.find({where: {name: obj.name}})
     .then(function(clan) {
       if (clan) {
         throw new Error('Clan already exists');
       }
 
       // @todo
-      return ForumModel.create({name});
+      return ForumModel.create(obj);
     });
 };
 
@@ -35,7 +35,7 @@ Forum.read = Forum.find = function(query) {
 };
 
 Forum.update = function(query, values) {
-  return ForumModel.update({values: values}, {where: query});
+  return ForumModel.update(values, {where: query});
 };
 
 Forum.delete = function(query) {
