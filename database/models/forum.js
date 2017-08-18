@@ -18,15 +18,13 @@ Forum.findAll = function(query = {}) {
 /**
  * Forum crud methods.
  */
-Forum.create = function(obj) {
-  return Forum.model.find({where: {name: obj.name}})
+Forum.create = function({name, clanId}) {
+  return Forum.model.find({where: {name}})
     .then(function(clan) {
       if (clan) {
         throw new Error('Clan already exists');
       }
-
-      // @todo
-      return ForumModel.create(obj);
+      return Forum.model.create({name, clanId});
     });
 };
 

@@ -14,11 +14,11 @@ describe('Forum Schema', function() {
   it('inserts new Forums', function() {
     return User.create(user)
       .then(newUser => {
-        clan.userId = newUser.userId;
+        clan.userId = newUser.id;
         return Clan.model.create(clan);
       })
       .then(newClan => {
-        forum.userId = newClan.userId;
+        forum.clanId = newClan.id;
         return Forum.create(forum);
       })
       .then(function(newForum) {
@@ -31,11 +31,11 @@ describe('Forum Schema', function() {
   it('reads existing Forums', function() {
     return User.create(user)
       .then(newUser => {
-        clan.userId = newUser.userId;
+        clan.userId = newUser.id;
         return Clan.model.create(clan);
       })
       .then(newClan => {
-        forum.userId = newClan.userId;
+        forum.clanId = newClan.id;
         return Forum.create(forum);
       })
       .then(newForum => {
