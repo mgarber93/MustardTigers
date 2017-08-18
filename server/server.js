@@ -41,6 +41,7 @@ app.use('/api', express.Router()
   .use('/users', require('./users'))
   .use('/auth', require('./auth'))
   .use('/clans', require('./clans'))
+  .use('/forums', require('./forums'))
 );
 
 app.get('*', (req, res) => {
