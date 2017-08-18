@@ -14,6 +14,10 @@ const store = new Store({
   db: db
 });
 
+if (!process.env.NPM_CONFIG_PRODUCTION) {
+  app.use(require('morgan')('dev'));
+}
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
