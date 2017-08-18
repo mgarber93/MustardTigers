@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Grid, Row, Col, Button, Panel, Image, Thumbnail } from 'react-bootstrap';
 
 /**
  * Class representing the React MemberEntry Container Component.
@@ -12,21 +13,23 @@ class MemberEntry extends React.Component {
   }
 
   render() {
-
+    // TODO: Need data for Clan Owner to show who is the leader of the clan
     return (
-      <div className='member'>
-        <Media>
-          <Media.Left align="top">
-            <img width={64} height={64} src={this.props.user.picture} />
-          </Media.Left>
-          <Media.Body>
-            <Media.Heading>
-              <div>{this.props.user.username} </div>
-            </Media.Heading>
-          </Media.Body>
-        </Media>
-      </div>
-    )
+      <Col sm={4}>
+        <Panel>
+          <Row className="show-grid">
+            <Col md={3}>
+              <img src={this.props.member.userAvatar} width={64}/>
+            </Col>
+            <Col md={6}>
+              <div><Link to={`/users/${this.props.member.username}`}>{this.props.member.username}</Link></div>
+              <div>{this.props.member.memberRole}</div>
+              <div>{this.props.member.memberSince}</div>
+            </Col>
+          </Row>
+        </Panel>
+      </Col>
+    );
   }
 }
 

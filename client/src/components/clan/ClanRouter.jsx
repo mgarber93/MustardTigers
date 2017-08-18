@@ -118,6 +118,10 @@ class ClanRouter extends React.Component {
               exact path='/clan/forum' 
               render={(props) => <Forum {...props} clan={this.props.clan} posts={this.state.posts}/>}
             />
+            <Route
+              exact path='/clan/members' 
+              render={(props) => <Members {...props} clan={this.props.clan}/>}
+            />
             <Route 
               exact path='/clan/:number/forum' 
               component={Forum} 

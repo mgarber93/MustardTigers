@@ -22,7 +22,57 @@ class MainRouter extends React.Component {
         clanTag: 'MST',
         clanAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
         description: 'This is the best clan in all the world',
-        foundedDate: 'July 2017'
+        foundedDate: 'July 2017',
+        members: [
+          {
+            username: 'TNauda',
+            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
+            memberRole: 'Nerd',
+            memberSince: 'July 2017'
+          },
+          {
+            username: 'Matt',
+            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
+            memberRole: 'Nerd',
+            memberSince: 'July 2017'
+          },
+          {
+            username: 'Bobba Boy',
+            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
+            memberRole: 'Nerd',
+            memberSince: 'July 2017'
+          },
+          {
+            username: 'Ian',
+            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
+            memberRole: 'Nerd',
+            memberSince: 'July 2017'
+          },
+          {
+            username: 'Karun',
+            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
+            memberRole: 'Nerd',
+            memberSince: 'July 2017'
+          },
+          {
+            username: 'Tommy',
+            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
+            memberRole: 'Nerd',
+            memberSince: 'July 2017'
+          },
+          {
+            username: 'Sam',
+            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
+            memberRole: 'Nerd',
+            memberSince: 'July 2017'
+          },
+          {
+            username: 'Thisisanme withalotof',
+            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
+            memberRole: 'Nerd',
+            memberSince: 'July 2017'
+          },
+        ]
       }
     };
   }
