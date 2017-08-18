@@ -51,4 +51,41 @@ describe('Clan Schema', function() {
         expect(newClan.name).to.exist;
       });
   });
+
+  it ('updates clan data', function() {
+    return User.create(user)
+      .then(function(newUser) {
+        clan.userId = newUser.id;
+        return Clan.create(clan);
+      })
+      .then(({id}) => {
+        clan.id = id;
+        return Clan.update({id}, {name: 'TEST'});
+      })
+      .then(() => {
+        return Clan.read(clan.id);
+      })
+      .then(function(newClan) {
+        expect(newClan.id).to.exist;
+        expect(newClan.name).to.equal('TEST');
+      });
+  });
+
+  it ('deletes clan data', function() {
+    return User.create(user)
+      .then(function(newUser) {
+        clan.userId = newUser.id;
+        return Clan.create(clan);
+      })
+      .then(({id}) => {
+        clan.id = id;
+        return Clan.delete({id});
+      })
+      .then(() => {
+        return Clan.read(clan.id);
+      })
+      .then(function(newClan) {
+        expect(newClan).to.equal(null);
+      });
+  });
 });
