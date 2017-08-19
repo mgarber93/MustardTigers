@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Forum from './Forum.jsx';
+import ForumRouter from './forums/ForumRouter.jsx';
 import About from './About.jsx';
 import Events from './Events.jsx';
 import Members from './Members.jsx';
@@ -19,27 +19,6 @@ import { Media } from 'react-bootstrap';
 class ClanRouter extends React.Component {
   constructor (props) {
     super(props);
-
-    //DUMMY DATA
-    this.state = {
-      posts: [
-        {
-          title: 'First Post',
-          body: 'This is the body of the first post. It is very interesting',
-          pinned: false
-        },
-        {
-          title: 'Second Post',
-          body: 'This is the body of the second post. It is very interesting',
-          pinned: false
-        },
-        {
-          title: 'Third Post',
-          body: 'This is the body of the third post. It is very interesting',
-          pinned: false
-        },
-      ]
-    };
   }
 
   addNewClan(clan) {
@@ -88,8 +67,8 @@ class ClanRouter extends React.Component {
               <LinkContainer to="/clan/about">
                 <Button>About</Button>
               </LinkContainer>
-              <LinkContainer to="/clan/forum">
-                <Button>Forum</Button>
+              <LinkContainer to="/clan/forums">
+                <Button>Forums</Button>
               </LinkContainer>
               <LinkContainer to="/clan/events">
                 <Button>Events</Button>
@@ -115,16 +94,16 @@ class ClanRouter extends React.Component {
               render={(props) => <ClanSearch {...props} clan={this.props.clan} clanSearch={this.clanSearch.bind(this)}/>}
             />
             <Route
-              exact path='/clan/forum' 
-              render={(props) => <Forum {...props} clan={this.props.clan} posts={this.state.posts}/>}
+              path='/clan/forums'
+              render={(props) => <ForumRouter {...props} clan={this.props.clan} />}
             />
             <Route
               exact path='/clan/members' 
               render={(props) => <Members {...props} clan={this.props.clan}/>}
             />
             <Route 
-              exact path='/clan/:number/forum' 
-              component={Forum} 
+              exact path='/clan/:number/forums' 
+              component={ForumRouter} 
             />
             <Route 
               exact path='/clan/:number/about' 
