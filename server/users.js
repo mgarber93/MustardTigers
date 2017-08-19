@@ -232,4 +232,18 @@ router.route('/:user')
       });
   });
 
+router.get('/current', (req, res) => {
+  if (req.session.userId) {
+    User.read({id: req.session.userId})
+      .then(user => {
+        res.send({results: user});
+      })
+      .catch(err => {
+        res.status(500).send(err.message);
+      });
+  } else {
+    res.send({results: {}});
+  }
+});
+
 module.exports = router;

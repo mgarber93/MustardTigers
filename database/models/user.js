@@ -79,7 +79,7 @@ User.findAll = function(query = {}) {
 
 User.read = User.find = function({id, username}) {
   return UserModel.findOne({where: {id}})
-    .then(user => user.toJSON());
+    .then(user => user ? user.toJSON() : null);
 };
 
 /**
