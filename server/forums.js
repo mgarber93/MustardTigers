@@ -25,6 +25,17 @@ router.get('/:forum', (req, res) => {
     });
 });
 
+router.get('/:forum/posts/:post', (req, res) => {
+  Post.read({id: req.params.post})
+    .then(post => {
+      if (post) {
+        res.json(post);
+      } else {
+        throw new Error('Post does not exist');
+      }
+    });
+});
+
 router.get('/:forum/posts', (req, res) => {
   Forum.read({
     include: [{
