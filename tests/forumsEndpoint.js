@@ -6,7 +6,6 @@ const {db} = require('../database/connection');
 var clan = {name: 'test_clan_please_ignore'};
 var forum = {name: 'test_forum_please_ignore', clanId: 0};
 var post = {
-  userId: 0, 
   forumId: 0,
   title: 'test_post_please_ignore', 
   body: 'test_body_please_ignore',
@@ -130,7 +129,6 @@ describe('Forums API Endpoint', function() {
   });
 
   it('should create posts', function() {
-    var id;
     return request.post('/api/clans')
       .send(clan)
       .then(res => {
@@ -144,9 +142,12 @@ describe('Forums API Endpoint', function() {
           .send(post);
       })
       .then(res => {
+        post.id = res.body.id;
+        return request.get(`/api/forums/${post.forumId}/posts/${post.id}`);
+      })
+      .then(res => {
         expect(res.body.body).to.equal(post.body); 
         expect(res.body.title).to.equal(post.title); 
       });
-
   });
 });
