@@ -26,14 +26,13 @@ class App extends React.Component {
     this.fetchUsersMemberships = this.fetchUsersMemberships.bind(this);
     this.registerUser = this.registerUser.bind(this);
     this.registerNewClan = this.registerNewClan.bind(this);
-    this.fetchUsers = this.fetchUsers.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
     this.setDefaultState = this.setDefaultState.bind(this);
   }
 
   componentDidMount() {
-    this.fetchUsers();
+    this.fetchUser();
     // TODO: Get all Messages
   }
   
@@ -52,10 +51,17 @@ class App extends React.Component {
     );
   }
 
-  fetchUsers() {
-    axios.get('/api/users/')
-      .then(data => {
-        this.setState({users: data});
+  fetchUser() {
+    axios.get('/api/auth/session')
+      .then(({data}) => {
+        if (data.results) {
+          this.setState({
+            user: Object.assign(this.state.user, {
+              userId: data.results.id,
+              username: data.results.username
+            })
+          });
+        }
       })
       .catch(err => {
         console.error(err);

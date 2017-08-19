@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../database/models/user');
 const Member = require('../database/models/member');
   
-
 /**
  * A get request to the users endpoint returns all users as an array of json
  * objects. A post to users creates a new user and returns the new user's id as 
@@ -47,7 +46,6 @@ router.route('/')
         res.end(error.message || 'Internal error');
       });
   });
-
 
 /**
  * A get request to the users /members endpoint returns all the user's memberships
@@ -231,19 +229,5 @@ router.route('/:user')
         res.end(error.message || 'Internal error');
       });
   });
-
-router.get('/current', (req, res) => {
-  if (req.session.userId) {
-    User.read({id: req.session.userId})
-      .then(user => {
-        res.send({results: user});
-      })
-      .catch(err => {
-        res.status(500).send(err.message);
-      });
-  } else {
-    res.send({results: {}});
-  }
-});
 
 module.exports = router;
