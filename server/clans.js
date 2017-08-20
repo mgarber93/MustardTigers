@@ -15,7 +15,7 @@ router.get('/:clan', (req, res) => {
   return Clan.read({id: req.params.clan})
     .then(clan => {
       if (clan) {
-        res.json({results: clan.toJSON()});
+        res.json({results: clan});
       } else {
         res.status(400).send('Clan doesn\'t exist');
       }
@@ -34,7 +34,7 @@ router.get('/:clan/members', (req, res) => {
   })
     .then((clan) => {
       if (clan) {
-        res.json({results: clan.users.map(user => user.toJSON())});
+        res.json({results: clan.members});
       } else {
         throw new Error('Clan does not exist');
       }
@@ -49,7 +49,7 @@ router.get('/:clan/members', (req, res) => {
 router.post('/', (req, res) => {
   return Clan.create(req.body)
     .then(newClan => {
-      res.status(201).json(newClan.toJSON());
+      res.status(201).json(newClan);
     })
     .catch(err => {
       res.status(500).send(err.message);
