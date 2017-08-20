@@ -28,6 +28,55 @@ describe('Forum Schema', function() {
       });
   });
 
+  it('limits the number of new Forums', function() {
+    var name = forum.name;
+    return User.create(user)
+      .then(newUser => {
+        clan.userId = newUser.id;
+        return Clan.model.create(clan);
+      })
+      .then(newClan => {
+        forum.clanId = newClan.id;
+        return Forum.create(forum);
+      })
+      .then(() => {
+        var newForum = forum;
+        name += 'x';
+        newForum.name = name;
+        return Forum.create(newForum);
+      })
+      .then(() => {
+        var newForum = forum;
+        name += 'x';
+        newForum.name = name;
+        return Forum.create(newForum);
+      })
+      .then(() => {
+        var newForum = forum;
+        name += 'x';
+        newForum.name = name;
+        return Forum.create(newForum);
+      })
+      .then(() => {
+        var newForum = forum;
+        name += 'x';
+        newForum.name = name;
+        return Forum.create(newForum);
+      })
+      .then(() => {
+        var newForum = forum;
+        name += 'x';
+        newForum.name = name;
+        return Forum.create(newForum);
+      })
+      .then(() => {
+        throw new Error('A clan limit didnt exist!');
+      })
+      .catch(error => {
+        expect(error.message).to.equal('A clan can only have 5 forums!');
+      });
+  });
+
   it('reads existing Forums', function() {
     return User.create(user)
       .then(newUser => {

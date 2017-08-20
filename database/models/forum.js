@@ -30,7 +30,7 @@ Forum.create = function({name, clanId}) {
     })
     .then(function(clans) {
       if (clans.length + 1 > MAX_FORUMS_PER_CLAN) {
-        throw new Error('Clan has max allowed forums!');
+        throw new Error(`A clan can only have ${MAX_FORUMS_PER_CLAN} forums!`);
       }
       return Forum.model.create({name, clanId});
     });
