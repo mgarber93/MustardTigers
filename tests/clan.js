@@ -116,7 +116,7 @@ describe('Clan Schema', function() {
         return Clan.create(clan);
       })
       .then(() => {
-        expect(true).to.equal(false);
+        throw new Error('A clan limit didnt exist!');
       })
       .catch(function(error) {
         expect(error.message).to.equal('A user can only have 5 clans!');

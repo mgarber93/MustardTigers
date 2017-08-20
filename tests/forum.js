@@ -70,7 +70,7 @@ describe('Forum Schema', function() {
         return Forum.create(newForum);
       })
       .then(() => {
-        throw new Error('A clan limit didnt exist!');
+        throw new Error('A forum limit didnt exist!');
       })
       .catch(error => {
         expect(error.message).to.equal('A clan can only have 5 forums!');

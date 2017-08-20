@@ -102,7 +102,7 @@ class ClanRouter extends React.Component {
               exact path={`/${this.state.id}/events`}
               render={(props) => <Members {...props} clan={this.state.clan}/>}
             />
-          </Switch> */}
+          </Switch>
         </main>
       </div>
     );
