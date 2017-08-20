@@ -7,11 +7,11 @@ const ClanModel = db.define('clan', {
     allowNull: false,
     unique: true
   },
-  clanTag: {
+  tag: {
     type: Sequelize.STRING(8),
     allowNull: true,
   },
-  clanAvatar: {
+  avatar: {
     type: Sequelize.STRING(144),
     allowNull: true,
   },
@@ -30,13 +30,13 @@ Clan.findAll = function(query = {}) {
 /**
  * Clan crud methods.
  */
-Clan.create = function({name, userId, clanTag, clanAvatar, description}) {
+Clan.create = function({name, userId, tag, avatar, description}) {
   return ClanModel.find({where: {name}})
     .then(function(clan) {
       if (clan) {
         throw new Error('Clan already exists');
       }
-      return ClanModel.create({name, userId, clanTag, clanAvatar, description});
+      return ClanModel.create({name, userId, tag, avatar, description});
     });
 };
 
