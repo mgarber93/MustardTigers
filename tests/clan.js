@@ -13,13 +13,13 @@ describe('Clan Schema', function() {
   it('inserts new clans', function() {
     return User.create(user)
       .then(newUser => {
-        clan.userId = newUser.userId;
+        clan.creatorId = newUser.id;
         return Clan.create(clan);
       })
       .then(function(newClan) {
         expect(newClan).to.exist;
         expect(newClan.name).to.equal(clan.name);
-        expect(newClan.userId).to.equal(clan.userId);
+        expect(newClan.creatorId).to.equal(clan.creatorId);
       });
   });
 
