@@ -38,12 +38,6 @@ Clan.create = function({name, creatorId, tag, avatar, description}) {
       if (clan) {
         throw new Error('Clan already exists');
       }
-      return ClanModel.findAll({where: {creatorId}});
-    })
-    .then(function(clans) {
-      if (clans.length + 1 > MAX_CLANS_PER_USER) {
-        throw new Error('User has created too many clans!'); 
-      }
       return ClanModel.create({name, creatorId, tag, avatar, description});
     });
 };
