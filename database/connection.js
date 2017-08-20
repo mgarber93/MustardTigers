@@ -26,9 +26,13 @@ if (!database) {
   `);
 }
 
-const db = new Sequelize(database, {
-  logging: false
-});
+const options = {};
+
+if (!process.env.SQL_LOGGING) {
+  options.logging = false;
+}
+
+const db = new Sequelize(database, options);
 
 module.exports = {
   Sequelize,
