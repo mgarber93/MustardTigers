@@ -21,7 +21,7 @@ class ClanRouter extends React.Component {
     super(props);
     this.state = {
       id: this.props.match.params.id,
-      clan: this.props.user.clans[this.props.match.params.id] || {}
+      clan: this.props.user.clans.filter(c => Number(c.id) === Number(this.props.match.params.id))[0] || {}
     };
   }
 
@@ -50,8 +50,12 @@ class ClanRouter extends React.Component {
   }
 
   render() {
+    console.log('render', JSON.stringify(this.state.clan));
     return (
       <div className='wrapper'>
+        <div className="jumbotron"> 
+          <h2 className="user-name">{this.state.clan.name}</h2>
+        </div>
         <main>
           <Media>
             <Media.Left align="top">
