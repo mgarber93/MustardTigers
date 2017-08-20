@@ -15,6 +15,8 @@ Forum.findAll = function(query = {}) {
   return ForumModel.findAll({where: query});
 };
 
+const MAX_FORUMS_PER_CLAN = 5;
+
 /**
  * Forum crud methods.
  */
@@ -23,6 +25,12 @@ Forum.create = function({name, clanId}) {
     .then(function(clan) {
       if (clan) {
         throw new Error('Clan already exists');
+      }
+      return Forum.model.findAll({where: {clanId}});
+    })
+    .then(function(clans) {
+      if (clans.length + 1 > MAX_FORUMS_PER_CLAN) {
+        throw new Error(`A clan can only have ${MAX_FORUMS_PER_CLAN} forums!`);
       }
       return Forum.model.create({name, clanId});
     });
