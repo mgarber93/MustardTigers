@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Row, Col, Glyphicon } from 'react-bootstrap';
 import { Button, ButtonToolbar, ControlLabel, Form, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
 
 import axios from 'axios';
 
@@ -30,9 +29,7 @@ export default ({id, name, tag, avatar, description, rerender}) => (
           <h3>{name}</h3>
           <p>{tag}</p>
           <p>{description}</p>
-          <LinkContainer to={`/${id}`}>
-            <Button bsStyle="primary">Go</Button>
-          </LinkContainer>
+          <Button>Edit</Button>
           <Button onClick={() => deleteClan(id, rerender)}>Delete</Button>
         </div>
       </div>

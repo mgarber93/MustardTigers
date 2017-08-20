@@ -39,8 +39,7 @@ class App extends React.Component {
   componentDidMount() {
     this.fetchUser();
     this.fetchUsersClans();
-    // this.update();
-    this.fetchClans();
+    this.update();
   }
 
   update() {
@@ -196,7 +195,6 @@ class App extends React.Component {
           () => {
             console.log('You are logged in!', this.state.user.username, this.state.user.userId);
             this.fetchUsersClans();
-            this.fetchClans();
           }
         );
       })
@@ -212,7 +210,7 @@ class App extends React.Component {
     console.log('Logging out...');
     axios.post('/api/auth/logout')
       .then((user) => {
-        let message = 'Goodbye, ' + this.state.user.username + ' has been logged out.';
+        let message = 'Goodbye, ' + this.state.user.userId + ' has been logged out.';
         this.setDefaultState(message);
       })
       .catch((err) => {
