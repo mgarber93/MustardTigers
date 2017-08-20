@@ -13,12 +13,15 @@ class NewClan extends React.Component {
 
     this.state = {
       clan: {
-        clanName: '',
-        clanTag: '',
-        clanAvatar: '',
+        name: '',
+        tage: '',
+        avatar: '',
         description: ''
       },
-    }
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -36,29 +39,47 @@ class NewClan extends React.Component {
     return (
       <Grid>
         <Row>
-          <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
-            <FormGroup controlId="clanName">
+          <Form horizontal onSubmit={this.handleSubmit}>
+            <FormGroup controlId="name">
               <Col componentClass={ControlLabel} sm={2}>Clan Name</Col>
               <Col sm={4}>
-                <FormControl type="text" placeholder="Mustard Tigers" value={this.state.clanName} onChange={this.handleChange.bind(this)} />
+                <FormControl 
+                  type="text" 
+                  placeholder="Mustard Tigers" 
+                  value={this.state.clan.name} 
+                  onChange={this.handleChange} 
+                />
               </Col>
             </FormGroup>
-            <FormGroup controlId="clanTag">
+            <FormGroup controlId="tag">
               <Col componentClass={ControlLabel} sm={2}>Clan Tag</Col>
               <Col sm={4}>
-                <FormControl type="text" placeholder="MST" value={this.state.clanTag} onChange={this.handleChange.bind(this)} />
+                <FormControl 
+                  type="text" 
+                  placeholder="MST" 
+                  value={this.state.clan.tag} 
+                  onChange={this.handleChange} 
+                />
               </Col>
             </FormGroup>
-            <FormGroup controlId="clanAvatar">
+            <FormGroup controlId="avatar">
               <Col componentClass={ControlLabel} sm={2}>Clan Avatar</Col>
               <Col sm={4}>
-                <FormControl type="text" placeholder="http://google.com/myclan.png" value={this.state.clanAvatar} onChange={this.handleChange.bind(this)} />
+                <FormControl 
+                  type="text" 
+                  placeholder="http://google.com/myclan.png" 
+                  value={this.state.clanAvatar} 
+                  onChange={this.handleChange} />
               </Col>
             </FormGroup>
             <FormGroup controlId="description">
               <Col componentClass={ControlLabel} sm={2}>Description</Col>
               <Col sm={4}>
-                <FormControl type="text" placeholder="" value={this.state.description} onChange={this.handleChange.bind(this)} />
+                <FormControl 
+                  type="text" 
+                  placeholder="" 
+                  value={this.state.description} 
+                  onChange={this.handleChange} />
               </Col>
             </FormGroup>
             <FormGroup>

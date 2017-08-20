@@ -52,7 +52,7 @@ class App extends React.Component {
   }
 
   fetchUser() {
-    axios.get('/api/auth/session')
+    return axios.get('/api/auth/session')
       .then(({data}) => {
         if (data.results) {
           this.setState({
@@ -69,15 +69,13 @@ class App extends React.Component {
   }
 
   fetchUsersMemberships(userId) {
-    axios.get(`/api/users/${userId}/members/`)
-      .then(data => {
+    return axios.get(`/api/users/${userId}/members/`)
+      .then(({data}) => {
+        var newUser = this.state.user;
+        newUser.clans = data.results;
         this.setState(
           {
-            user: {
-              userId: this.state.user.userId, 
-              username: this.state.user.username, 
-              clans: data
-            }
+            user: newUser
           }, () => {
             console.log(
               `${this.state.user.clans.length ? ('You are a member of ' + 
@@ -90,20 +88,35 @@ class App extends React.Component {
       });
   }
 
+  fetchClans() {
+    return axios.get('/api/clans/')
+      .then(({data}) => {
+        if (data.results) {
+          this.setState({
+            user: Object.assign(this.state.user, {
+              clans: data.results
+            })
+          });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
   registerUser(user) {
     console.log('(Client) Registering New User');
-    axios.post('/api/users', user)
+    return axios.post('/api/users', user)
       .then(result => {
+        var newUser = this.state.user;
+        newUser.userId = result.data.id;
+        newUser.username = user.username;
         this.setState(
           {
-            user: {
-              userId: result.data.id,
-              username: user.username,
-            }
+            user: newUser
           },
           () => {
             console.log('You are logged in!', this.state.user.username, this.state.user.userId);
-            this.fetchUsersMemberships(this.state.user.userId);
           }
         );
       })
@@ -113,14 +126,18 @@ class App extends React.Component {
   }
 
   registerNewClan(clan) {
-    console.log('Registering New Clan', clan);
     if (!this.state.user.userId) {
       throw new Error('You must be signed in to create a clan!');
     }
     clan.userId = this.state.user.userId;
-    axios.post('/api/clans/', clan)
-      .then(data => {
-        console.log('(Client) Success! Registered New clan');
+    return axios.post('/api/clans/', clan)
+      .then(({data}) => {
+        // console.log('(Client) Success! Registered New clan', data);
+        var newUser = this.state.user;
+        newUser.clans = this.state.user.clans.concat(data);
+        this.setState({user: newUser}, () => {
+          // console.log('Registered New Clan', this.state.user.clans);
+        });
       })
       .catch(err => {
         console.error(err);
@@ -128,12 +145,13 @@ class App extends React.Component {
   }
 
   /**
-   * Receive and post a user object to the server
+   * Attempt to login a user object. On success, fetch user's clans and friends.
+   * 
    * @param {Object} user Has a `username` and `password` property
    * @todo Redirect on success or inform user on failure
    */
   loginUser(user) {
-    axios.post('/api/auth/local', user)
+    return axios.post('/api/auth/local', user)
       .then(result => {
         this.setState(
           {
@@ -144,7 +162,7 @@ class App extends React.Component {
           },
           () => {
             console.log('You are logged in!', this.state.user.username, this.state.user.userId);
-            this.fetchUsersMemberships(this.state.user.userId);
+            this.fetchClans();
           }
         );
       })
