@@ -1,5 +1,10 @@
+// Libraries
 import React from 'react';
+
+// React Router Components
 import { Link } from 'react-router-dom';
+
+// React Bootstrap Components
 import { Grid, Row, Col, ListGroupItem, Glyphicon, Button } from 'react-bootstrap';
 
 /**
@@ -41,8 +46,6 @@ class PostListEntry extends React.Component {
     return 0;
   }
 
-  // TODO: Need to refactor a seperate comopennt for upvote
-  
   render() {
     let timeSinceSubmission = this.getTimeSincePost(this.props.post.createdAt);
     return (
@@ -52,14 +55,16 @@ class PostListEntry extends React.Component {
             <Button id="upvote" bsSize="xsmall"><Glyphicon glyph="chevron-up" /></Button>
           </Row>
           <Row>
+            <div>
               69
+            </div>
           </Row>
           <Row>
             <Button id="downvote" bsSize="xsmall"><Glyphicon glyph="chevron-down" /></Button>
           </Row>
         </td>
         <td>
-          <Link to={`/clan/forums/${this.props.forum.name}/${this.props.post.id}`}>
+          <Link to={`/${this.props.clan.id}/forums/${this.props.forum.id}/${this.props.post.id}`}>
             <p>{this.props.post.title}</p>
           </Link>
           <br/>
@@ -67,7 +72,7 @@ class PostListEntry extends React.Component {
           <Link to={`/users/${this.props.post.author}`}>
             {this.props.post.author}
           </Link>
-          <Link to={`/clan/forums/${this.props.forum.name}/${this.props.post.id}`}>
+          <Link to={`/${this.props.clan.id}/forums/${this.props.forum.id}/${this.props.post.id}`}>
             <p>{this.props.post.comments.length} Comments</p>
           </Link>
         </td>

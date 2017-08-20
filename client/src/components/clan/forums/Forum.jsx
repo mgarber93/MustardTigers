@@ -1,13 +1,15 @@
+// Libraries
 import React from 'react';
+
+// React Router Components
+import { LinkContainer } from 'react-router-bootstrap';
 
 // React Components
 import PostList from './PostList.jsx';
 
-// React Router Bootstrap Components
-import { LinkContainer } from 'react-router-bootstrap';
-
-// React BootStrap
+// React BootStrap Components
 import { Grid, Row, Col, Table, Button } from 'react-bootstrap';
+
 /**
  * Class representing the React Forum Container Component.
  * @extends Forum
@@ -21,14 +23,10 @@ class Forum extends React.Component {
   getForumInfo() {
     //Matches forumName to Route ForumName
     return this.props.forums.filter((forum) => {
-      return forum.name === this.props.match.params.name;
+      return forum.id === this.props.match.params.id;
     });
   }
-
-  componentWillMount () {
-    this.props.updateForum(this.getForumInfo()[0]);
-  }
-
+  
   render() {
     let forum = this.getForumInfo()[0];
 
@@ -36,7 +34,7 @@ class Forum extends React.Component {
       <div>
         <Grid>
           <div className="pull-right">
-            <LinkContainer to={`/clan/forums/${forum.name}/new`}>
+            <LinkContainer to={`/${this.props.clan.id}/forums/${forum.id}/new`}>
               <Button bsStyle="success">
                 Add New Post
               </Button>
@@ -49,7 +47,7 @@ class Forum extends React.Component {
                   <th colSpan="2">Forum Posts</th>
                 </tr>
               </thead>
-              <PostList forum={forum}/>
+              <PostList clan={this.props.clan} forum={forum}/>
             </Table>
           </Row>
         </Grid>

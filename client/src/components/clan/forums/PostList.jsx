@@ -25,7 +25,7 @@ class PostList extends React.Component {
 
   render() {
     var posts = this.state.forum.posts.map((post, i) => {
-      return <PostListEntry post={post} forum={this.state.forum} key={i} />;
+      return <PostListEntry clan={this.props.clan} post={post} forum={this.state.forum} key={i} />;
     });
 
     return (

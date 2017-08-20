@@ -1,12 +1,13 @@
+// Libraries
 import React from 'react';
 
 // React Components
 import ForumListEntry from './ForumListEntry.jsx';
 
-// React Router Bootstrap Components
+// React Router Components
 import {LinkContainer} from 'react-router-bootstrap';
 
-// React BootStrap Components
+// React Bootstrap Components
 import { Grid, Row, Col, ListGroup, Table, Button } from 'react-bootstrap';
 
 /**
@@ -23,7 +24,7 @@ class ForumList extends React.Component {
     // TODO: update where the data is coming right, changing it to state
     //       for now to allow for testing.
     var forums = this.props.forums.map((forum, i) => {
-      return <ForumListEntry forum={forum} key={i} />;
+      return <ForumListEntry clan={this.props.clan} forum={forum} key={i} />;
     });
 
     return (
@@ -31,7 +32,7 @@ class ForumList extends React.Component {
         <Grid>
           <Row>
             <div className="pull-right">
-              <LinkContainer to={'/clan/forums/new'}>
+              <LinkContainer to={`/${this.props.clan.id}/forums/new`}>
                 <Button bsStyle="success">
                   Add New Forum
                 </Button>

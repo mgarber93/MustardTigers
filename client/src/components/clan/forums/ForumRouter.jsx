@@ -1,16 +1,17 @@
+// Libraries
 import React from 'react';
 import axios from 'axios';
 
-// React Componenets
+// React Router Components
+import { Switch, Route } from 'react-router-dom';
+
+// React Components
 import Post from './Post.jsx';
 import Forum from './Forum.jsx';
 import ForumList from './ForumList.jsx';
 import NewForum from './NewForum.jsx';
 import NewForumPost from './NewForumPost.jsx';
 import NewPostComment from './NewPostComment.jsx';
-
-// React Router Components
-import { Switch, Route } from 'react-router-dom';
 
 //React Bootstrap Components
 import { Grid, Row, Col, ListGroup, Table } from 'react-bootstrap';
@@ -24,7 +25,6 @@ class ForumRouter extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      currentForum: {},
       forums: [
         {
           id: '1',
@@ -262,12 +262,6 @@ class ForumRouter extends React.Component {
     };
   }
 
-  updateCurrentForum(forum) {
-    this.setState({
-      currentForum: forum
-    });
-  }
-
   updateForums(forums) {
     this.setState({
       forums: forums
@@ -334,29 +328,35 @@ class ForumRouter extends React.Component {
     return (
       <div>
         <Switch>
+          {/* Forum List Route /clan/forums */}
           <Route
-            exact path='/clan/forums'
+            exact path={`/${this.props.clan.id}/forums`}
             render={(props) => <ForumList {...props} clan={this.props.clan} forums={this.state.forums}/>}
           />
+          {/* NewForum Route /clan/forums/new */}
           <Route
-            exact path='/clan/forums/new'
+            path={`/${this.props.clan.id}/forums/new`}
             render={(props) => <NewForum {...props} clan={this.props.clan} createNewForum={this.createNewForum.bind(this)}/>}
           />
+          {/* NewForumPost Route /clan/forums/forumid/new */}
           <Route
-            path='/clan/forums/:name/new'
+            exact path={`/${this.props.clan.id}/forums/:id/new`}
             render={(props) => <NewForumPost {...props} clan={this.props.clan} createNewForumPost={this.createNewForumPost.bind(this)}/>}
           />
+          {/* Forum Route /clan/forums/forumid */}
+          <Route
+            exact path={`/${this.props.clan.id}/forums/:id`}
+            render={(props) => <Forum {...props} clan={this.props.clan} forums={this.state.forums}/>}
+          />
+          {/* NewPostComment Route /clan/forums/forumid/postid */}
           <Route 
-            path='/clan/forums/:name/:id/new'
+            exact path={`/${this.props.clan.id}/forums/:id/:id`}
+            render={(props) => <Post {...props} clan={this.props.clan} forums={this.state.forums}/>}
+          />
+          {/* NewPostComment Route /clan/forums/forumid/new */}
+          <Route
+            exact path={`/${this.props.clan.id}/forums/:id/:id/new`}
             render={(props) => <NewPostComment {...props} clan={this.props.clan} createNewPostComment={this.createNewPostComment.bind(this)}/>}
-          />
-          <Route 
-            path='/clan/forums/:name/:id'
-            render={(props) => <Post {...props} clan={this.props.clan} forum={this.state.currentForum}/>}
-          />
-          <Route 
-            exact path='/clan/forums/:name'
-            render={(props) => <Forum {...props} clan={this.props.clan} updateForum={this.updateCurrentForum.bind(this)} forums={this.state.forums}/>}
           />
         </Switch>
       </div>

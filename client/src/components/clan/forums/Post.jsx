@@ -1,10 +1,9 @@
+// Libraries
 import React from 'react';
 
 //React Router Components
 import { Link } from 'react-router-dom';
-
-// React Router Bootstrap Components
-import {LinkContainer} from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 // React Components
 import Comments from './Comments.jsx';
@@ -36,9 +35,10 @@ class Post extends React.Component {
     console.log('Downvoted');
   }
 
-  filterCurrentPost() {
+  filterCurrentPost(forum) {
     //Matches forumName to Route ForumName
-    return this.props.forum.posts.filter((post) => {
+    console.log(forum);
+    return forum.posts.filter((post) => {
       return post.id === this.props.match.params.id;
     });
   }
@@ -72,17 +72,25 @@ class Post extends React.Component {
     return 0;
   }
 
-  // TODO: Need to refactor a seperate comopennt for upvote
+  componentWillMount() {
+    let url = this.props.match.url.split('/');
+    let forumId = url[url.length - 2].toString();
+    let currentForum = this.props.forums.filter((forum) => { return forum.id === forumId; });
+    let currentPost = currentForum[0].posts.filter((post) => { return post.id === this.props.match.params.id; });
+    this.setState({
+      forum: currentForum[0],
+      post: currentPost[0]
+    });
+  }
   
   render() {
-    let post = this.filterCurrentPost()[0];
-    let timeSinceSubmission = this.getTimeSincePost(post.createdAt);
+    let timeSinceSubmission = this.getTimeSincePost(this.state.post.createdAt);
     return (
       <div>
         <Grid>
           <Row>
             <div className="pull-right">
-              <LinkContainer to={`/clan/forums/${this.props.forum.name}/${post.id}/new`}>
+              <LinkContainer to={`/${this.props.clan.id}/forums/${this.state.forum.id}/${this.state.post.id}/new`}>
                 <Button bsStyle="success">
                   Add New Comment
                 </Button>
@@ -91,7 +99,7 @@ class Post extends React.Component {
             <Table striped bordered condensed hover>
               <thead>
                 <tr>
-                  <th colSpan="2">{post.title}</th>
+                  <th colSpan="2">{this.state.post.title}</th>
                 </tr>
               </thead>
               <tbody>
@@ -108,13 +116,13 @@ class Post extends React.Component {
                     </Row>
                   </td>
                   <td>
-                    <p>{post.body}</p>
+                    <p>{this.state.post.body}</p>
                     <br/>
                     <span>Submitted {timeSinceSubmission} by: </span>
-                    <Link to={`/users/${post.author}`}>
-                      {post.author}
+                    <Link to={`/users/${this.state.post.author}`}>
+                      {this.state.post.author}
                     </Link>
-                    <Link to={`/clan/forums/${this.props.forum.name}/${post.id}`}>
+                    <Link to={`/${this.props.clan.id}/forums/${this.state.forum.id}/${this.state.post.id}`}>
                     </Link>
                   </td>
                 </tr>
@@ -122,7 +130,7 @@ class Post extends React.Component {
             </Table>
           </Row>
         </Grid>
-        <Comments comments={post.comments} />
+        <Comments comments={this.state.post.comments} />
       </div>
     );
   }

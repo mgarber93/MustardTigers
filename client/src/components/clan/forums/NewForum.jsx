@@ -1,3 +1,4 @@
+// Libraries
 import React from 'react';
 
 // React Router Components
@@ -18,9 +19,7 @@ class NewForum extends React.Component {
 
     this.state = {
       forum: {
-        name: '',
-        avatar: 'th-list',
-        posts: []
+        name: ''
       },
     };
   }
@@ -44,13 +43,7 @@ class NewForum extends React.Component {
             <FormGroup controlId="name">
               <Col componentClass={ControlLabel} sm={2}>Forum Name</Col>
               <Col sm={4}>
-                <FormControl type="text" placeholder="Mustard Tigers" value={this.state.clanName} onChange={this.handleChange.bind(this)} />
-              </Col>
-            </FormGroup>
-            <FormGroup controlId="description">
-              <Col componentClass={ControlLabel} sm={2}>Description</Col>
-              <Col sm={4}>
-                <FormControl type="text" placeholder="" value={this.state.description} onChange={this.handleChange.bind(this)} />
+                <FormControl type="text" placeholder="General Discussion" value={this.state.forum.name} onChange={this.handleChange.bind(this)} />
               </Col>
             </FormGroup>
             <FormGroup>

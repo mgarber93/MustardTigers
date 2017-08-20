@@ -62,7 +62,9 @@ class ClanRouter extends React.Component {
                 <img width={128} height={128} src={this.state.clan.avatar} />
               </Col>
               <Col sm={10}>
-                <h2 className="user-name">{this.state.clan.name} ({this.state.clan.tag})</h2>
+                <Link to={`/${this.state.clan.id}`}>
+                  <h2 className="user-name">{this.state.clan.name} ({this.state.clan.tag})</h2>
+                </Link>
                 <div><i>Founded: {this.formatDate(this.state.clan.createdAt)}</i></div>
               </Col>
             </Row>
