@@ -88,4 +88,38 @@ describe('Clan Schema', function() {
         expect(newClan).to.equal(null);
       });
   });
+
+  it('does not allow a single user more than 5 clans', function() {
+    return User.create(user)
+      .then(function(newUser) {
+        clan.creatorId = newUser.id;
+        return Clan.create(clan);
+      })
+      .then(newClan => {
+        clan.name = clan.name + 'x';
+        return Clan.create(clan);
+      })
+      .then(newClan => {
+        clan.name = clan.name + 'x';
+        return Clan.create(clan);
+      })
+      .then(newClan => {
+        clan.name = clan.name + 'x';
+        return Clan.create(clan);
+      })
+      .then(newClan => {
+        clan.name = clan.name + 'x';
+        return Clan.create(clan);
+      })
+      .then(newClan => {
+        clan.name = clan.name + 'x';
+        return Clan.create(clan);
+      })
+      .then(() => {
+        throw new Error('A clan limit didnt exist!');
+      })
+      .catch(function(error) {
+        expect(error.message).to.equal('A user can only have 5 clans!');
+      });
+  });
 });
