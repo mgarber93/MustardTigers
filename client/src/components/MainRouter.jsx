@@ -1,11 +1,13 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+
+import About from './About.jsx';
 import Home from './Home.jsx';
-import ClanRouter from './clan/ClanRouter.jsx';
+import User from './User.jsx';
 import Login from './auth/Login.jsx';
 import Logout from './auth/Logout.jsx';
 import Register from './auth/Register.jsx';
-import { Switch, Route } from 'react-router-dom';
-import User from './User.jsx';
+import ClanRouter from './clan/ClanRouter.jsx';
 
 /**
  * Class representing the React Main Container Component.
@@ -90,7 +92,7 @@ class MainRouter extends React.Component {
           <Switch>
             <Route 
               exact path='/' 
-              component={Home} 
+              component={props => <Home {...props} clans={this.props.clans} />} 
             />
             <Route 
               path='/login' 
@@ -107,6 +109,10 @@ class MainRouter extends React.Component {
             <Route
               path='/clan' 
               render={(props) => <ClanRouter {...props} clan={this.props.clan}/>}
+            />
+            <Route 
+              exact path='/about' 
+              component={About} 
             />
             <Route
               path='/users/*' 

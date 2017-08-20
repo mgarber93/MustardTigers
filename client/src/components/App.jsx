@@ -21,7 +21,8 @@ class App extends React.Component {
         clans: [],
         posts: [],
       },
-      clans: []
+      clans: [],
+      _timer: 2000,
     };
 
     this.fetchUsersMemberships = this.fetchUsersMemberships.bind(this);
@@ -31,12 +32,21 @@ class App extends React.Component {
     this.logoutUser = this.logoutUser.bind(this);
     this.setDefaultState = this.setDefaultState.bind(this);
     this.fetchUsersClans = this.fetchUsersClans.bind(this);
+    this.fetchClans = this.fetchClans.bind(this);
+    this.update = this.update.bind(this);
   }
 
   componentDidMount() {
     this.fetchUser();
     this.fetchUsersClans();
-    // TODO: Get all Messages
+    this.update();
+  }
+
+  update() {
+    this.fetchClans();
+    setTimeout(() => {
+      this.update();
+    }, this.state._timer);
   }
   
   setDefaultState(message) {
@@ -48,7 +58,8 @@ class App extends React.Component {
           clans: [],
           posts: [],
         }, 
-        clans: []
+        clans: [],
+        _timer: 2000,
       }, () => {
         console.log(message);
       }
@@ -69,6 +80,17 @@ class App extends React.Component {
       })
       .catch(err => {
         console.error(err);
+      });
+  }
+
+  fetchClans() {
+    return axios.get('/api/clans')
+      .then(({data}) => {
+        this.setState({
+          clans: data.results
+        }, () => {
+          console.log('state', this.state);
+        });
       });
   }
 
@@ -205,6 +227,7 @@ class App extends React.Component {
         />
         <MainRouter
           user={this.state.user}
+          clans={this.state.clans}
           registerUser={this.registerUser}
           loginUser={this.loginUser}
           logoutUser={this.logoutUser}
