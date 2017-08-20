@@ -8,7 +8,7 @@ import {Navbar, Nav, NavItem, Glyphicon} from 'react-bootstrap';
  * @extends Header
  */
  
-const Header = ({username}) => (
+const Header = ({username, clans}) => (
   <Navbar collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
@@ -18,9 +18,11 @@ const Header = ({username}) => (
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav pullRight>
-        <LinkContainer to='/clan'>
-          <NavItem>Clan</NavItem>
-        </LinkContainer> 
+        {clans.map(clan => (
+          <LinkContainer key={clan.id} to={`/${clan.id}`}>
+            <NavItem>{clan.name}</NavItem>
+          </LinkContainer>
+        ))}
         {username ? 
           (
             <LinkContainer to={`/users/${username}`}>
