@@ -201,7 +201,7 @@ class App extends React.Component {
       <div>
         <Header 
           username={this.state.user.username}
-          clans={this.state.user.clans}
+          clans={this.state.user.clans || []}
         />
         <MainRouter
           user={this.state.user}

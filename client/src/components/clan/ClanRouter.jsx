@@ -1,15 +1,22 @@
 import React from 'react';
 import axios from 'axios';
-import ForumRouter from './forums/ForumRouter.jsx';
+
+// React Router Components
+import { LinkContainer } from 'react-router-bootstrap';
+import { Switch, Route, Link } from 'react-router-dom';
+
+// React Components
 import About from './About.jsx';
 import Events from './Events.jsx';
-import Members from './Members.jsx';
 import NewClan from './NewClan.jsx';
+import Members from './Members.jsx';
 import ClanSearch from './ClanSearch.jsx';
-import { Switch, Route, Link } from 'react-router-dom';
-import { ButtonGroup, Button } from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
-import { Media } from 'react-bootstrap';
+import ForumRouter from './forums/ForumRouter.jsx';
+
+// React Bootstrap Components
+import { Nav, NavItem } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
+import { ButtonGroup, Button, Jumbotron } from 'react-bootstrap';
 
 /**
  * Class representing the React Clan Container Component.
@@ -25,18 +32,6 @@ class ClanRouter extends React.Component {
     };
   }
 
-  addNewClan(clan) {
-    console.log('Added New Clan', clan);
-    // TODO: post to database
-    axios.post('', clan)
-      .then((clan) => {
-        console.log('(Client) Success! Adding New Clan', clan);
-      })
-      .catch((err) => {
-        console.log('(Client) Error! Adding New Clan', err);
-      });
-  }
-
   clanSearch(clan) {
     console.log('Searching Clan', clan);
     // TODO: post to database
@@ -49,82 +44,65 @@ class ClanRouter extends React.Component {
       });
   }
 
+  formatDate(date) {
+    let d = new Date(date);
+    let locale = 'en-us';
+    let month = d.toLocaleString(locale, { month: 'short' });
+    return month + ' ' + d.getFullYear();
+  }
+
   render() {
     console.log('render', JSON.stringify(this.state.clan));
     return (
       <div className='wrapper'>
-        <div className="jumbotron"> 
-          <h2 className="user-name">{this.state.clan.name}</h2>
-        </div>
+        <Jumbotron>
+          <Grid>
+            <Row className="show-grid">
+              <Col sm={2}>
+                <img width={128} height={128} src={this.state.clan.avatar} />
+              </Col>
+              <Col sm={10}>
+                <h2 className="user-name">{this.state.clan.name} ({this.state.clan.tag})</h2>
+                <div><i>Founded: {this.formatDate(this.state.clan.createdAt)}</i></div>
+              </Col>
+            </Row>
+          </Grid>
+        </Jumbotron>
         <main>
-          <Media>
-            <Media.Left align="top">
-              <img width={128} height={128} src={this.state.clan.avatar} />
-            </Media.Left>
-            <Media.Body>
-              <Media.Heading>
-                <div>{this.state.clan.name} </div>
-                <div className="pull-right"><Button bsStyle="success">Request Invite</Button></div>
-                <div><i>Founded: {this.state.clan.foundedDate}</i></div>
-              </Media.Heading>
-            </Media.Body>
-          </Media>
           <div className="container">
-            <ButtonGroup justified>
+            <Nav bsStyle="tabs" activeKey={1}>
               <LinkContainer to={`/${this.state.id}/about`}>
-                <Button>About</Button>
+                <NavItem eventKey={1}>About</NavItem>
               </LinkContainer>
               <LinkContainer to={`/${this.state.id}/forums`}>
-                <Button>Forums</Button>
+                <NavItem eventKey={2}>Forums</NavItem>
               </LinkContainer>
               <LinkContainer to={`/${this.state.id}/events`}>
-                <Button>Events</Button>
+                <NavItem eventKey={3}>Events</NavItem>
               </LinkContainer>
               <LinkContainer to={`/${this.state.id}/members`}>
-                <Button>Members</Button>
+                <NavItem eventKey={4}>Members</NavItem>
               </LinkContainer>
-              <LinkContainer to={`/${this.state.id}/new`}>
-                <Button>New (temp)</Button>
-              </LinkContainer>
-              <LinkContainer to={`/${this.state.id}/search`}>
-                <Button>Search (temp)</Button>
-              </LinkContainer>
-            </ButtonGroup>
+            </Nav>
           </div>
-          {/* <Switch>
-            <Route
-              exact path='/clan/new' 
-              render={(props) => <NewClan {...props} addNewClan={this.addNewClan.bind(this)}/>}
-            />
-            <Route
-              exact path='/clan/search' 
-              render={(props) => <ClanSearch {...props} clan={this.props.clan} clanSearch={this.clanSearch.bind(this)}/>}
+          <Switch>
+            <Route 
+              exact path={`/${this.state.id}/about`}
+              render={(props) => <About {...props} clan={this.state.clan}/>}
             />
             <Route
-              path='/clan/forums'
-              render={(props) => <ForumRouter {...props} clan={this.props.clan} />}
+              path={`/${this.state.id}/forums`}
+              render={(props) => <ForumRouter {...props} clan={this.state.clan}/>}
             />
             <Route
-              exact path='/clan/members' 
-              render={(props) => <Members {...props} clan={this.props.clan}/>}
+              exact path={`/${this.state.id}/members`}
+              render={(props) => <Members {...props} clan={this.state.clan}/>}
             />
-            <Route 
-              exact path='/clan/:number/forums' 
-              component={ForumRouter} 
+            <Route
+              exact path={`/${this.state.id}/events`}
+              render={(props) => <Members {...props} clan={this.state.clan}/>}
             />
-            <Route 
-              exact path='/clan/:number/about' 
-              component={About} 
-            />
-            <Route 
-              exact path='/clan/:number/members' 
-              component={Members} 
-            />
-            <Route 
-              exact path='/clan/:number/events' 
-              component={Events} 
-            />
-          </Switch> */}
+          </Switch>
         </main>
       </div>
     );
