@@ -21,6 +21,7 @@ class App extends React.Component {
         clans: [],
         posts: [],
       },
+      clan: []
     };
 
     this.fetchUsersMemberships = this.fetchUsersMemberships.bind(this);
@@ -29,10 +30,12 @@ class App extends React.Component {
     this.loginUser = this.loginUser.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
     this.setDefaultState = this.setDefaultState.bind(this);
+    this.fetchUsersClans = this.fetchUsersClans.bind(this);
   }
 
   componentDidMount() {
     this.fetchUser();
+    this.fetchUsersClans();
     // TODO: Get all Messages
   }
   
@@ -44,7 +47,8 @@ class App extends React.Component {
           username: undefined,
           clans: [],
           posts: [],
-        }
+        }, 
+        clan: []
       }, () => {
         console.log(message);
       }
@@ -93,7 +97,7 @@ class App extends React.Component {
    *  
    * @param {object} query 
    */
-  fetchClans(query = {creatorId: this.state.user.userId}) {
+  fetchUsersClans(query = {creatorId: this.state.user.userId}) {
     return axios.get('/api/clans/', {query})
       .then(({data}) => {
         if (data.results) {
@@ -168,7 +172,7 @@ class App extends React.Component {
           },
           () => {
             console.log('You are logged in!', this.state.user.username, this.state.user.userId);
-            this.fetchClans();
+            this.fetchUsersClans();
           }
         );
       })
@@ -195,7 +199,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header username={this.state.user.username}/>
+        <Header 
+          username={this.state.user.username}
+          clans={this.state.clans}
+        />
         <MainRouter
           user={this.state.user}
           registerUser={this.registerUser}
