@@ -94,19 +94,33 @@ class MainRouter extends React.Component {
             />
             <Route 
               path='/login' 
-              component={props => <Login {...props} loginUser={this.props.loginUser}/>}/>
+              component={props => <Login {...props} loginUser={this.props.loginUser}/>}
+            />
             <Route 
               path='/logout' 
-              component={props => <Logout {...props} logoutUser={this.props.logoutUser}/>}/>
+              component={props => <Logout {...props} logoutUser={this.props.logoutUser}/>}
+            />
             <Route 
               path='/register' 
-              component={props => <Register {...props} registerUser={this.props.registerUser}/>} />
+              component={props => <Register {...props} registerUser={this.props.registerUser}/>} 
+            />
             <Route
               path='/clan' 
-              render={(props) => <ClanRouter {...props} clan={this.state.clan}/>}/>
+              render={(props) => <ClanRouter {...props} clan={this.props.clan}/>}
+            />
             <Route
               path='/users/*' 
-              render={(props) => <User user={this.props.user} clans={this.props.user.clans} addNewClan={this.props.addNewClan}/>}/>
+              render={(props) => <User 
+                user={this.props.user} 
+                clans={this.props.user.clans} 
+                addNewClan={this.props.addNewClan}
+                rerender={this.props.fetchUsersClans}
+              />}
+            />
+            <Route 
+              path='/:id' 
+              component={props => <ClanRouter user={this.props.user} {...props} />}
+            />
           </Switch>
         </main>
       </div>
