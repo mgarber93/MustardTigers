@@ -30,13 +30,13 @@ Clan.findAll = function(query = {}) {
 /**
  * Clan crud methods.
  */
-Clan.create = function({name, userId, tag, avatar, description}) {
+Clan.create = function({name, creatorId, tag, avatar, description}) {
   return ClanModel.find({where: {name}})
     .then(function(clan) {
       if (clan) {
         throw new Error('Clan already exists');
       }
-      return ClanModel.create({name, userId, tag, avatar, description});
+      return ClanModel.create({name, creatorId, tag, avatar, description});
     });
 };
 
