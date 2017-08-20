@@ -8,8 +8,8 @@ const PostVote = require('./models/postVote');
 Clan.model.belongsTo(User.model, {as: 'creator'});
 Clan.model.hasOne(Forum.model);
 
-Clan.model.belongsToMany(User.model, {through: Member.model});
-User.model.belongsToMany(Clan.model, {through: Member.model});
+Clan.model.belongsToMany(User.model, {through: Member.model, as: 'members'});
+User.model.belongsToMany(Clan.model, {through: Member.model, as: 'memberships'});
 
 Forum.model.hasOne(Post.model);
 User.model.hasOne(Post.model);
