@@ -2,13 +2,21 @@ import React from 'react';
 import { Grid, Row, Col, Glyphicon } from 'react-bootstrap';
 import { Button, ButtonToolbar, ControlLabel, Form, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
 
+import axios from 'axios';
+
 const divStyle = {
   display: 'inline-block',
   height: '140px',
   width: '140px',
 }; 
 
-export default ({id, name, tag, avatar, description}) => (
+const deleteClan = (id, rerender) => {
+  console.log(id, rerender);
+  return axios.delete(`/api/clans/${id}`)
+    .then(rerender);
+};
+
+export default ({id, name, tag, avatar, description, rerender}) => (
   <div className="row">
     <div className="col-sm-6 col-md-4">
       <div className="thumbnail">
@@ -22,7 +30,7 @@ export default ({id, name, tag, avatar, description}) => (
           <p>{tag}</p>
           <p>{description}</p>
           <Button>Edit</Button>
-          <Button>Delete</Button>
+          <Button onClick={() => deleteClan(id, rerender)}>Delete</Button>
         </div>
       </div>
     </div>

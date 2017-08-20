@@ -21,7 +21,7 @@ class App extends React.Component {
         clans: [],
         posts: [],
       },
-      clan: []
+      clans: []
     };
 
     this.fetchUsersMemberships = this.fetchUsersMemberships.bind(this);
@@ -48,7 +48,7 @@ class App extends React.Component {
           clans: [],
           posts: [],
         }, 
-        clan: []
+        clans: []
       }, () => {
         console.log(message);
       }
@@ -201,7 +201,7 @@ class App extends React.Component {
       <div>
         <Header 
           username={this.state.user.username}
-          clans={this.state.clans}
+          clans={this.state.user.clans}
         />
         <MainRouter
           user={this.state.user}
@@ -209,6 +209,7 @@ class App extends React.Component {
           loginUser={this.loginUser}
           logoutUser={this.logoutUser}
           addNewClan={this.registerNewClan}
+          fetchUsersClans={this.fetchUsersClans}
         />
       </div>
     );

@@ -19,6 +19,10 @@ import { Media } from 'react-bootstrap';
 class ClanRouter extends React.Component {
   constructor (props) {
     super(props);
+    this.state = {
+      id: this.props.match.params.id,
+      clan: this.props.user.clans[this.props.match.params.id] || {}
+    };
   }
 
   addNewClan(clan) {
@@ -46,45 +50,44 @@ class ClanRouter extends React.Component {
   }
 
   render() {
-
     return (
       <div className='wrapper'>
         <main>
           <Media>
             <Media.Left align="top">
-              <img width={128} height={128} src={this.props.clan.clanAvatar} />
+              <img width={128} height={128} src={this.state.clan.avatar} />
             </Media.Left>
             <Media.Body>
               <Media.Heading>
-                <div>{this.props.clan.clanName} </div>
+                <div>{this.state.clan.name} </div>
                 <div className="pull-right"><Button bsStyle="success">Request Invite</Button></div>
-                <div><i>Founded: {this.props.clan.foundedDate}</i></div>
+                <div><i>Founded: {this.state.clan.foundedDate}</i></div>
               </Media.Heading>
             </Media.Body>
           </Media>
           <div className="container">
             <ButtonGroup justified>
-              <LinkContainer to="/clan/about">
+              <LinkContainer to={`/${this.state.id}/about`}>
                 <Button>About</Button>
               </LinkContainer>
-              <LinkContainer to="/clan/forums">
+              <LinkContainer to={`/${this.state.id}/forums`}>
                 <Button>Forums</Button>
               </LinkContainer>
-              <LinkContainer to="/clan/events">
+              <LinkContainer to={`/${this.state.id}/events`}>
                 <Button>Events</Button>
               </LinkContainer>
-              <LinkContainer to="/clan/members">
+              <LinkContainer to={`/${this.state.id}/members`}>
                 <Button>Members</Button>
               </LinkContainer>
-              <LinkContainer to="/clan/new">
+              <LinkContainer to={`/${this.state.id}/new`}>
                 <Button>New (temp)</Button>
               </LinkContainer>
-              <LinkContainer to="/clan/search">
+              <LinkContainer to={`/${this.state.id}/search`}>
                 <Button>Search (temp)</Button>
               </LinkContainer>
             </ButtonGroup>
           </div>
-          <Switch>
+          {/* <Switch>
             <Route
               exact path='/clan/new' 
               render={(props) => <NewClan {...props} addNewClan={this.addNewClan.bind(this)}/>}
@@ -117,7 +120,7 @@ class ClanRouter extends React.Component {
               exact path='/clan/:number/events' 
               component={Events} 
             />
-          </Switch>
+          </Switch> */}
         </main>
       </div>
     );
