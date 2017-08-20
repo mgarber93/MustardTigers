@@ -88,8 +88,13 @@ class App extends React.Component {
       });
   }
 
-  fetchClans() {
-    return axios.get('/api/clans/')
+  /**
+   * Fetch the clans created by a given user.
+   *  
+   * @param {object} query 
+   */
+  fetchClans(query = {creatorId: this.state.user.userId}) {
+    return axios.get('/api/clans/', {query})
       .then(({data}) => {
         if (data.results) {
           this.setState({
@@ -129,7 +134,8 @@ class App extends React.Component {
     if (!this.state.user.userId) {
       throw new Error('You must be signed in to create a clan!');
     }
-    clan.userId = this.state.user.userId;
+    console.log('user.id', this.state.user.userId);
+    clan.creatorId = this.state.user.userId;
     return axios.post('/api/clans/', clan)
       .then(({data}) => {
         // console.log('(Client) Success! Registered New clan', data);
