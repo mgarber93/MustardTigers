@@ -106,7 +106,7 @@ class MainRouter extends React.Component {
               render={(props) => <ClanRouter {...props} clan={this.state.clan}/>}/>
             <Route
               path='/users/*' 
-              render={(props) => <User user={this.props.user} clans={[this.state.clan]} addNewClan={this.props.addNewClan}/>}/>
+              render={(props) => <User user={this.props.user} clans={this.props.user.clans} addNewClan={this.props.addNewClan}/>}/>
           </Switch>
         </main>
       </div>
