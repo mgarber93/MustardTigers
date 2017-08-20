@@ -18,6 +18,8 @@ class MainRouter extends React.Component {
     this.state = {
       //BOGUS TEST DATA
       clan: {
+        id: '12',
+        name: 'Mustard Tigers',
         clanName: 'Mustard Tigers',
         clanTag: 'MST',
         clanAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
@@ -104,7 +106,7 @@ class MainRouter extends React.Component {
               render={(props) => <ClanRouter {...props} clan={this.state.clan}/>}/>
             <Route
               path='/users/*' 
-              render={(props) => <User user={this.props.user} addNewClan={this.props.addNewClan}/>}/>
+              render={(props) => <User user={this.props.user} clans={[this.state.clan]} addNewClan={this.props.addNewClan}/>}/>
           </Switch>
         </main>
       </div>
