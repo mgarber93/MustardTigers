@@ -37,20 +37,18 @@ router.get('/:forum/posts/:post', (req, res) => {
 });
 
 router.get('/:forum/posts', (req, res) => {
-  Forum.read({
-    include: [{
-      model: Post.model,
-    }],
-    where: {id: req.params.forum}
+  Post.model.findAll({
+    where: {forumId: req.params.forum}
   })
     .then(forum => {
       if (forum) {
-        res.json({results: forum.posts});
+        res.json({results: forum});
       } else {
         throw new Error('Forum does not exist');
       }
     })
     .catch(err => {
+      console.log(err);
       res.status(500).send(err.message);
     });
 });
