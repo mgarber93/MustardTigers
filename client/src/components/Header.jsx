@@ -20,7 +20,7 @@ const Header = ({username, clans}) => (
       <Nav pullRight>
         {clans.map(clan => (
           <LinkContainer key={clan.id} to={`/${clan.id}`}>
-            <NavItem>{clan.name}</NavItem>
+            <NavItem>{clan.tag.slice(0, 8)}</NavItem>
           </LinkContainer>
         ))}
         {username ? 
