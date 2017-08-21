@@ -7,6 +7,7 @@ import Register from './auth/Register.jsx';
 import About from './About.jsx';
 import { Switch, Route } from 'react-router-dom';
 import User from './User.jsx';
+import PropTypes from 'prop-types';
 
 /**
  * Class representing the React Main Container Component.
@@ -16,68 +17,6 @@ import User from './User.jsx';
 class MainRouter extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-      //BOGUS TEST DATA
-      clan: {
-        id: '12',
-        name: 'Mustard Tigers',
-        clanName: 'Mustard Tigers',
-        clanTag: 'MST',
-        clanAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
-        description: 'This is the best clan in all the world',
-        foundedDate: 'July 2017',
-        members: [
-          {
-            username: 'TNauda',
-            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
-            memberRole: 'Nerd',
-            memberSince: 'July 2017'
-          },
-          {
-            username: 'Matt',
-            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
-            memberRole: 'Nerd',
-            memberSince: 'July 2017'
-          },
-          {
-            username: 'Bobba Boy',
-            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
-            memberRole: 'Nerd',
-            memberSince: 'July 2017'
-          },
-          {
-            username: 'Ian',
-            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
-            memberRole: 'Nerd',
-            memberSince: 'July 2017'
-          },
-          {
-            username: 'Karun',
-            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
-            memberRole: 'Nerd',
-            memberSince: 'July 2017'
-          },
-          {
-            username: 'Tommy',
-            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
-            memberRole: 'Nerd',
-            memberSince: 'July 2017'
-          },
-          {
-            username: 'Sam',
-            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
-            memberRole: 'Nerd',
-            memberSince: 'July 2017'
-          },
-          {
-            username: 'Thisisanme withalotof',
-            userAvatar: 'https://avatars1.githubusercontent.com/u/30813487?v=4&s=200',
-            memberRole: 'Nerd',
-            memberSince: 'July 2017'
-          },
-        ]
-      }
-    };
   }
 
   /**
@@ -132,5 +71,19 @@ class MainRouter extends React.Component {
     );
   }
 }
+
+/**
+ * All props on MainRouter are optional.
+ */
+MainRouter.propTypes = {
+  user: PropTypes.object,
+  clan: PropTypes.array,
+  addNewClan: PropTypes.func,
+  fetchUsersClans: PropTypes.func,
+  rerender: PropTypes.func,
+  registerUser: PropTypes.func,
+  logoutUser: PropTypes.func,
+  loginUser: PropTypes.func,
+};
 
 export default MainRouter;

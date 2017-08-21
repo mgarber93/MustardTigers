@@ -4,21 +4,23 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Media, Well, Image } from 'react-bootstrap';
 import { Button, ButtonToolbar, ButtonGroup, Glyphicon } from 'react-bootstrap';
 
-
+/**
+ * 
+ * @todo Add User as Friend
+ * @todo Inform user to successful friend add
+ * @todo: Need to show Add friend when not looking own profile
+ */
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
   }
 
   handleAddFriend() {
-    console.log('Friend Added!')
-    //TODO: Add User as Friend
-    //TODO: Inform user to successful friend add
+    console.log('Friend Added!');
   }
 
   render() {
-    //TODO: Need to show Add friend when not looking own profile
-    return(
+    return (
       <Media>
         <Media.Left align="top">
           <Image width={64} height={64} src={this.props.user.image} alt={this.props.user.username}/>
@@ -37,5 +39,9 @@ class UserProfile extends React.Component {
     );
   }
 }
+
+UserProfile.propTypes = {
+  user: propTypes.object
+};
 
 export default UserProfile;

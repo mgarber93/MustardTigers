@@ -1,19 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Row, Col, Button, Panel, Image, Thumbnail } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 /**
  * Class representing the React MemberEntry Container Component.
- * @extends MemberEntry
+ * @todo Need data for Clan Owner to show who is the leader of the clan
  */
-
 class MemberEntry extends React.Component {
   constructor (props) {
     super(props);
   }
 
   render() {
-    // TODO: Need data for Clan Owner to show who is the leader of the clan
     return (
       <Col sm={4}>
         <Panel>
@@ -32,5 +31,9 @@ class MemberEntry extends React.Component {
     );
   }
 }
+
+MemberEntry.propTypes = {
+  member: PropTypes.object,
+};
 
 export default MemberEntry;

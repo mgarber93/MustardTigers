@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Jumbotron, Button, Image} from 'react-bootstrap';
 
-class Home extends Component {
+class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,4 +30,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default About;
