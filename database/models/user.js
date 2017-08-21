@@ -4,6 +4,8 @@
 
 const crypto = require('crypto');
 const {Sequelize, db} = require('../connection');
+const Clan = require('./clan');
+const Post = require('./post');
 
 const hashData = function(data, salt = '') {
   var shasum = crypto.createHash('sha256');
@@ -47,6 +49,17 @@ var User = {model: UserModel};
 
 const privateData = ['password', 'salt'];
 
+const joinArray = [
+  {
+    model: Clan.model,
+    association: 'memberships',
+  },
+  {
+    model: Post.model,
+    association: 'posts',
+  },
+];
+
 User.create = function({username, password}) {
   return UserModel.findOrCreate({
     where: {username},
@@ -57,15 +70,21 @@ User.create = function({username, password}) {
         throw new Error('User already exists');
       }
 
-      return user.toJSON();
-    });
+      return user.reload({
+        include: joinArray
+      });
+    })
+    .then(user => user.toJSON());
 };
 
 User.validate = function({username, password}) {
   return UserModel.findOne({where: {username}})
     .then(function(user) {
       if (user && user.password === hashData(password, user.salt)) {
-        return user.toJSON();
+        return user.reload({
+          include: joinArray
+        })
+          .then(user => user.toJSON());
       } else {
         return null;
       }
@@ -73,13 +92,25 @@ User.validate = function({username, password}) {
 };
 
 User.findAll = function(query = {}) {
-  return UserModel.findAll({where: query})
+  return UserModel.findAll({
+    where: query,
+    attributes: {
+      exclude: privateData
+    }, 
+    include: joinArray
+  })
     .map(user => user.toJSON());
 };
 
-User.read = User.find = function({id, username}) {
-  return UserModel.findOne({where: {id}})
-    .then(user => user ? user.toJSON() : null);
+User.read = User.find = function(query = {}) {
+  return UserModel.findOne({
+    where: query,
+    attributes: {
+      exclude: privateData
+    }, 
+    include: joinArray
+  })
+    .then(user => user && user.toJSON());
 };
 
 /**
