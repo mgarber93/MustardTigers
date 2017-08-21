@@ -1,5 +1,6 @@
 import React from 'react';
-import {Jumbotron, Button, Image} from 'react-bootstrap';
+import {Jumbotron, Button, Image, Table} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 
 class Home extends React.Component {
   constructor(props) {
@@ -9,13 +10,32 @@ class Home extends React.Component {
   render () {
     return (
       <div className="container">
-        <Jumbotron>
-          <h2>Heading</h2>
-          <p>Welcome message</p>
-          <p><Button bsStyle="primary">Click Me</Button></p>
-          <img width="128" src='http://blisstree-2012-stage.com/files/2013/04/70930_100000101084323_6420104_n.jpg'/>
-          Matt Garber - Brett Kirk - Talis Lazdins - Ian Mobley
-        </Jumbotron>
+        <Table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Tag</th>
+              <th>Description</th>
+              <th>Go</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.clans.map(clan => (
+              <tr key={clan.id}>
+                <th scope="row">{clan.id}</th>
+                <td>{clan.name}</td>
+                <td>{clan.tag}</td>
+                <td>{clan.description}</td>
+                <td>
+                  <LinkContainer to={`/${clan.id}`}>
+                    <Button>Go</Button>
+                  </LinkContainer>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
     );
   }
