@@ -4,6 +4,7 @@ import ClanRouter from './clan/ClanRouter.jsx';
 import Login from './auth/Login.jsx';
 import Logout from './auth/Logout.jsx';
 import Register from './auth/Register.jsx';
+import About from './About.jsx';
 import { Switch, Route } from 'react-router-dom';
 import User from './User.jsx';
 
@@ -107,6 +108,10 @@ class MainRouter extends React.Component {
             <Route
               path='/clan' 
               render={(props) => <ClanRouter {...props} clan={this.props.clan}/>}
+            />
+            <Route
+              path='/about' 
+              component={About}
             />
             <Route
               path='/users/*' 
