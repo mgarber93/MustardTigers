@@ -41,7 +41,13 @@ Post.read = Post.find = function(query) {
 };
 
 Post.update = function(query, values) {
-  return PostModel.update(values, {where: query});
+  return Post.find(query)
+    .then(post => {
+      if (!post) {
+        throw new Error('Post does not exist!');
+      }
+      return PostModel.update(values, {where: query});
+    });
 };
 
 Post.delete = Post.destroy = function(query) {
