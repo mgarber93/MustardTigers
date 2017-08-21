@@ -31,7 +31,7 @@ router.get('/:forum/posts/:post', (req, res) => {
       if (post) {
         res.json(post);
       } else {
-        throw new Error('Post does not exist');
+        res.status(400).send('Post does not exist');
       }
     });
 });
