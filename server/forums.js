@@ -57,6 +57,34 @@ router.get('/:forum/posts', (req, res) => {
 
 // Validation middleware goes here
 
+router.post('/:forum/posts/:post', (req, res) => {
+  Post.update({id: req.params.post}, req.body)
+    .then(post => {
+      if (post) {
+        res.json(post);
+      } else {
+        res.status(400).send('Post does not exist');
+      }
+    })
+    .catch(err => {
+      res.status(400).send('Post does not exist');
+    });
+});
+
+router.delete('/:forum/posts/:post', (req, res) => {
+  Post.delete({id: req.params.post})
+    .then(post => {
+      if (post) {
+        res.json(post);
+      } else {
+        res.status(400).send('Post does not exist');
+      }
+    })
+    .catch(err => {
+      res.status(400).send('Post does not exist');
+    });
+});
+
 router.post('/:forum/posts', (req, res) => {
   Forum.read({id: req.params.forum})
     .then( forum => {
