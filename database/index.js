@@ -6,13 +6,13 @@ const Member = require('./models/member');
 const PostVote = require('./models/postVote');
 
 Clan.model.belongsTo(User.model, {as: 'creator'});
-Clan.model.hasOne(Forum.model);
+Clan.model.hasMany(Forum.model);
 
 Clan.model.belongsToMany(User.model, {through: Member.model, as: 'members'});
 User.model.belongsToMany(Clan.model, {through: Member.model, as: 'memberships'});
 
-Forum.model.hasOne(Post.model);
-User.model.hasOne(Post.model);
+Forum.model.hasMany(Post.model);
+User.model.hasMany(Post.model);
 
 Post.model.belongsToMany(User.model, {through: PostVote.model});
 User.model.belongsToMany(Post.model, {through: PostVote.model});
