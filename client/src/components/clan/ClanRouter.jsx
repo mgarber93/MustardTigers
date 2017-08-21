@@ -28,7 +28,8 @@ class ClanRouter extends React.Component {
     super(props);
     this.state = {
       id: this.props.match.params.id,
-      clan: this.props.user.clans.filter(c => Number(c.id) === Number(this.props.match.params.id))[0] || {}
+      clan: this.props.user.clans.filter(c => Number(c.id) === Number(this.props.match.params.id))[0] || {},
+      forums: []
     };
   }
 
@@ -44,6 +45,59 @@ class ClanRouter extends React.Component {
       });
   }
 
+  createNewForum (forum) {
+    forum.clanId = this.state.clan.id;
+    console.log('(Client) Adding New Forum', forum);
+    return axios.post('/api/forums', forum)
+      .then((forum) => {
+        console.log('(Client) Success! Adding New forum', forum);
+        this.fetchForums();
+        this.props.history.push(`/${this.props.clan.id}/forums`);
+      })
+      .catch((err) => {
+        console.log('(Client) Error! Adding New Forum', err);
+      });
+  }
+
+
+  fetchForums() {
+    axios.get('/api/forums')
+      .then((res) => {
+        let forums = res.data.results;
+        console.log('Client: Success! Getting forums', forums);
+        this.setState({
+          forums: forums
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  createNewForumPost (post) {
+    console.log('Adding new Post', post);
+    let forumId = post.forumId;
+    return axios.post(`/api/forums/${forumId}/posts`, post)
+      .then((post) => {
+        console.log('(Client) Success! Adding New post', post);
+        this.fetchPosts(forumId);
+      })
+      .catch((err) => {
+        console.log('(Client) Error! Adding New Post', err);
+      });
+  }
+
+  fetchPosts(forumId) {
+    axios.get(`/api/forums/${forumId}/posts`)
+      .then((res) => {
+        let posts = res.data;
+        console.log('Client: Success! Getting Posts', posts);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   formatDate(date) {
     let d = new Date(date);
     let locale = 'en-us';
@@ -51,8 +105,12 @@ class ClanRouter extends React.Component {
     return month + ' ' + d.getFullYear();
   }
 
+  componentWillMount() {
+    this.fetchForums();
+    //this.fetchPosts(1);
+  }
+
   render() {
-    console.log('render', JSON.stringify(this.state.clan));
     return (
       <div className='wrapper'>
         <Jumbotron>
@@ -94,7 +152,7 @@ class ClanRouter extends React.Component {
             />
             <Route
               path={`/${this.state.id}/forums`}
-              render={(props) => <ForumRouter {...props} clan={this.state.clan}/>}
+              render={(props) => <ForumRouter {...props} user={this.props.user} clan={this.state.clan} forums={this.state.forums} createNewForum={this.createNewForum.bind(this)} createNewForumPost={this.createNewForumPost.bind(this)} />}
             />
             <Route
               exact path={`/${this.state.id}/members`}

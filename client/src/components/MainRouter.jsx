@@ -107,7 +107,7 @@ class MainRouter extends React.Component {
             />
             <Route
               path='/clan' 
-              render={(props) => <ClanRouter {...props} clan={this.props.clan}/>}
+              render={(props) => <ClanRouter {...props} user={this.props.user} clan={this.props.clan}/>}
             />
             <Route
               path='/about' 

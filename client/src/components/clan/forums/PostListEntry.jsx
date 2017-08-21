@@ -48,6 +48,7 @@ class PostListEntry extends React.Component {
 
   render() {
     let timeSinceSubmission = this.getTimeSincePost(this.props.post.createdAt);
+
     return (
       <tr>
         <td className="text-center">
@@ -73,7 +74,7 @@ class PostListEntry extends React.Component {
             {this.props.post.author}
           </Link>
           <Link to={`/${this.props.clan.id}/forums/${this.props.forum.id}/${this.props.post.id}`}>
-            <p>{this.props.post.comments.length} Comments</p>
+            {/* <p>{this.props.post.comments.length ? } Comments</p> */}
           </Link>
         </td>
       </tr>

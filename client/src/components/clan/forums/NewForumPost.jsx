@@ -21,7 +21,8 @@ class NewForumPost extends React.Component {
       post: {
         title: '',
         body: '',
-        author: 'currentUser'
+        userId: this.props.user.userId,
+        forumId: '',
       },
     };
   }
@@ -35,6 +36,15 @@ class NewForumPost extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.createNewForumPost(this.state.post);
+    this.props.history.push(`/${this.props.clan.id}/forums/${this.state.post.forumId}`);
+  }
+
+  componentDidMount () {
+    let url = this.props.match.url.split('/');
+    let forumId = url[url.length - 2].toString();
+    this.setState({
+      post: Object.assign(this.state.post, {forumId: forumId})
+    });
   }
 
   render () {

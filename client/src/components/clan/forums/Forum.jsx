@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react';
-
+import axios from 'axios';
 // React Router Components
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -18,23 +18,40 @@ import { Grid, Row, Col, Table, Button } from 'react-bootstrap';
 class Forum extends React.Component {
   constructor (props) {
     super(props);
-  }
-
-  getForumInfo() {
-    //Matches forumName to Route ForumName
-    return this.props.forums.filter((forum) => {
-      return forum.id === this.props.match.params.id;
-    });
+    this.state = {
+      posts: []
+    };
   }
   
-  render() {
-    let forum = this.getForumInfo()[0];
+  // fetchPosts(forumId) {
+  //   axios.get(`/api/forums/${forumId}/posts`)
+  //     .then((res) => {
+  //       let posts = res.data;
+  //       console.log('Client: Success! Getting Posts', posts);
+  //       this.setState({
+  //         posts: posts
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
+  componentDidMount() {
+    var forumId = parseInt(this.props.match.params.id);
+    this.props.fetchPosts(forumId);
+  }
+
+  render() {
+    if (this.props.forums) {
+      var forumId = parseInt(this.props.match.params.id);
+      var forum = this.props.forums.filter((forum) => { return forum.id === forumId; });
+    }
     return (
       <div>
         <Grid>
           <div className="pull-right">
-            <LinkContainer to={`/${this.props.clan.id}/forums/${forum.id}/new`}>
+            <LinkContainer to={`/${this.props.clan.id}/forums/${forumId}/new`}>
               <Button bsStyle="success">
                 Add New Post
               </Button>
@@ -47,12 +64,13 @@ class Forum extends React.Component {
                   <th colSpan="2">Forum Posts</th>
                 </tr>
               </thead>
-              <PostList clan={this.props.clan} forum={forum}/>
+              <PostList clan={this.props.clan} posts={this.props.posts} forum={forum[0]}/>
             </Table>
           </Row>
         </Grid>
       </div>
     );
+
   }
 }
 

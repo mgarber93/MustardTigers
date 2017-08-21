@@ -33,6 +33,7 @@ class NewForum extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.createNewForum(this.state.forum);
+    this.props.history.push(`/${this.props.clan.id}/forums`);
   }
 
   render () {

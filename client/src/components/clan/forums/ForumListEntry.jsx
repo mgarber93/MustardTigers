@@ -18,16 +18,20 @@ class ForumListEntry extends React.Component {
   }
 
   render() {
+    let postCount = 0;
+    if (this.props.forum.posts) {
+      postCount = this.props.forum.posts.length;
+    }
 
     return (
       <tr>
-        <td className="text-center"><Glyphicon glyph={this.props.forum.avatar}/></td>
+        <td className="text-center"><Glyphicon glyph="th-list"/></td>
         <td>
           <Link to={`/${this.props.clan.id}/forums/${this.props.forum.id}`}>{this.props.forum.name}</Link><br/>
-          {this.props.forum.description}
+          Description Will go here
         </td>
-        <td>{this.props.forum.posts.length}</td>
-        <td>{this.props.forum.posts.length}</td>
+        <td>{postCount}</td>
+        <td> 0 {/* Comment Counts */}</td>
       </tr>
     );
   }

@@ -26,34 +26,63 @@ class ForumList extends React.Component {
     var forums = this.props.forums.map((forum, i) => {
       return <ForumListEntry clan={this.props.clan} forum={forum} key={i} />;
     });
-
-    return (
-      <div>
-        <Grid>
-          <Row>
-            <div className="pull-right">
-              <LinkContainer to={`/${this.props.clan.id}/forums/new`}>
-                <Button bsStyle="success">
-                  Add New Forum
-                </Button>
-              </LinkContainer>
-            </div>
-            <Table striped bordered condensed hover>
-              <thead>
-                <tr>
-                  <th colSpan="2">Clan Forums</th>
-                  <th>Threads</th>
-                  <th>Posts</th>
-                </tr>
-              </thead>
-              <tbody>
-                {forums}
-              </tbody>
-            </Table>
-          </Row>
-        </Grid>
-      </div>
-    );
+    if (forums) {
+      return (
+        <div>
+          <Grid>
+            <Row>
+              <div className="pull-right">
+                <LinkContainer to={`/${this.props.clan.id}/forums/new`}>
+                  <Button bsStyle="success">
+                    Add New Forum
+                  </Button>
+                </LinkContainer>
+              </div>
+              <Table striped bordered condensed hover>
+                <thead>
+                  <tr>
+                    <th colSpan="2">Clan Forums</th>
+                    <th>Threads</th>
+                    <th>Posts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {forums}
+                </tbody>
+              </Table>
+            </Row>
+          </Grid>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Grid>
+            <Row>
+              <div className="pull-right">
+                <LinkContainer to={`/${this.props.clan.id}/forums/new`}>
+                  <Button bsStyle="success">
+                    Add New Forum
+                  </Button>
+                </LinkContainer>
+              </div>
+              <Table striped bordered condensed hover>
+                <thead>
+                  <tr>
+                    <th colSpan="2">Clan Forums</th>
+                    <th>Threads</th>
+                    <th>Posts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  This clan does not have any forums. Please create one.
+                </tbody>
+              </Table>
+            </Row>
+          </Grid>
+        </div>
+      );
+    }
   }
 }
 
