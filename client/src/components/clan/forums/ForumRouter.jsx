@@ -51,7 +51,7 @@ class ForumRouter extends React.Component {
   fetchPosts(forumId) {
     axios.get(`/api/forums/${forumId}/posts`)
       .then((res) => {
-        let posts = res.data;
+        let posts = res.data.results;
         console.log('Client: Success! Getting Posts', posts);
         this.setState({
           posts: posts

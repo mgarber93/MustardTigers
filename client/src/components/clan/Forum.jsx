@@ -4,9 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 /**
  * Class representing the React Forum Container Component.
- * @extends Forum
  */
-
 class Forum extends React.Component {
   constructor (props) {
     super(props);

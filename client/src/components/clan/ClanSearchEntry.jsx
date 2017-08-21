@@ -1,23 +1,26 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Media, Well, Image } from 'react-bootstrap';
 import { Button, ButtonToolbar, ButtonGroup, Glyphicon } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-
-class ClanSearchEntry extends React.Component {
+/**
+ * 
+ * @todo Add User as Friend
+ * @todo Inform user to successful friend add
+ * @todo Need to show Add friend when not looking own profile
+ */
+class ClanSearchEntry extends Component {
   constructor(props) {
     super(props);
   }
 
   joinClan() {
-    console.log('Friend Added!')
-    //TODO: Add User as Friend
-    //TODO: Inform user to successful friend add
+    console.log('Friend Added!');
   }
 
   render() {
-    //TODO: Need to show Add friend when not looking own profile
     return (
       <Media>
         <Media.Left align="top">
@@ -37,5 +40,9 @@ class ClanSearchEntry extends React.Component {
     );
   }
 }
+
+ClanSearchEntry.propTypes = {
+  clan: PropTypes.object,
+};
 
 export default ClanSearchEntry;

@@ -2,20 +2,20 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ButtonGroup, Button, Glyphicon, Well } from 'react-bootstrap';
 import { Grid, Row, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 /**
  * Class representing the React ForumEntry Container Component.
- * @extends ForumEntry
  */
-
 class ForumEntry extends React.Component {
   constructor (props) {
     super(props);
-    this.handleDownVote.bind(this);
-    this.handleUpVote.bind(this);
     this.state = {
       votes: 0
     };
+
+    this.handleDownVote.bind(this);
+    this.handleUpVote.bind(this);
   }
 
   handleUpVote (e) {
@@ -35,7 +35,6 @@ class ForumEntry extends React.Component {
   }
 
   render() {
-
     return (
       <Grid>
         <Row className="show-grid">
@@ -64,5 +63,9 @@ class ForumEntry extends React.Component {
     );
   }
 }
+
+ForumEntry.propTypes = {
+  post: PropTypes.object,
+};
 
 export default ForumEntry;

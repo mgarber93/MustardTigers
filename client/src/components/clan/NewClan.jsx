@@ -2,11 +2,11 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Button, ButtonToolbar, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+
 /**
  * Class representing the React Create Clan Component.
- * @extends CreateClan
  */
- 
 class NewClan extends React.Component {
   constructor(props) {
     super(props);
@@ -96,4 +96,9 @@ class NewClan extends React.Component {
     );
   }
 }
+
+NewClan.propTypes = {
+  addNewClan: PropTypes.func,
+};
+
 export default NewClan;

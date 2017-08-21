@@ -2,6 +2,7 @@ import React from 'react';
 import MemberEntry from './MemberEntry.jsx';
 import { Switch, Route } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 /**
  * Class representing the React Members Container Component.
@@ -30,5 +31,9 @@ class Members extends React.Component {
     );
   }
 }
+
+Members.propTypes = {
+  clan: PropTypes.object
+};
 
 export default Members;
