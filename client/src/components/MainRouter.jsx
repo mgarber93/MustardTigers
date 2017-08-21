@@ -90,7 +90,7 @@ class MainRouter extends React.Component {
           <Switch>
             <Route 
               exact path='/' 
-              component={Home} 
+              component={props => <Home clans={this.props.clans} />} 
             />
             <Route 
               path='/login' 

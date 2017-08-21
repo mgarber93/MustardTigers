@@ -31,11 +31,13 @@ class App extends React.Component {
     this.logoutUser = this.logoutUser.bind(this);
     this.setDefaultState = this.setDefaultState.bind(this);
     this.fetchUsersClans = this.fetchUsersClans.bind(this);
+    this.fetchClans = this.fetchClans.bind(this);
   }
 
   componentDidMount() {
     this.fetchUser();
     this.fetchUsersClans();
+    this.fetchClans();
     // TODO: Get all Messages
   }
   
@@ -64,6 +66,22 @@ class App extends React.Component {
               userId: data.results.id,
               username: data.results.username
             })
+          });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+  fetchClans() {
+    return axios.get('/api/clans')
+      .then(({data}) => {
+        if (data.results) {
+          this.setState({
+            clans: data.results
+          }, () => {
+            console.log(this.state);
           });
         }
       })
@@ -205,6 +223,7 @@ class App extends React.Component {
         />
         <MainRouter
           user={this.state.user}
+          clans={this.state.clans}
           registerUser={this.registerUser}
           loginUser={this.loginUser}
           logoutUser={this.logoutUser}
