@@ -4,6 +4,12 @@ import { Grid, Row, Col, Glyphicon } from 'react-bootstrap';
 import { Button, ButtonToolbar, ControlLabel, Form, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
 import Clan from './clan/Clan.jsx';
 
+/**
+ * Render a Clan component for each clan the user owns. If the user has less 
+ * than 5 clans render a new clan component. 
+ * 
+ * @param {object} props
+ */
 const User = ({user, clans, addNewClan, rerender}) => (
   <div> 
     <div className="jumbotron"> 
@@ -12,9 +18,11 @@ const User = ({user, clans, addNewClan, rerender}) => (
     <grid>
       {(clans || []).map(clan => <Clan key={clan.id} {...clan} rerender={rerender} />)}
     </grid>
+    {(clans || []).length < 5 &&
     <section>
       <NewClan addNewClan={addNewClan}/>
     </section>
+    }
   </div>
 );
 

@@ -5,11 +5,9 @@ import Header from './Header.jsx';
 import { Route, Redirect } from 'react-router';
 
 /**
- * Class representing the App.
- * @extends App
- * @todo abstract fetch methods
+ * This component manages the majority of the total state.
+ * 
  */
- 
 class App extends React.Component {
 
   constructor(props) {
@@ -40,8 +38,14 @@ class App extends React.Component {
     this.fetchClans();
     // TODO: Get all Messages
   }
-  
-  setDefaultState(message) {
+ 
+  /**
+   * Reset application state to default.
+   * 
+   * @param {String} message - Message to log when done
+   * @param {Boolean} hard - Leave data available to unauthenticated users 
+   */
+  setDefaultState(message, hard = false) {
     this.setState(
       {
         user: {
@@ -50,7 +54,7 @@ class App extends React.Component {
           clans: [],
           posts: [],
         }, 
-        clans: []
+        clans: hard ? [] : this.state.clans
       }, () => {
         console.log(message);
       }
@@ -191,6 +195,7 @@ class App extends React.Component {
           () => {
             console.log('You are logged in!', this.state.user.username, this.state.user.userId);
             this.fetchUsersClans();
+            this.fetchClans();
           }
         );
       })
@@ -201,12 +206,13 @@ class App extends React.Component {
 
   /**
    * Logout by clearing all state back to default conditions.
+   * @param {object} - User object 
    */
   logoutUser(user) {
     console.log('Logging out...');
     axios.post('/api/auth/logout')
       .then((user) => {
-        let message = 'Goodbye, ' + this.state.user.userId + ' has been logged out.';
+        let message = 'Goodbye, ' + this.state.user.username;
         this.setDefaultState(message);
       })
       .catch((err) => {
