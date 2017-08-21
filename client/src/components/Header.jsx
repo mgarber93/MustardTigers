@@ -18,9 +18,9 @@ const Header = ({username, clans}) => (
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav pullRight>
-        {clans.map(clan => (
+        {(clans || []).map(clan => (
           <LinkContainer key={clan.id} to={`/${clan.id}`}>
-            <NavItem>{clan.tag.slice(0, 8)}</NavItem>
+            <NavItem>{clan.tag}</NavItem>
           </LinkContainer>
         ))}
         {username ? 

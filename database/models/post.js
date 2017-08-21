@@ -26,14 +26,14 @@ Post.findAll = function(query = {}) {
 /**
  * Post crud methods.
  */
-Post.create = ({title, body, upvotes, downvotes, pinned, userId, forumId}) => {
+Post.create = ({title, body, pinned, userId, forumId}) => {
   if (!title) {
     throw new Error('Title must exist!', title);
   }
   if (!body) {
     throw new Error('body must exist!', body);
   }
-  return PostModel.create({title, body, upvotes, downvotes, pinned, userId, forumId});
+  return PostModel.create({title, body, pinned, userId, forumId});
 };
 
 Post.read = Post.find = function(query) {
