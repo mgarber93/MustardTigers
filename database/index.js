@@ -14,6 +14,8 @@ User.model.belongsToMany(Clan.model, {through: Member.model, as: 'memberships'})
 Forum.model.hasMany(Post.model);
 User.model.hasMany(Post.model);
 
+Post.model.belongsTo(User.model);
+
 Post.model.belongsToMany(User.model, {through: PostVote.model});
 User.model.belongsToMany(Post.model, {through: PostVote.model});
 
